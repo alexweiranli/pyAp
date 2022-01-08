@@ -24,13 +24,13 @@ It includes multiple apatite-based models developed by W. Li and co-authors, inc
 
 
 ## Documentation
-Full documentation, further information about the package, and a tutorial for getting started are provided at [pyap.readthedocs.io]
+Full documentation, further information about the package, and a tutorial for getting started are provided at [pyap.readthedocs.io](pyap.readthedocs.io)
 
 ## Installation
-pyAp can be installed by running "python setup.py install" in the package depository using command lines
+pyAp can be installed by running ```python setup.py install``` in the package depository using command lines
 
 ## Citing pyAp
-If pyMelt enables or aids your research please cite the relevant publications for:
+If this package enables or aids your research please cite the relevant publications for:
 
 **ApThermo**:
 Li, W. & Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. https://doi.org/10.1016/j.gca.2019.10.035 
