@@ -1,6 +1,6 @@
 # pyAp
 
-Code authors: Weiran Li (University of Cambridge, U.K.) & Yishen Zhang (KU, Leuven Belgium) 
+Code authors: Weiran Li (University of Cambridge, U.K.) & Yishen Zhang (KU Leuven, Belgium) 
 
 ## Introduction  
 pyAp is a python package for calculating magmatic volatile, trace element concentrations, and oxygen fugacity using mineral apatite. 
