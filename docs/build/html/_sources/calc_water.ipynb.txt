@@ -1,0 +1,891 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "pyAp includes the melt hygrometry model (ApThermo) of Li and Costa (2020, GCA) with equations provided in ```pyApThermo.py```.\n",
+    "\n",
+    "Applying this model requires known F, Cl (and H<sub>2</sub>O) concentrations in apatite, and the F and Cl concentration in the melt (in equilibrium with apatite). \n",
+    "\n",
+    "This example file includes error estimation for the calculated water estimates using a monte carlo simuation algorithm, which is not available in our ApThermo webpage or excel versions.  \n",
+    "\n",
+    "Please cite Li and Costa (2020) if you use this model:\n",
+    "\n",
+    " Li, W. & Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. https://doi.org/10.1016/j.gca.2019.10.035"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 1. Import modules\n",
+    "\n",
+    "import releavant modules."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os, sys\n",
+    "# hack to allow scripts to be placed in subdirectories next to pyAp:\n",
+    "if not os.path.exists('pyAp') and os.path.exists('../pyAp'):\n",
+    "    sys.path.insert(1, os.path.abspath('..'))\n",
+    "from pathlib import Path\n",
+    "import math, random, pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sns\n",
+    "import warnings    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import pyAp modules\n",
+    "from pyAp import pyApthermo\n",
+    "from pyAp.pyAp_tools import ap_mc, load_animation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 2. Import data from the directory where the input data xlsx file is. The path identification method below works for mac, linux, windows.\n",
+    "\n",
+    "!! Do NOT change the column header names in the template provided in the \"input\" folder."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "folder = Path(os.path.dirname(os.getcwd())+'/input/4ApThermo/')\n",
+    "\n",
+    "df = pd.read_excel(folder / 'calc_water.xlsx')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "extract parameters from the input data file by reading columm header names"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "order  = ['XF', 'XCL', 'T,C', 'MELTF', 'MELTCL', 'MELTCOMP']\n",
+    "\n",
+    "data = df[order] "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 3. calculate H<sub>2</sub>O in the melt from F and Cl in the apatite\n",
+    "\n",
+    "You can use the `apply()` function shown below for calculation using parameters in each row in the input DataFrame. \n",
+    "\n",
+    "To perform the calculation, we pass input data into the `Apthermo` class in ```pyApthermo.py``` (in pyAp folder). \n",
+    "\n",
+    "The water speciation model used in calculation is chosen from the available models according to the melt composition (\"MELTCOMPF\") provided by users. \n",
+    "\n",
+    "The available water speciation models we have compiled are available in \"pyAp/water_speciation.csv\" and also implemented in `pyApThermo.py`.\n",
+    "\n",
+    "If you would like to use another water speciation model, please contact us."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "path = Path(os.path.dirname(os.getcwd())+'/pyAp/')\n",
+    "wat_spe_m = pd.read_csv(path / 'water_speciation.csv')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note the melt compositions you put in your input data file for each crystal have to one of the names listed in the \"MeltComp\" column below. Otherwise, the calculation will take the default model for \"dacite\" of Liu et al 2004."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Ref</th>\n",
+       "      <th>MeltComp</th>\n",
+       "      <th>Pressure, GPa</th>\n",
+       "      <th>Temperature, c</th>\n",
+       "      <th>MeltH2O(WT)</th>\n",
+       "      <th>a</th>\n",
+       "      <th>b</th>\n",
+       "      <th>(Eq. k2 = exp(a + b/T), T in K</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Liu et al 2004</td>\n",
+       "      <td>dacite</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.5-2.5</td>\n",
+       "      <td>1.490</td>\n",
+       "      <td>-2634.0</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Lasne et al 2010</td>\n",
+       "      <td>alkali basalt</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1200</td>\n",
+       "      <td>01-Jul</td>\n",
+       "      <td>0.641</td>\n",
+       "      <td>-2704.4</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Zhang et al 1997</td>\n",
+       "      <td>rhyolite</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>400-600</td>\n",
+       "      <td>≤2.4</td>\n",
+       "      <td>1.876</td>\n",
+       "      <td>-3100.0</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Hui et al 2008</td>\n",
+       "      <td>rhyolite_highP</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>350-750</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.804</td>\n",
+       "      <td>-3090.0</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Ni et al 2009</td>\n",
+       "      <td>andesite</td>\n",
+       "      <td>0.1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.547</td>\n",
+       "      <td>-2453.0</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>Botcharnikov 2006</td>\n",
+       "      <td>andesite_highT</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1100-1300</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>2.990</td>\n",
+       "      <td>-3650.0</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                 Ref        MeltComp  Pressure, GPa Temperature, c  \\\n",
+       "0     Liu et al 2004          dacite            NaN            NaN   \n",
+       "1   Lasne et al 2010   alkali basalt            NaN           1200   \n",
+       "2   Zhang et al 1997        rhyolite            NaN        400-600   \n",
+       "3     Hui et al 2008  rhyolite_highP            1.0        350-750   \n",
+       "4      Ni et al 2009        andesite            0.1            NaN   \n",
+       "5  Botcharnikov 2006  andesite_highT            NaN      1100-1300   \n",
+       "\n",
+       "  MeltH2O(WT)      a       b  (Eq. k2 = exp(a + b/T), T in K  \n",
+       "0     1.5-2.5  1.490 -2634.0                             NaN  \n",
+       "1      01-Jul  0.641 -2704.4                             NaN  \n",
+       "2        ≤2.4  1.876 -3100.0                             NaN  \n",
+       "3         NaN  1.804 -3090.0                             NaN  \n",
+       "4         NaN  1.547 -2453.0                             NaN  \n",
+       "5         NaN  2.990 -3650.0                             NaN  "
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "wat_spe_m"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Switch cal_H2O to True if you would like to calculate melt water contents (default is False). \n",
+    "This would pass through `meltH2O()` and return 8 results (following the order below): \n",
+    "MeltWater calculated from F and Cl,  Kds for OH-Cl, OH-F, Cl-F, and activitivy coefficient (gamma) of OH, F, and Cl. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## create a datafraje for saving results later\n",
+    "results = pd.DataFrame(columns = {'MeltWater_F', 'MeltWater_Cl','Kd_OHCl', 'Kd_OHF', 'Kd_ClF', 'gammaOH', 'gammaF', 'gammaCl','sample'})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>sample</th>\n",
+       "      <th>Kd_ClF</th>\n",
+       "      <th>MeltWater_Cl</th>\n",
+       "      <th>MeltWater_F</th>\n",
+       "      <th>Kd_OHF</th>\n",
+       "      <th>gammaF</th>\n",
+       "      <th>gammaOH</th>\n",
+       "      <th>gammaCl</th>\n",
+       "      <th>Kd_OHCl</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Ap1</td>\n",
+       "      <td>0.117668</td>\n",
+       "      <td>2.288177</td>\n",
+       "      <td>2.454759</td>\n",
+       "      <td>0.010156</td>\n",
+       "      <td>1.139724</td>\n",
+       "      <td>1.257495</td>\n",
+       "      <td>2.359545</td>\n",
+       "      <td>0.086309</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Ap2</td>\n",
+       "      <td>0.111074</td>\n",
+       "      <td>0.987179</td>\n",
+       "      <td>0.943227</td>\n",
+       "      <td>0.012871</td>\n",
+       "      <td>1.078508</td>\n",
+       "      <td>1.352988</td>\n",
+       "      <td>2.572134</td>\n",
+       "      <td>0.115878</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Ap3</td>\n",
+       "      <td>0.062026</td>\n",
+       "      <td>1.145976</td>\n",
+       "      <td>1.872257</td>\n",
+       "      <td>0.003258</td>\n",
+       "      <td>1.044885</td>\n",
+       "      <td>1.569649</td>\n",
+       "      <td>3.393650</td>\n",
+       "      <td>0.052530</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  sample    Kd_ClF  MeltWater_Cl  MeltWater_F    Kd_OHF    gammaF   gammaOH  \\\n",
+       "0    Ap1  0.117668      2.288177     2.454759  0.010156  1.139724  1.257495   \n",
+       "1    Ap2  0.111074      0.987179     0.943227  0.012871  1.078508  1.352988   \n",
+       "2    Ap3  0.062026      1.145976     1.872257  0.003258  1.044885  1.569649   \n",
+       "\n",
+       "    gammaCl   Kd_OHCl  \n",
+       "0  2.359545  0.086309  \n",
+       "1  2.572134  0.115878  \n",
+       "2  3.393650  0.052530  "
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# default: calculate Kd only\n",
+    "list_kd_result = data.apply(lambda row: pyApthermo.ApThermo(inputs=row[order]).Kd(),axis=1)\n",
+    "\n",
+    "# user defined (example)\n",
+    "list_result = data.apply(lambda row: pyApthermo.ApThermo(inputs=row[order],cal_H2O=True,cal_gamma=True).meltH2O(),axis=1)\n",
+    "\n",
+    "results['MeltWater_F'] = [x[0] for x in list_result]\n",
+    "results['MeltWater_Cl'] = [x[1] for x in list_result]\n",
+    "results['Kd_OHCl'] = [x[2] for x in list_result]\n",
+    "results['Kd_OHF'] = [x[3] for x in list_result]\n",
+    "results['Kd_ClF'] = [x[4] for x in list_result]\n",
+    "results['gammaOH'] = [x[5] for x in list_result]\n",
+    "results['gammaF'] = [x[6] for x in list_result]\n",
+    "results['gammaCl'] = [x[7] for x in list_result]\n",
+    "results['sample'] = df['sample']\n",
+    "\n",
+    "results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### save results"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "results.to_csv('water_estimates_no_error.csv')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 4. Error integration from monte carlo simulation (MCS)\n",
+    "\n",
+    "Below we give an example for MCS to integrate analytical errors from melt compositions, apatite composition, and temperature.\n",
+    "\n",
+    "First, set the entry of MCS (number of runs); better to be larger than 1000."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mc = 1000"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Create dataframe for collecting MCS results and extract raw data and their errors"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ap_mc_collect = pd.DataFrame([])\n",
+    "comp = df[['XF', 'XCL', 'T,C', 'MELTF', 'MELTCL']]\n",
+    "std = df[['XF_SD', 'XCL_SD', 'T_SD','MELTF_SD', 'MELTCL_SD']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "MCS can be perfromed via a loop but that can be rather slow if the dataset is large. \n",
+    "\n",
+    "Here we use a built-in function `ap_mc()` to vectorize and expand the existing empty dataframe (\"ap_mc_collect\") with MCS results. \n",
+    "\n",
+    "Feel free to use your own MCS algorithm if you want. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for idx in range(len(df)):\n",
+    "    df_iter = ap_mc(comp, std, idx, mc)\n",
+    "    ap_mc_collect = ap_mc_collect.append(df_iter)\n",
+    "\n",
+    "ap_mc_collect.columns = comp.columns\n",
+    "ap_mc_collect['MELTCOMP'] = df.loc[df.index.repeat(mc)]['MELTCOMP']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Apply the `meltH2O()` function to the expanded MCS dataframe. The melt water estimates are saved in the \"ap_mc_collect\" dataframe. \n",
+    "\n",
+    "Note that when MCS has a larger value, a runtime warning might appear."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/easonzz/miniforge3/lib/python3.9/site-packages/scipy/optimize/minpack.py:175: RuntimeWarning: The iteration is not making good progress, as measured by the \n",
+      "  improvement from the last ten iterations.\n",
+      "  warnings.warn(msg, RuntimeWarning)\n",
+      "/Users/easonzz/miniforge3/lib/python3.9/site-packages/scipy/optimize/minpack.py:175: RuntimeWarning: The iteration is not making good progress, as measured by the \n",
+      "  improvement from the last five Jacobian evaluations.\n",
+      "  warnings.warn(msg, RuntimeWarning)\n"
+     ]
+    }
+   ],
+   "source": [
+    "ap_mc_collect['zz'] = ap_mc_collect.apply(lambda row: pyApthermo.ApThermo(inputs=row[order], cal_H2O=True,cal_gamma=False).meltH2O(),axis=1)\n",
+    "ap_mc_collect['sample'] = df.loc[df.index.repeat(mc)]['sample']\n",
+    "\n",
+    "results_mc = pd.DataFrame(columns=['MeltWater_F','MeltWater_Cl'])\n",
+    "results_mc['MeltWater_F'] = [x[0] for x in ap_mc_collect['zz']]\n",
+    "results_mc['MeltWater_Cl'] = [x[1] for x in ap_mc_collect['zz']]\n",
+    "\n",
+    "results_mc['sample'] = ap_mc_collect.reset_index()['sample']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Display MCS results for each crystal"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead tr th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead tr:last-of-type th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr>\n",
+       "      <th></th>\n",
+       "      <th colspan=\"8\" halign=\"left\">MeltWater_F</th>\n",
+       "      <th colspan=\"8\" halign=\"left\">MeltWater_Cl</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th></th>\n",
+       "      <th>count</th>\n",
+       "      <th>mean</th>\n",
+       "      <th>std</th>\n",
+       "      <th>min</th>\n",
+       "      <th>25%</th>\n",
+       "      <th>50%</th>\n",
+       "      <th>75%</th>\n",
+       "      <th>max</th>\n",
+       "      <th>count</th>\n",
+       "      <th>mean</th>\n",
+       "      <th>std</th>\n",
+       "      <th>min</th>\n",
+       "      <th>25%</th>\n",
+       "      <th>50%</th>\n",
+       "      <th>75%</th>\n",
+       "      <th>max</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>sample</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>Ap1</th>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>2.632001</td>\n",
+       "      <td>1.103110</td>\n",
+       "      <td>6.661436e-01</td>\n",
+       "      <td>1.845204</td>\n",
+       "      <td>2.445361</td>\n",
+       "      <td>3.179341</td>\n",
+       "      <td>8.676760</td>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>2.554121</td>\n",
+       "      <td>1.322317</td>\n",
+       "      <td>5.381545e-01</td>\n",
+       "      <td>1.647385</td>\n",
+       "      <td>2.277966</td>\n",
+       "      <td>3.106162</td>\n",
+       "      <td>11.479575</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ap2</th>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>0.985690</td>\n",
+       "      <td>0.409133</td>\n",
+       "      <td>5.681841e-16</td>\n",
+       "      <td>0.687214</td>\n",
+       "      <td>0.929801</td>\n",
+       "      <td>1.242427</td>\n",
+       "      <td>2.823094</td>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>1.073669</td>\n",
+       "      <td>0.540902</td>\n",
+       "      <td>5.681841e-16</td>\n",
+       "      <td>0.685099</td>\n",
+       "      <td>0.970699</td>\n",
+       "      <td>1.373093</td>\n",
+       "      <td>4.080361</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ap3</th>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>2.479382</td>\n",
+       "      <td>2.429334</td>\n",
+       "      <td>-4.291673e-16</td>\n",
+       "      <td>0.923830</td>\n",
+       "      <td>1.910409</td>\n",
+       "      <td>3.158331</td>\n",
+       "      <td>28.383204</td>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>1.556456</td>\n",
+       "      <td>1.574228</td>\n",
+       "      <td>-4.291673e-16</td>\n",
+       "      <td>0.559018</td>\n",
+       "      <td>1.169868</td>\n",
+       "      <td>1.962888</td>\n",
+       "      <td>17.020062</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       MeltWater_F                                                        \\\n",
+       "             count      mean       std           min       25%       50%   \n",
+       "sample                                                                     \n",
+       "Ap1         1000.0  2.632001  1.103110  6.661436e-01  1.845204  2.445361   \n",
+       "Ap2         1000.0  0.985690  0.409133  5.681841e-16  0.687214  0.929801   \n",
+       "Ap3         1000.0  2.479382  2.429334 -4.291673e-16  0.923830  1.910409   \n",
+       "\n",
+       "                            MeltWater_Cl                                    \\\n",
+       "             75%        max        count      mean       std           min   \n",
+       "sample                                                                       \n",
+       "Ap1     3.179341   8.676760       1000.0  2.554121  1.322317  5.381545e-01   \n",
+       "Ap2     1.242427   2.823094       1000.0  1.073669  0.540902  5.681841e-16   \n",
+       "Ap3     3.158331  28.383204       1000.0  1.556456  1.574228 -4.291673e-16   \n",
+       "\n",
+       "                                                 \n",
+       "             25%       50%       75%        max  \n",
+       "sample                                           \n",
+       "Ap1     1.647385  2.277966  3.106162  11.479575  \n",
+       "Ap2     0.685099  0.970699  1.373093   4.080361  \n",
+       "Ap3     0.559018  1.169868  1.962888  17.020062  "
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "results_mc.groupby('sample').describe()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Calculate the median value for each crystal. If the distribution of MCS results is (nearly) gaussian (see kernel density plot below), a mean value could be used instead of median."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>MeltWater_F</th>\n",
+       "      <th>MeltWater_Cl</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>sample</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>Ap1</th>\n",
+       "      <td>2.445361</td>\n",
+       "      <td>2.277966</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ap2</th>\n",
+       "      <td>0.929801</td>\n",
+       "      <td>0.970699</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ap3</th>\n",
+       "      <td>1.910409</td>\n",
+       "      <td>1.169868</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        MeltWater_F  MeltWater_Cl\n",
+       "sample                           \n",
+       "Ap1        2.445361      2.277966\n",
+       "Ap2        0.929801      0.970699\n",
+       "Ap3        1.910409      1.169868"
+      ]
+     },
+     "execution_count": 51,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "results_mc.groupby('sample').median()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "plot MCS results"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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",
+      "text/plain": [
+       "<Figure size 648x288 with 2 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "fig, axes = plt.subplots(1, 2, figsize=(9,4), constrained_layout=True)\n",
+    "\n",
+    "sns.kdeplot(x = 'MeltWater_F', data=results_mc, hue='sample', ax = axes[0])\n",
+    "sns.kdeplot(x = 'MeltWater_Cl', data=results_mc, hue='sample', ax = axes[1])\n",
+    "\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1sd errors in results can be calculated by taking half of the range between 84% and 16% of all MCS results. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "melt H<sub>2</sub>O estimated from Cl in the apatite"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1.07184908 0.49579611 1.13009846]\n"
+     ]
+    }
+   ],
+   "source": [
+    "errors = results_mc.groupby('sample')['MeltWater_Cl'].transform(lambda s: (np.percentile(s, 84)-np.percentile(s, 16))/2).unique()\n",
+    "print(errors)\n",
+    "for ii in list(results_mc['sample']):\n",
+    "    if len(list(results_mc['sample']))<50:\n",
+    "        print(results_mc['sample'][ii],errors[ii])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "melt H<sub>2</sub>O calculated from F in apatite"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0.97121202 0.39684486 1.78556349]\n"
+     ]
+    }
+   ],
+   "source": [
+    "errors = results_mc.groupby('sample')['MeltWater_F'].transform(lambda s: (np.percentile(s, 84)-np.percentile(s, 16))/2).unique()\n",
+    "print(errors)\n",
+    "for ii in list(results_mc['sample']):\n",
+    "    if len(list(results_mc['sample']))<50:\n",
+    "        print(results_mc['sample'][ii],errors[ii])"
+   ]
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "dbfc26f88d4be79d14d7fd08a335d9cb9196b9d1da0cd3f4e161d45a5650b80a"
+  },
+  "kernelspec": {
+   "display_name": "Python 3.9.6 64-bit ('base': conda)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
