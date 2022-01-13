@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyAp - ternary plot of apatite &mdash; pyAp 1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>pyAp - ternary plot of apatite &mdash; pyAp 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -39,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
@@ -352,11 +351,11 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="pyAp---ternary-plot-of-apatite">
-<h1>pyAp - ternary plot of apatite<a class="headerlink" href="#pyAp---ternary-plot-of-apatite" title="Permalink to this headline">¶</a></h1>
+<h1>pyAp - ternary plot of apatite<a class="headerlink" href="#pyAp---ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
 <p>pyAp has a built-in function <code class="docutils literal notranslate"><span class="pre">ApTernary.py</span></code> to plot F-Cl-OH ternary diagram for apatite.</p>
 <p>Below we show an example of plotting F, OH, and Cl concentrations measured for apatite into a ternary diagram.</p>
 <div class="section" id="1.-Import-modules">
-<h2>1. Import modules<a class="headerlink" href="#1.-Import-modules" title="Permalink to this headline">¶</a></h2>
+<h2>1. Import modules<a class="headerlink" href="#1.-Import-modules" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -375,7 +374,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="2.-read-data">
-<h2>2. read data<a class="headerlink" href="#2.-read-data" title="Permalink to this headline">¶</a></h2>
+<h2>2. read data<a class="headerlink" href="#2.-read-data" title="Permalink to this headline"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -505,12 +504,12 @@ div.rendered_html tbody tr:hover {
 </table>
 </div></div>
 </div>
+<p>The sum of XF + XCl + XOH should be 1</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the sum of XF + XCl + XOH should be 1</span>
-<span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -528,7 +527,7 @@ dtype: float64
 </div>
 </div>
 <div class="section" id="3.-Ternary-plot">
-<h2>3. Ternary plot<a class="headerlink" href="#3.-Ternary-plot" title="Permalink to this headline">¶</a></h2>
+<h2>3. Ternary plot<a class="headerlink" href="#3.-Ternary-plot" title="Permalink to this headline"></a></h2>
 <p>Choose the data you would like to plot in ternary diagram</p>
 <p>If you have calculated F-Cl-OH mole fractions from lines above</p>
 <div class="nbinput docutils container">
@@ -560,7 +559,7 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_9_0.png" src="_images/plot_ternary_test_stoichiometry_9_0.png" />
+<img alt="_images/plot_ternary_test_stoichiometry_10_0.png" src="_images/plot_ternary_test_stoichiometry_10_0.png" />
 </div>
 </div>
 <p>Or you have known F-Cl-OH mole fractions and they are in excel file</p>
@@ -602,7 +601,7 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_12_0.png" src="_images/plot_ternary_test_stoichiometry_12_0.png" />
+<img alt="_images/plot_ternary_test_stoichiometry_13_0.png" src="_images/plot_ternary_test_stoichiometry_13_0.png" />
 </div>
 </div>
 </div>

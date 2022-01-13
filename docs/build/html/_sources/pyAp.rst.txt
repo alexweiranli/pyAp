@@ -1,58 +1,37 @@
-pyAp package
+pyap package
 ============
 
-pyAp.ApStoic module
+Submodules
+----------
+
+pyap.ApStoic module
 -------------------
 
-.. automodule:: pyAp.ApStoic
+.. automodule:: pyap.ApStoic
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyAp.ApTernary module
+pyap.ApTernary module
 ---------------------
 
-.. automodule:: pyAp.ApTernary
+.. automodule:: pyap.ApTernary
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyAp.f\_D0\_X module
---------------------
-
-.. automodule:: pyAp.f_D0_X
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyAp.f\_fit\_onuma module
--------------------------
-
-.. automodule:: pyAp.f_fit_onuma
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyAp.f\_fo2\_eu module
-----------------------
-
-.. automodule:: pyAp.f_fo2_eu
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyAp.pyAp\_tools module
+pyap.pyAp\_tools module
 -----------------------
 
-.. automodule:: pyAp.pyAp_tools
+.. automodule:: pyap.pyAp_tools
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyAp.pyApthermo module
+pyap.pyApthermo module
 ----------------------
 
-.. automodule:: pyAp.pyApthermo
+.. automodule:: pyap.pyApthermo
    :members:
    :undoc-members:
    :show-inheritance:
@@ -60,7 +39,7 @@ pyAp.pyApthermo module
 Module contents
 ---------------
 
-.. automodule:: pyAp
+.. automodule:: pyap
    :members:
    :undoc-members:
    :show-inheritance:
