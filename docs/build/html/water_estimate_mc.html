@@ -18,7 +18,9 @@
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyAp - ternary plot of apatite" href="plot_ternary_test_stoichiometry.html" />
+    <link rel="prev" title="Tutorial" href="tutorials.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,9 +39,20 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.-Import-modules">1. Import modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#2.-Import-data">2. Import data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.-calculate-H_2O-in-the-melt-from-F-and-Cl-in-the-apatite">3. calculate H<img class="math" src="_images/math/04055c09962eae7a443bf5afe0877ce971bb7caf.png" alt="_2"/>O in the melt from F and Cl in the apatite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-results">save results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#4.-Error-integration-from-monte-carlo-simulation-(MCS)">4. Error integration from monte carlo simulation (MCS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">pyAp - ternary plot of apatite</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
@@ -58,6 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
       <li>pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/water_estimate_mc.ipynb.txt" rel="nofollow"> View page source</a>
@@ -341,7 +355,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
 <h1>pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
 <p>pyAp includes the melt hygrometry model <code class="docutils literal notranslate"><span class="pre">ApThermo</span></code> of Li and Costa (2020, GCA) with equations provided in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>.</p>
-<p>Applying this model requires known F, Cl (and H2O) concentrations in apatite, and the F and Cl concentration in the melt (in equilibrium with apatite).</p>
+<p>Applying this model requires known F, Cl (and H<img class="math" src="_images/math/04055c09962eae7a443bf5afe0877ce971bb7caf.png" alt="_2"/>O) concentrations in apatite, and the F and Cl concentration in the melt (in equilibrium with apatite).</p>
 <p>This example file includes error estimation for the calculated water estimates using a monte carlo simuation algorithm, which is not available in our ApThermo webpage or excel versions.</p>
 <p>Please cite Li and Costa (2020) if you use this model:</p>
 <p>Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
@@ -397,8 +411,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="3.-calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">
-<h2>3. calculate H2O in the melt from F and Cl in the apatite<a class="headerlink" href="#3.-calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
+<div class="section" id="3.-calculate-H_2O-in-the-melt-from-F-and-Cl-in-the-apatite">
+<h2>3. calculate H<img class="math" src="_images/math/04055c09962eae7a443bf5afe0877ce971bb7caf.png" alt="_2"/>O in the melt from F and Cl in the apatite<a class="headerlink" href="#3.-calculate-H_2O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> function shown below for calculation using parameters in each row in the input DataFrame.</p>
 <p>To perform the calculation, we pass input data into the <code class="docutils literal notranslate"><span class="pre">Apthermo</span></code> class in <code class="docutils literal notranslate"><span class="pre">pyApthermo.py</span></code> (in pyAp folder).</p>
 <p>The water speciation model used in calculation is chosen from the available models according to the melt composition <code class="docutils literal notranslate"><span class="pre">MELTCOMPF</span></code> provided by users.</p>
@@ -585,53 +599,53 @@ div.rendered_html tbody tr:hover {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Kd_OHF</th>
-      <th>gammaCl</th>
-      <th>MeltWater_Cl</th>
-      <th>gammaOH</th>
-      <th>MeltWater_F</th>
-      <th>gammaF</th>
-      <th>Kd_OHCl</th>
-      <th>Kd_ClF</th>
       <th>sample</th>
+      <th>gammaCl</th>
+      <th>Kd_ClF</th>
+      <th>Kd_OHCl</th>
+      <th>Kd_OHF</th>
+      <th>MeltWater_F</th>
+      <th>gammaOH</th>
+      <th>gammaF</th>
+      <th>MeltWater_Cl</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.010156</td>
-      <td>2.359545</td>
-      <td>2.288177</td>
-      <td>1.257495</td>
-      <td>2.454759</td>
-      <td>1.139724</td>
-      <td>0.086309</td>
-      <td>0.117668</td>
       <td>Ap1</td>
+      <td>2.359545</td>
+      <td>0.117668</td>
+      <td>0.086309</td>
+      <td>0.010156</td>
+      <td>2.454759</td>
+      <td>1.257495</td>
+      <td>1.139724</td>
+      <td>2.288177</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.012871</td>
-      <td>2.572134</td>
-      <td>0.987179</td>
-      <td>1.352988</td>
-      <td>0.943227</td>
-      <td>1.078508</td>
-      <td>0.115878</td>
-      <td>0.111074</td>
       <td>Ap2</td>
+      <td>2.572134</td>
+      <td>0.111074</td>
+      <td>0.115878</td>
+      <td>0.012871</td>
+      <td>0.943227</td>
+      <td>1.352988</td>
+      <td>1.078508</td>
+      <td>0.987179</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.003258</td>
-      <td>3.393650</td>
-      <td>1.145976</td>
-      <td>1.569649</td>
-      <td>1.872257</td>
-      <td>1.044885</td>
-      <td>0.052530</td>
-      <td>0.062026</td>
       <td>Ap3</td>
+      <td>3.393650</td>
+      <td>0.062026</td>
+      <td>0.052530</td>
+      <td>0.003258</td>
+      <td>1.872257</td>
+      <td>1.569649</td>
+      <td>1.044885</td>
+      <td>1.145976</td>
     </tr>
   </tbody>
 </table>
@@ -798,59 +812,59 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>Ap1</th>
       <td>1000.0</td>
-      <td>2.641468</td>
-      <td>1.097449</td>
-      <td>7.015439e-01</td>
-      <td>1.870983</td>
-      <td>2.428279</td>
-      <td>3.159759</td>
-      <td>8.370092</td>
+      <td>2.660373</td>
+      <td>1.136425</td>
+      <td>4.330887e-01</td>
+      <td>1.872845</td>
+      <td>2.517254</td>
+      <td>3.229726</td>
+      <td>11.595076</td>
       <td>1000.0</td>
-      <td>2.563614</td>
-      <td>1.299313</td>
-      <td>5.687440e-01</td>
-      <td>1.673592</td>
-      <td>2.259434</td>
-      <td>3.083262</td>
-      <td>10.889081</td>
+      <td>2.586635</td>
+      <td>1.367577</td>
+      <td>3.414720e-01</td>
+      <td>1.675489</td>
+      <td>2.356336</td>
+      <td>3.165290</td>
+      <td>15.00000</td>
     </tr>
     <tr>
       <th>Ap2</th>
       <td>1000.0</td>
-      <td>0.977408</td>
-      <td>0.432934</td>
-      <td>-5.682004e-16</td>
-      <td>0.661064</td>
-      <td>0.925386</td>
-      <td>1.248780</td>
-      <td>2.769618</td>
+      <td>0.984117</td>
+      <td>0.426203</td>
+      <td>0.000000e+00</td>
+      <td>0.678643</td>
+      <td>0.946613</td>
+      <td>1.238496</td>
+      <td>2.798050</td>
       <td>1000.0</td>
-      <td>1.067422</td>
-      <td>0.572065</td>
-      <td>-5.682004e-16</td>
-      <td>0.655677</td>
-      <td>0.965297</td>
-      <td>1.381680</td>
-      <td>3.967680</td>
+      <td>1.074584</td>
+      <td>0.562147</td>
+      <td>0.000000e+00</td>
+      <td>0.675428</td>
+      <td>0.991346</td>
+      <td>1.367788</td>
+      <td>4.02738</td>
     </tr>
     <tr>
       <th>Ap3</th>
       <td>1000.0</td>
-      <td>2.462165</td>
-      <td>2.253858</td>
-      <td>-4.300264e-16</td>
-      <td>0.971582</td>
-      <td>1.878295</td>
-      <td>3.302549</td>
+      <td>2.379859</td>
+      <td>2.181088</td>
+      <td>-4.290107e-16</td>
+      <td>0.918561</td>
+      <td>1.822349</td>
+      <td>3.203954</td>
       <td>15.000000</td>
       <td>1000.0</td>
-      <td>1.554400</td>
-      <td>1.529550</td>
-      <td>-4.300264e-16</td>
-      <td>0.588248</td>
-      <td>1.149756</td>
-      <td>2.055913</td>
-      <td>15.000000</td>
+      <td>1.495834</td>
+      <td>1.442256</td>
+      <td>-4.290107e-16</td>
+      <td>0.555794</td>
+      <td>1.114753</td>
+      <td>1.992287</td>
+      <td>12.56718</td>
     </tr>
   </tbody>
 </table>
@@ -901,18 +915,18 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>Ap1</th>
-      <td>2.428279</td>
-      <td>2.259434</td>
+      <td>2.517254</td>
+      <td>2.356336</td>
     </tr>
     <tr>
       <th>Ap2</th>
-      <td>0.925386</td>
-      <td>0.965297</td>
+      <td>0.946613</td>
+      <td>0.991346</td>
     </tr>
     <tr>
       <th>Ap3</th>
-      <td>1.878295</td>
-      <td>1.149756</td>
+      <td>1.822349</td>
+      <td>1.114753</td>
     </tr>
   </tbody>
 </table>
@@ -940,7 +954,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>1 <img class="math" src="_images/math/b52df27bfb0b1e3af0c2c68a7b9da459178c2a7d.png" alt="\sigma"/> errors in results can be calculated by taking half of the range between 84% and 16% of all MCS results.</p>
-<p>melt H2O estimated from Cl in the apatite</p>
+<p>melt H<img class="math" src="_images/math/04055c09962eae7a443bf5afe0877ce971bb7caf.png" alt="_2"/>O estimated from Cl in the apatite</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -958,10 +972,10 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[1.15167496 0.51788942 1.10956634]
+[1.10403195 0.51547312 1.13445274]
 </pre></div></div>
 </div>
-<p>melt H2O calculated from F in apatite</p>
+<p>melt H<img class="math" src="_images/math/04055c09962eae7a443bf5afe0877ce971bb7caf.png" alt="_2"/>O calculated from F in apatite</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -979,7 +993,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[1.03476596 0.41635992 1.75392207]
+[1.0000956  0.41369904 1.79490674]
 </pre></div></div>
 </div>
 </div>
@@ -988,7 +1002,10 @@ div.rendered_html tbody tr:hover {
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plot_ternary_test_stoichiometry.html" class="btn btn-neutral float-right" title="pyAp - ternary plot of apatite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -1,7 +1,7 @@
 Tutorial
 ================================
 
-Currently pyAp only accept installation by running
+Currently pyAp only accepts installation by running
 
 .. code-block:: python
 
@@ -13,5 +13,5 @@ in the package depository using command lines
    :maxdepth: 2
    :caption: Contents:
 
-   calc_water
+   water_estimate_mc
    plot_ternary_test_stoichiometry

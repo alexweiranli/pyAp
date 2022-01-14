@@ -26,7 +26,7 @@ It includes multiple apatite-based models developed by W. Li and co-authors, inc
 Full documentation, further information about the package, and a tutorial for getting started are provided at [documentation page](https://pyapati.readthedocs.io/en/latest/).
 
 ## Installation
-pyAp can be installed by running ```python setup.py install``` in the package depository using command lines
+pyAp can be installed by running `python setup.py install` in the package depository using command lines
 
 ## Citing pyAp
 If this package enables or aids your research please cite the relevant publications for:
