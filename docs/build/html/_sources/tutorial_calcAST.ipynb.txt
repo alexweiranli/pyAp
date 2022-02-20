@@ -8,23 +8,15 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 1,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
    "source": [
-    "import os, sys\n",
-    "# hack to allow scripts to be placed in subdirectories next to pyAp:\n",
-    "if not os.path.exists('pyAp') and os.path.exists('../pyAp'):\n",
-    "    sys.path.insert(1, os.path.abspath('..'))\n",
-    "from pathlib import Path\n",
-    "import math, random, pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sns\n",
-    "import warnings    "
+    "Calculate apatite saturation temperature using empirical equation of Harrison & Watson (1984) https://doi.org/10.1016/0016-7037(84)90403-4"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -35,26 +27,27 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Inputs are SiO<sub>2</sub> (wt%) concentration in the melt, and P<sub>2</sub>O<sub>5</sub> (wt%) concentration in the melt "
+    "Inputs are SiO$_{2}$ concentration in the melt, and P$_{2}O_{5}$ concentration in the melt "
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "When wrong input values are used. For example, one uses concetration (conc) in the incorrect mass fraction (0<conc<1) rather than the correct weight percent (1<conc<100)"
+    "When wrong input values are used. For example, one uses concetration (conc) in the incorrect mass fraction (0<conc<1) rather than the correct weight percent (1<conc<100):"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      ">> Concentrations are expressed as mass fractions. Multiply them by 100 to convert into percentage!\n"
+      ">> Warning: Concentrations are expressed as mass fractions. \n",
+      "Multiply them by 100 to convert into percentage!\n"
      ]
     },
     {
@@ -63,7 +56,7 @@
        "nan"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -76,12 +69,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "When correct input values are used"
+    "When correct input values are used:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -90,7 +83,7 @@
        "849.3629335400316"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }

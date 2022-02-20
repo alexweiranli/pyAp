@@ -11,9 +11,9 @@ from pyAp import ApTernary
 
 ##########################################################################
 
-df_26o = pd.read_csv('output_apfu_26o.csv')
-df_25o = pd.read_csv('output_apfu_25o.csv')
-df_ketcham = pd.read_csv('output_apfu_ketcham.csv')
+df_26o = pd.read_csv('outputs_apfu_26o.csv')
+df_25o = pd.read_csv('outputs_apfu_25o.csv')
+df_ketcham = pd.read_csv('outputs_apfu_ketcham.csv')
 
 # plt.plot(df['XOH'],df_ketcham['XOH'],'o')
 # plt.plot([0,0.5],[0,0.5],'k--')

@@ -1,7 +1,7 @@
-4. Excultion of all calculatons at once
+4. Performing all calculatons at once
 =============
 
-To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume to one downloaded from github as pyAp-main, for example:
+To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume one downloaded from github as pyAp-main, for example:
 
 .. code-block:: bash
 
@@ -56,6 +56,7 @@ Then we continue to plot the F-Cl-OH ternary diagram of apatite:
     :width: 600
 
 Calculate melt H :sub:`2` O concentration:
+
 .. code-block:: bash
 
     Calculate melt H2O concentraion?(y/n): y

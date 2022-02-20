@@ -21,7 +21,7 @@ ApTernary.ternary(1)
 # read data, choose from files below 
 
 # df = pd.read_excel('data_calc_water.xlsx')
-df = pd.read_csv('output_apfu.csv')
+df = pd.read_csv('outputs_apfu_26o.csv')
 
 # calculate the x,y coordinates on ternary diagram according to input XF and XCL values
 for idx, value in df.iterrows():

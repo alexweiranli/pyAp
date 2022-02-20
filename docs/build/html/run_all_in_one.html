@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4. Excultion of all calculatons at once &mdash; pyAp v0.1 documentation</title>
+  <title>4. Performing all calculatons at once &mdash; pyAp v0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -45,7 +45,7 @@
 <li class="toctree-l2"><a class="reference internal" href="calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Excultion of all calculatons at once</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Performing all calculatons at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -67,7 +67,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
-      <li>4. Excultion of all calculatons at once</li>
+      <li>4. Performing all calculatons at once</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/run_all_in_one.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,9 +101,9 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="excultion-of-all-calculatons-at-once">
-<h1>4. Excultion of all calculatons at once<a class="headerlink" href="#excultion-of-all-calculatons-at-once" title="Permalink to this headline"></a></h1>
-<p>To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume to one downloaded from github as pyAp-main, for example:</p>
+<div class="section" id="performing-all-calculatons-at-once">
+<h1>4. Performing all calculatons at once<a class="headerlink" href="#performing-all-calculatons-at-once" title="Permalink to this headline"></a></h1>
+<p>To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume one downloaded from github as pyAp-main, for example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> pyAp-main
 </pre></div>
 </div>
@@ -142,12 +142,13 @@ Close the plot window <span class="k">for</span> next step. Before closing it yo
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/ter1.png"><img alt="_images/ter1.png" src="_images/ter1.png" style="width: 600px;" /></a>
-<p>Calculate melt H <sub>2</sub> O concentration:
-.. code-block:: bash</p>
-<blockquote>
-<div><p>Calculate melt H2O concentraion?(y/n): y</p>
-<p>Use mole fractions just calculated?(y/n): y</p>
-</div></blockquote>
+<p>Calculate melt H <sub>2</sub> O concentration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Calculate melt H2O concentraion?<span class="o">(</span>y/n<span class="o">)</span>: y
+
+
+Use mole fractions just calculated?<span class="o">(</span>y/n<span class="o">)</span>: y
+</pre></div>
+</div>
 <p>The MCS is also integrated in the script, the default is to run 1000 times:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Run MC <span class="k">for</span> error propagation?<span class="o">(</span>y/n<span class="o">)</span>: y
 &gt;&gt; Simulation starts ...

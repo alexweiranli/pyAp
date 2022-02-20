@@ -45,13 +45,13 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Import-modules">Import modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">Calculate H2O in the melt from F and Cl in the apatite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite">Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt from F and Cl in the apatite</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Error-integration-from-monte-carlo-simulation-(MCS)">Error integration from monte carlo simulation (MCS)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Excultion of all calculatons at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -356,7 +356,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
 <h1>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
 <p>pyAp includes the melt hygrometry model (ApThermo) of Li and Costa (2020, GCA) with equations provided in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>.</p>
-<p>Applying this model requires known F, Cl (and H2O) concentrations in apatite, and the F and Cl concentrations in the melt (in equilibrium with apatite).</p>
+<p>Applying this model requires known F, Cl (and H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O) concentrations in apatite, and the F and Cl concentrations in the melt (in equilibrium with apatite).</p>
 <p>This example file includes error estimation for the calculated water estimates using a monte carlo simuation algorithm, which is not available in our ApThermo webpage or excel versions.</p>
 <p>Please cite Li and Costa (2020) if you use this model:</p>
 <p>Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
@@ -367,12 +367,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
-<span class="c1"># hack to allow scripts to be placed in subdirectories next to pyAp:</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;pyAp&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;../pyAp&#39;</span><span class="p">):</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 </pre></div>
 </div>
@@ -410,8 +405,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">
-<h2>Calculate H2O in the melt from F and Cl in the apatite<a class="headerlink" href="#Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
+<div class="section" id="Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite">
+<h2>Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt from F and Cl in the apatite<a class="headerlink" href="#Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">The available water speciation models we have compiled are available in “pyAp/water_speciation.csv” and also implemented in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>. The existing models include:</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">dacite</span></code> (Liu et al. 2004)</div>

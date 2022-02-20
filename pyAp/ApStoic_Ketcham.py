@@ -1,7 +1,7 @@
 """
 Weiran Li & Yishen Zhang
 
-2022-01-14, v1.0
+2022-02-20, v1.0
 
 Please cite the paper below if you use "ApThermo" in your research:
 
@@ -30,20 +30,20 @@ dict_catnum = {'SIO2':1,'TIO2':1,'AL2O3':2,'FEO':1,'CAO':1,'MGO':1,'MNO':1,'K2O'
 oxides = list(dict_molar)
 
 
-def stoi_ketcham(data,row,assume_oxy):  
+def stoi_ketcham(data):  
     """
-    function to test apatite stoichiometry 
+    function to calculate apatite apfu and test stoichiometry 
+    calculations following Ketcham 2015, Am. min. 
 
     Parameters:
     -------
     data: :class: `pandas.Dataframe`
-    oxygen number: default is 26 for FAp 
-                   For OHAp: use 25
 
     Return:
     -------
     results: :class: `pandas.Dataframe`
             saved csv file
+
     """
     
     # when concentration value is not provided, replace it with 0; otherwise, keep its value.
@@ -53,89 +53,60 @@ def stoi_ketcham(data,row,assume_oxy):
         else:
             return 0
     
-    
-    # read data
-    df = data.loc[row]
-
-    # calculate atom per formula unit
-    multi_all =[]; total_oxygen=[]    
-    for oxide in oxides:     
-        molar = dict_molar[oxide]
-        conc = conc_(df[oxide])
-        
-        mole_fra = conc/molar
-        oxy_num =  mole_fra * dict_oxynum[oxide]
-        total_oxygen.append(oxy_num)
-
-        cat_num = dict_catnum[oxide]
-        multi = mole_fra*cat_num
-        multi_all.append(multi)
-        
-    oxygen_factor =  assume_oxy/sum(total_oxygen)
-                  
-    apf_f = oxygen_factor * conc_(df['F'])/dict_molar['F']
-    apf_cl = oxygen_factor * conc_(df['CL'])/dict_molar['CL']
-    x_f = apf_f/2
-    x_cl = apf_cl/2
-    x_oh = 1 - x_f - x_cl
-
-    return x_oh
-
-
-def stoi_(data):  
-    
-    # when concentration value is not provided, replace it with 0; otherwise, keep its value.
-    def conc_(v):
-        if v == v:
-            return v
-        else:
-            return 0
-    
-    # calculate atom per formula unit
     results = pd.DataFrame(columns = oxides)
-    bias = []
-    
-    for i in range(len(data)):
-        
-        multi_all =[]; total_oxygen=[]
-        
-        for oxide in oxides:     
-            molar = dict_molar[oxide]
-            conc = conc_(data[oxide][i])
-            
-            mole_fra = conc/molar
-            oxy_num =  mole_fra * dict_oxynum[oxide]
-            total_oxygen.append(oxy_num)
+    bias = []; oxygen_corr_all = []
+    assume_oxy = 26
 
-            cat_num = dict_catnum[oxide]
-            multi = mole_fra*cat_num
-            multi_all.append(multi)
+    # read data
+    for row in range(len(data)):
         
-        assume_oxy = data['OXYGEN NUMBER'][i]
-        oxygen_factor =  assume_oxy/sum(total_oxygen)
-        apf = [mm*oxygen_factor for mm in multi_all] 
-    
-        results.loc[i] = apf
+        df = data.loc[row]
+        x_oh = 0
+        x_oh_all = list([x_oh])
 
-        # test stoichiometry using molar Ca/P (=5/3)
-        total_ca = sum(results.iloc[i][oxides[:9]])
-        total_phos = sum(results.iloc[i][oxides[9:12]])
-        
-        bias.append(100*abs(total_ca/total_phos - 5/3)/(5/3))
-        
-        
-        # if H2O was not measured
-        if data['H2O'][i] != data['H2O'][i]:
+        for kk in range(50):
+            assume_oxy = 26 - x_oh
 
-            apf_f = oxygen_factor * conc_(data['F'][i])/dict_molar['F']
-            apf_cl = oxygen_factor * conc_(data['CL'][i])/dict_molar['CL']
+        # calculate atom per formula unit
+            multi_all =[]; total_oxygen=[]    
+            for oxide in oxides:     
+                molar = dict_molar[oxide]
+                conc = conc_(df[oxide])
+                
+                mole_fra = conc/molar
+                oxy_num =  mole_fra * dict_oxynum[oxide]
+                total_oxygen.append(oxy_num)
+
+                cat_num = dict_catnum[oxide]
+                multi = mole_fra*cat_num
+                multi_all.append(multi)
+        
+            oxygen_factor =  assume_oxy/sum(total_oxygen)
+                  
+            apf_f = oxygen_factor * conc_(df['F'])/dict_molar['F']
+            apf_cl = oxygen_factor * conc_(df['CL'])/dict_molar['CL']
             x_f = apf_f/2
             x_cl = apf_cl/2
             x_oh = 1 - x_f - x_cl
 
-        
-        # if H2O was measured
-        else:
+            if kk >=2 and x_oh == x_oh_all[-1] == x_oh_all[-2]:
+                # x_oh_corr = x_oh
+                break
+
+        oxygen_corr_all.append(assume_oxy)
+
+        apf = [mm*oxygen_factor for mm in multi_all] 
+        results.loc[row] = apf
+        results['F'][row] = x_f 
+        results['CL'][row] = x_cl
+        results['H2O'][row] = x_oh
+
+        # test stoichiometry using molar Ca/P (=5/3)
+        total_ca = sum(results.iloc[row][oxides[:9]])
+        total_phos = sum(results.iloc[row][oxides[9:12]])
+        bias.append(100*abs(total_ca/total_phos - 5/3)/(5/3))        
+
+        if data['H2O'][row] == data['H2O'][row]:
             mF =  data['F'][i]/dict_molar['F']
             mCl = data['CL'][i]/dict_molar['CL']
             moh =  2 * data['H2O'][i]/dict_molar['H2O']
@@ -144,17 +115,18 @@ def stoi_(data):
             x_f = mF/total_ani_m
             x_cl = mCl/total_ani_m
             x_oh = moh/total_ani_m
-        
-        ## save x_ to results dataframe
-        results['F'][i] = x_f 
-        results['CL'][i] = x_cl 
-        results['H2O'][i] = x_oh
+            
+            ## save x_ to results dataframe
+            results['F'][row] = x_f 
+            results['CL'][row] = x_cl 
+            results['H2O'][row] = x_oh
 
-    results['OXYGEN NUMBER'] = data['OXYGEN NUMBER']
+    results['OXYGEN NUMBER'] = oxygen_corr_all #data['OXYGEN NUMBER']
     results['stoic,(Ca/P-5/3)/(5/3)*100%'] = bias
     results['sample'] = data['sample']
 
     results.columns = ['SI','TI','AL','FE','CA','MG','MN','K','NA',
                         'P','S','C','XF','XCL','XOH','CE','SR','OXYGEN NUMBER','stoi,(Ca/P-5/3)/(5/3)*100%','sample']
-      
+
+
     return  results
