@@ -355,7 +355,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Import-modules">
 <h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
@@ -369,7 +369,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyAp.ApSatTemp</span> <span class="k">as</span> <span class="nn">calc_AST</span>
@@ -379,7 +379,7 @@ div.rendered_html tbody tr:hover {
 <p>Inputs are SiO2 (wt%) concentration in the melt, and P2O5 (wt%) concentration in the melt</p>
 <p>When wrong input values are used. For example, one uses concetration (conc) in the incorrect mass fraction (0&lt;conc&lt;1) rather than the correct weight percent (1&lt;conc&lt;100)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_AST</span><span class="o">.</span><span class="n">AST</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.003</span><span class="p">)</span>
@@ -395,7 +395,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -405,7 +405,7 @@ nan
 </div>
 <p>When correct input values are used</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_AST</span><span class="o">.</span><span class="n">AST</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
@@ -413,7 +413,7 @@ nan
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
