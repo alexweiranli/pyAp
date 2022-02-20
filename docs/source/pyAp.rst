@@ -1,37 +1,35 @@
-pyap package
+pyAp package
 ============
 
-Submodules
-----------
-
-pyap.ApStoic module
+pyAp.ApStoic module
 -------------------
 
-.. automodule:: pyap.ApStoic
+.. automodule:: pyAp.ApStoic
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyap.ApTernary module
+pyAp.ApTernary module
 ---------------------
 
-.. automodule:: pyap.ApTernary
+.. automodule:: pyAp.ApTernary
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyap.pyAp\_tools module
+
+pyAp.pyAp\_tools module
 -----------------------
 
-.. automodule:: pyap.pyAp_tools
+.. automodule:: pyAp.pyAp_tools
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyap.pyApthermo module
+pyAp.pyApthermo module
 ----------------------
 
-.. automodule:: pyap.pyApthermo
+.. automodule:: pyAp.pyApthermo
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +37,7 @@ pyap.pyApthermo module
 Module contents
 ---------------
 
-.. automodule:: pyap
+.. automodule:: pyAp
    :members:
    :undoc-members:
    :show-inheritance:

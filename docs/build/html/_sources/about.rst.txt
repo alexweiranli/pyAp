@@ -5,7 +5,7 @@ pyAp is a python package for calculating magmatic volatile, trace element concen
 Code authors: Weiran Li (University of Cambridge, U.K.) & Yishen Zhang (KU Leuven, Belgium) 
 
 Introduction
-#############################################
+#########
 
 pyAp includes multiple apatite-based models developed by W. Li and co-authors, including:
 
@@ -16,7 +16,7 @@ pyAp includes multiple apatite-based models developed by W. Li and co-authors, i
   - Outputs: Apatite stoichiometry (atom per fomula unit); Exchange coefficients for OH-Cl and/or OH-F; H :sub:`2` O concentrations in the melt
   
   
-* ApREE2O3 (coming soon): a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity ( *f* O :sub:`2`) (following Li et al, in review)
+* ApREE2O3: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity ( *f* O :sub:`2`) (following Li et al, in review)
 
   - Inputs:  Trace element concentrations in apatite and melt (be it melt inclusions/groundmass/whole rock)
    
@@ -25,7 +25,7 @@ pyAp includes multiple apatite-based models developed by W. Li and co-authors, i
 * More modules will be added in the future (ApTimer - Li et al. 2020 EPSL; ApZone - Li et al. in prep). 
 
 Citing pyAp
-#######################################
+#########
 If this package enables or aids your research please cite the relevant publications for:
 
 **ApThermo**:

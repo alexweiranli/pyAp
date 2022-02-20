@@ -1,7 +1,7 @@
-pyap
+pyAp
 ====
 
 .. toctree::
    :maxdepth: 4
 
-   pyap
+   pyAp

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyAp - ternary plot of apatite &mdash; pyAp 1.0 documentation</title>
+  <title>pyAp - Stoichiometry calculation and ternary plot of apatite &mdash; pyAp v0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -15,12 +15,14 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contribution" href="contrib.html" />
-    <link rel="prev" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="water_estimate_mc.html" /> 
+    <link rel="next" title="pyAp - Command line commands" href="run_all_in_one.html" />
+    <link rel="prev" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,13 +44,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="water_estimate_mc.html">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyAp - ternary plot of apatite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyAp - Stoichiometry calculation and ternary plot of apatite</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#1.-Import-modules">1. Import modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#2.-read-data">2. read data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#2.-Import-data">2. Import data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#3.-Ternary-plot">3. Ternary plot</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">pyAp - Command line commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -70,7 +73,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
-      <li>pyAp - ternary plot of apatite</li>
+      <li>pyAp - Stoichiometry calculation and ternary plot of apatite</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/plot_ternary_test_stoichiometry.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -350,10 +353,10 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="pyAp---ternary-plot-of-apatite">
-<h1>pyAp - ternary plot of apatite<a class="headerlink" href="#pyAp---ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
-<p>pyAp has a built-in function <code class="docutils literal notranslate"><span class="pre">ApTernary.py</span></code> to plot F-Cl-OH ternary diagram for apatite.</p>
-<p>Below we show an example of plotting F, OH, and Cl concentrations measured for apatite into a ternary diagram.</p>
+<div class="section" id="pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite">
+<h1>pyAp - Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
+<p>pyAp supports stoichiometry calculations for F, Cl, and OH-apatite with the built-in function <code class="docutils literal notranslate"><span class="pre">ApStoic.py</span></code>. Consequently, the results can be plotted in the F-Cl-OH ternary diagram by calling functions in <code class="docutils literal notranslate"><span class="pre">ApThernary.py</span></code>.</p>
+<p>Below we show an example of stoichiometry calculation and visualize the results in a ternary diagram.</p>
 <div class="section" id="1.-Import-modules">
 <h2>1. Import modules<a class="headerlink" href="#1.-Import-modules" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
@@ -373,24 +376,28 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="2.-read-data">
-<h2>2. read data<a class="headerlink" href="#2.-read-data" title="Permalink to this headline"></a></h2>
-<div class="nbinput docutils container">
+<div class="section" id="2.-Import-data">
+<h2>2. Import data<a class="headerlink" href="#2.-Import-data" title="Permalink to this headline"></a></h2>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;/input/4ApThermo/&#39;</span><span class="p">)</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">folder</span> <span class="o">/</span> <span class="s1">&#39;data.xlsx&#39;</span><span class="p">)</span>
-
-<span class="c1">## choose oxygen number = 26 (for F- or Cl-apatite) or 25 (for OH-apatite)</span>
-<span class="n">results_stoi</span> <span class="o">=</span> <span class="n">stoi_</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">assume_oxy</span> <span class="o">=</span> <span class="mi">26</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_ap_major_volatile.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The stoichiometry calculation allows users to choose oxygen number 26 for F- or Cl-apatite or 25 for OH-apatite by assigning an instance to the <code class="docutils literal notranslate"><span class="pre">assume_oxy</span></code> in the <code class="docutils literal notranslate"><span class="pre">stoi_()</span></code>. If no value is assigned, the default will be 26.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span> <span class="o">=</span> <span class="n">stoi_</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">assume_oxy</span> <span class="o">=</span> <span class="mi">26</span><span class="p">)</span>
 <span class="n">results_stoi</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -412,23 +419,23 @@ div.rendered_html tbody tr:hover {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>SIO2</th>
-      <th>TIO2</th>
-      <th>AL2O3</th>
-      <th>FEO</th>
-      <th>CAO</th>
-      <th>MGO</th>
-      <th>MNO</th>
-      <th>K2O</th>
-      <th>NA2O</th>
-      <th>P2O5</th>
-      <th>SO3</th>
-      <th>CO2</th>
-      <th>F</th>
-      <th>CL</th>
-      <th>H2O</th>
-      <th>CE2O3</th>
-      <th>SRO</th>
+      <th>SI</th>
+      <th>TI</th>
+      <th>AL</th>
+      <th>FE</th>
+      <th>CA</th>
+      <th>MG</th>
+      <th>MN</th>
+      <th>K</th>
+      <th>NA</th>
+      <th>P</th>
+      <th>S</th>
+      <th>C</th>
+      <th>XF</th>
+      <th>XCL</th>
+      <th>XOH</th>
+      <th>CE</th>
+      <th>SR</th>
       <th>stoi,(Ca/P-5/3)/(5/3)*100%</th>
       <th>sample</th>
     </tr>
@@ -436,67 +443,67 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.017031</td>
-      <td>0.012811</td>
-      <td>0.020071</td>
-      <td>0.014243</td>
-      <td>9.852883</td>
-      <td>0.025391</td>
-      <td>0.014424</td>
-      <td>0.021725</td>
-      <td>0.033018</td>
-      <td>5.76717</td>
-      <td>0.025562</td>
-      <td>0.002325</td>
-      <td>0.694043</td>
-      <td>0.061986</td>
-      <td>0.243971</td>
-      <td>0.012469</td>
-      <td>0.009875</td>
+      <td>0.017412</td>
+      <td>0.013097</td>
+      <td>0.020520</td>
+      <td>0.014561</td>
+      <td>10.072936</td>
+      <td>0.025958</td>
+      <td>0.014746</td>
+      <td>0.022210</td>
+      <td>0.033756</td>
+      <td>5.895973</td>
+      <td>0.026133</td>
+      <td>0.002377</td>
+      <td>0.825950</td>
+      <td>0.073766</td>
+      <td>0.100284</td>
+      <td>0.012748</td>
+      <td>0.010095</td>
       <td>3.656599</td>
       <td>Ap1</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.017031</td>
-      <td>0.012811</td>
-      <td>0.020071</td>
-      <td>0.014243</td>
-      <td>9.852883</td>
-      <td>0.025391</td>
-      <td>0.014424</td>
-      <td>0.021725</td>
-      <td>0.033018</td>
-      <td>5.76717</td>
-      <td>0.025562</td>
-      <td>0.002325</td>
-      <td>0.694043</td>
-      <td>0.061986</td>
-      <td>0.243971</td>
-      <td>0.012469</td>
-      <td>0.009875</td>
+      <td>0.017514</td>
+      <td>0.013175</td>
+      <td>0.020641</td>
+      <td>0.014647</td>
+      <td>10.132331</td>
+      <td>0.026111</td>
+      <td>0.014833</td>
+      <td>0.022341</td>
+      <td>0.033955</td>
+      <td>5.930739</td>
+      <td>0.026287</td>
+      <td>0.002391</td>
+      <td>0.692350</td>
+      <td>0.059361</td>
+      <td>0.248289</td>
+      <td>0.012823</td>
+      <td>0.010155</td>
       <td>3.656599</td>
       <td>Ap2</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.017031</td>
-      <td>0.012811</td>
-      <td>0.020071</td>
-      <td>0.014243</td>
-      <td>9.852883</td>
-      <td>0.025391</td>
-      <td>0.014424</td>
-      <td>0.021725</td>
-      <td>0.033018</td>
-      <td>5.76717</td>
-      <td>0.025562</td>
-      <td>0.002325</td>
-      <td>0.694043</td>
-      <td>0.061986</td>
-      <td>0.243971</td>
-      <td>0.012469</td>
-      <td>0.009875</td>
+      <td>0.017419</td>
+      <td>0.013103</td>
+      <td>0.020528</td>
+      <td>0.014567</td>
+      <td>10.077123</td>
+      <td>0.025968</td>
+      <td>0.014752</td>
+      <td>0.022219</td>
+      <td>0.033770</td>
+      <td>5.898424</td>
+      <td>0.026144</td>
+      <td>0.002378</td>
+      <td>0.771207</td>
+      <td>0.118075</td>
+      <td>0.110718</td>
+      <td>0.012753</td>
+      <td>0.010100</td>
       <td>3.656599</td>
       <td>Ap3</td>
     </tr>
@@ -504,17 +511,17 @@ div.rendered_html tbody tr:hover {
 </table>
 </div></div>
 </div>
-<p>The sum of XF + XCl + XOH should be 1</p>
+<p>To check the calculation, the sum of calculated F, Cl and H2O (OH) fraction should be 1.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XOH&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -531,15 +538,15 @@ dtype: float64
 <p>Choose the data you would like to plot in ternary diagram</p>
 <p>If you have calculated F-Cl-OH mole fractions from lines above</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_stoi</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
 
-    <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span>
-    <span class="n">x_cl</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span>
+    <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span>
+    <span class="n">x_cl</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_f</span> <span class="o">+</span> <span class="n">x_cl</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x_cl</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
 
@@ -559,20 +566,20 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_10_0.png" src="_images/plot_ternary_test_stoichiometry_10_0.png" />
+<img alt="_images/plot_ternary_test_stoichiometry_12_0.png" src="_images/plot_ternary_test_stoichiometry_12_0.png" />
 </div>
 </div>
 <p>Or you have known F-Cl-OH mole fractions and they are in excel file</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">folder</span> <span class="o">/</span> <span class="s1">&#39;calc_water.xlsx&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_calc_water.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -601,7 +608,7 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_13_0.png" src="_images/plot_ternary_test_stoichiometry_13_0.png" />
+<img alt="_images/plot_ternary_test_stoichiometry_15_0.png" src="_images/plot_ternary_test_stoichiometry_15_0.png" />
 </div>
 </div>
 </div>
@@ -611,14 +618,14 @@ dtype: float64
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="water_estimate_mc.html" class="btn btn-neutral float-left" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="contrib.html" class="btn btn-neutral float-right" title="Contribution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="calc_water.html" class="btn btn-neutral float-left" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="run_all_in_one.html" class="btn btn-neutral float-right" title="pyAp - Command line commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Weiran (Alex) Li, Yishen (Eason) Zhang.</p>
+    <p>&#169; Copyright 2022, Weiran Li &amp; Yishen Zhang.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

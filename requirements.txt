@@ -1,7 +1,0 @@
-pandas
-matplotlib
-numpy 
-scipy
-seaborn
-ipykernel
-nbsphinx

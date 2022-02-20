@@ -1,29 +1,29 @@
 .. pyAp documentation master file, created by
-   sphinx-quickstart on Wed Jan 12 13:19:45 2022.
+   sphinx-quickstart on Sun Feb 20 11:04:58 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-pyAp Quickstart
+Welcome to pyAp's documentation!
 ================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   changelog
    about
+   models
    tutorials
    contrib
    license
 
+
 Installation
-#################################
-Currently pyAp only accept installation by running
+#########
+To install pyAp, please run ``python setup.py install`` in the package depository using command lines
 
-.. code-block:: python
 
-   python setup.py install
 
-in the package depository using command lines
 
 Indices and tables
 ==================

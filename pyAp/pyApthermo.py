@@ -1,9 +1,11 @@
 """
 Weiran Li & Yishen Zhang
-2022-01-10, v1.0
 
-! Make sure to cite the paper below if you use "ApThermo" in your research:
-    Li and Costa (2020, GCA) https://doi.org/10.1016/j.gca.2019.10.035 
+2022-01-14, v1.0
+
+Please cite the paper below if you use "ApThermo" in your research:
+
+Li and Costa (2020, GCA) https://doi.org/10.1016/j.gca.2019.10.035
 """
 
 import scipy.optimize
@@ -58,21 +60,23 @@ class ApThermo:
                                 'andesite_highT': [2.99,  -3650  ],   
                                 'default':        [1.49 , -2634  ]    # dacite
                                     }
+        if type(inputs) == list:
+            self.x_f = float(inputs[0])
+            self.x_cl = float(inputs[1])
+            self.t_c  = float(inputs[2])
+            self.meltf = float(inputs[3])
+            self.meltcl = float(inputs[4])
+            self.meltcomp = inputs[-1]
 
-        self.x_f, self.x_cl, self.t_c, self.meltf, self.meltcl, self.meltcomp = inputs.values
-        self.cal_H2O = cal_H2O
-        self.cal_gamma = cal_gamma
-        self.t_k = self.t_c + 273.15
+        else:
+            self.x_f, self.x_cl, self.t_c, self.meltf, self.meltcl, self.meltcomp = inputs.values
 
-        # # if the melt is a rhyolite with relatively high pressure (1 GPa)
-        # if self.highP:
-        #     self.speciation_dict["rhyolite_highP"] = [1.804,-3090]
+        self.t_k        = float(self.t_c) + 273.15
 
-        # # if the melt is an andesite with relatively high temperature (1100-1300 ºC)
-        # if self.highT:
-        #     self.speciation_dict["andesite_highT"] = [2.99, -3650]
+        self.cal_H2O    = cal_H2O
+        self.cal_gamma  = cal_gamma
+     
     
-
         # calculate OH mole fraction (x_oh>0)
         self.x_oh = 1 - (self.x_cl + self.x_f)
         if self.x_oh < 0:
@@ -138,8 +142,11 @@ class ApThermo:
             return y
         try:
             moleH2O_melt = scipy.optimize.fsolve(func_speci,0.01)
+            if moleH2O_melt <0:
+                moleH2O_melt = 0
         except:
             moleH2O_melt = np.nan
+            
 
         ## solve the function below to calculate melt H2O (mole) using melt OH (mole)
         def func_wt(x):
@@ -147,6 +154,10 @@ class ApThermo:
             return y
         try:
             MeltWater = scipy.optimize.fsolve(func_wt,1)[0]   # x100 wt.%
+            
+            # constrain the range of H2O in silicate melt as [0,16] wt%
+            if MeltWater > 14.999/100 or MeltWater<0:   
+                moleH2O_melt = np.nan
         except:
             MeltWater = np.nan
 
@@ -168,7 +179,7 @@ class ApThermo:
                 a, b = self.speciation_dict.get(self.meltcomp) # 
             else:
                 a, b = self.speciation_dict['default']
-            
+
 
             # equilibrium constnat k2 of water speciation reaction
             keq = math.exp(a + b/self.t_k)
@@ -191,11 +202,4 @@ class ApThermo:
             MeltWater_F  = self.conversion(moleOH_melt_fromF,k2)
             
             
-            # assuming maximum water concentration in the melt in real world is 15 wt.%
-            if MeltWater_Cl > 15:
-                MeltWater_Cl = 15
-                
-            if MeltWater_F > 15:
-                MeltWater_F = 15
-
             return  [MeltWater_F, MeltWater_Cl,Kd_OHCl, Kd_OHF, Kd_ClF, gammaOH, gammaF, gammaCl]

@@ -13,7 +13,7 @@ It includes multiple apatite-based models developed by W. Li and co-authors, inc
   
   - Outputs: Apatite stoichiometry (atom per fomula unit); Exchange coefficients for OH-Cl and/or OH-F; H<sub>2</sub>O concentrations in the melt
   
-* ApREE2O3 (coming soon): a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity (*fO<sub>2</sub>*) (following Li et al, in review)
+* ApREE2O3: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity (*fO<sub>2</sub>*) (following Li et al, in review)
 
   - Inputs:  Trace element concentrations in apatite and melt (be it melt inclusions/groundmass/whole rock)
   
@@ -23,10 +23,10 @@ It includes multiple apatite-based models developed by W. Li and co-authors, inc
 
 
 ## Documentation
-Full documentation, further information about the package, and a tutorial for getting started are provided at [documentation page](https://pyapati.readthedocs.io/en/latest/).
+Full documentation, further information about the package, and a tutorial for getting started are provided at [pyap.readthedocs.io](https://pyapati.readthedocs.io/en/latest/)
 
 ## Installation
-pyAp can be installed by running `python setup.py install` in the package depository using command lines
+pyAp can be installed by running ```python setup.py install``` in the package depository using command lines
 
 ## Citing pyAp
 If this package enables or aids your research please cite the relevant publications for:

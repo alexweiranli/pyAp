@@ -1,9 +1,34 @@
 """
-Tools for pyAp
+Weiran Li & Yishen Zhang
+
+2022-01-14, v1.0
 
 """
-import numpy as np, pandas as pd, time, sys
 
+import numpy as np
+import pandas as pd
+import time, sys
+
+
+## allow users to type in "y/n" or "yes/no" for next steps when running examples in pyAp
+def yes_or_no(question):
+    
+    answer = input(question + "(y/n): ").lower().strip()
+    print("")
+    
+    while not(answer == "y" or answer == "yes" or \
+    answer == "n" or answer == "no"):
+        print("Input y (yes) or n (no)")
+        answer = input(question + "(y/n):").lower().strip()
+        print("")
+
+    if answer[0] == "y":
+        return True
+    else:
+        return False
+
+
+## for mc calculation 
 def ap_mc(comp, std, i, mc):
     """
     MC calculation model for pyAp

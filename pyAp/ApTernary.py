@@ -1,3 +1,13 @@
+"""
+Weiran Li & Yishen Zhang
+
+2022-01-14, v1.0
+
+Please cite the paper below if you use "ApThermo" in your research:
+
+Li and Costa (2020, GCA) https://doi.org/10.1016/j.gca.2019.10.035
+"""
+
 import matplotlib.pyplot as plt, math, numpy as np
 
 def ternary(n):
