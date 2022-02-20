@@ -17,7 +17,7 @@ Note that for windows users, the command line commands work in Anaconda prompt o
 
     Calculate mole fractions and a.p.f.u. ?(y/n):y
 
-By give ``y`` as yes and ``n`` as no to continue or skip the calculation.
+By choosing ``y`` as yes and ``n`` as no to continue or skip the calculation.
 
 .. code-block:: bash
 
