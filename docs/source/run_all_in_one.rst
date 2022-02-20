@@ -1,4 +1,4 @@
-3. pyAp - Command line commands
+4. pyAp - Excultion of all calculatons at once
 =============
 
 To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume to one downloaded from github as pyAp-main, for example:

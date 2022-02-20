@@ -6,4 +6,5 @@ Tutorial
 
    calc_water
    plot_ternary_test_stoichiometry
+   tutorial_calcAST
    run_all_in_one

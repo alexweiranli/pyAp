@@ -1,0 +1,135 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 3. Examples for apatite saturation temperature (AST) calculation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Import modules"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os, sys\n",
+    "# hack to allow scripts to be placed in subdirectories next to pyAp:\n",
+    "if not os.path.exists('pyAp') and os.path.exists('../pyAp'):\n",
+    "    sys.path.insert(1, os.path.abspath('..'))\n",
+    "from pathlib import Path\n",
+    "import math, random, pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sns\n",
+    "import warnings    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pyAp.ApSatTemp as calc_AST"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Inputs are SiO<sub>2</sub> (wt%) concentration in the melt, and P<sub>2</sub>O<sub>5</sub> (wt%) concentration in the melt "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "When wrong input values are used. For example, one uses concetration (conc) in the incorrect mass fraction (0<conc<1) rather than the correct weight percent (1<conc<100)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      ">> Concentrations are expressed as mass fractions. Multiply them by 100 to convert into percentage!\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "nan"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "calc_AST.AST(0.55,0.003)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "When correct input values are used"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "849.3629335400316"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "calc_AST.AST(55,0.3)"
+   ]
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "567f84e64c80370d0be2865da5fab130ada5e27558a33e3ef552b38e670b6780"
+  },
+  "kernelspec": {
+   "display_name": "Python 3.8.5 ('base')",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.6"
+  },
+  "orig_nbformat": 4
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
