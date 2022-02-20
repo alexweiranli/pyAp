@@ -1,6 +1,20 @@
 pyAp - Command line commands
 =============
 
+To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume to one downloaded from github as pyAp-main, for example:
+
+.. code-block:: bash
+
+    $ cd pyAp-main
+
+If you downloaded the lastest version of pyAp, there should be several directories including a ``setup.py`` script, ``docs``, ``pyAp``, ``example``, ``contrib`` and ``tutorial`` folders.
+
+Then one can run the python command to install ``setup.py`` file in the folder as:
+
+.. code-block:: bash
+
+    $ python setup.py install
+
 pyAp includes a python script integrated all models and runs with command line. To use the script, one should change the working directory to the example folder:
 
 .. code-block:: bash
