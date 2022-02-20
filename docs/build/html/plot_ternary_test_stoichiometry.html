@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyAp - Stoichiometry calculation and ternary plot of apatite &mdash; pyAp v0.1 documentation</title>
+  <title>2. pyAp - Stoichiometry calculation and ternary plot of apatite &mdash; pyAp v0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pyAp - Command line commands" href="run_all_in_one.html" />
-    <link rel="prev" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" /> 
+    <link rel="prev" title="1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,11 +42,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyAp - Stoichiometry calculation and ternary plot of apatite</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#1.-Import-modules">1. Import modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#2.-Import-data">2. Import data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#3.-Ternary-plot">3. Ternary plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html">1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. pyAp - Stoichiometry calculation and ternary plot of apatite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-modules">Import modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Ternary-plot">Ternary plot</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">pyAp - Command line commands</a></li>
@@ -71,7 +71,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
-      <li>pyAp - Stoichiometry calculation and ternary plot of apatite</li>
+      <li>2. pyAp - Stoichiometry calculation and ternary plot of apatite</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/plot_ternary_test_stoichiometry.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -351,12 +351,12 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite">
-<h1>pyAp - Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
+<div class="section" id="2.-pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite">
+<h1>2. pyAp - Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#2.-pyAp---Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
 <p>pyAp supports stoichiometry calculations for F, Cl, and OH-apatite with the built-in function <code class="docutils literal notranslate"><span class="pre">ApStoic.py</span></code>. Consequently, the results can be plotted in the F-Cl-OH ternary diagram by calling functions in <code class="docutils literal notranslate"><span class="pre">ApThernary.py</span></code>.</p>
 <p>Below we show an example of stoichiometry calculation and visualize the results in a ternary diagram.</p>
-<div class="section" id="1.-Import-modules">
-<h2>1. Import modules<a class="headerlink" href="#1.-Import-modules" title="Permalink to this headline"></a></h2>
+<div class="section" id="Import-modules">
+<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -374,8 +374,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="2.-Import-data">
-<h2>2. Import data<a class="headerlink" href="#2.-Import-data" title="Permalink to this headline"></a></h2>
+<div class="section" id="Import-data">
+<h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -532,8 +532,8 @@ dtype: float64
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="3.-Ternary-plot">
-<h2>3. Ternary plot<a class="headerlink" href="#3.-Ternary-plot" title="Permalink to this headline"></a></h2>
+<div class="section" id="Ternary-plot">
+<h2>Ternary plot<a class="headerlink" href="#Ternary-plot" title="Permalink to this headline"></a></h2>
 <p>Choose the data you would like to plot in ternary diagram</p>
 <p>If you have calculated F-Cl-OH mole fractions from lines above</p>
 <div class="nbinput docutils container">
@@ -617,7 +617,7 @@ dtype: float64
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="calc_water.html" class="btn btn-neutral float-left" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="calc_water.html" class="btn btn-neutral float-left" title="1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="run_all_in_one.html" class="btn btn-neutral float-right" title="pyAp - Command line commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration &mdash; pyAp v0.1 documentation</title>
+  <title>1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration &mdash; pyAp v0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyAp - Stoichiometry calculation and ternary plot of apatite" href="plot_ternary_test_stoichiometry.html" />
+    <link rel="next" title="2. pyAp - Stoichiometry calculation and ternary plot of apatite" href="plot_ternary_test_stoichiometry.html" />
     <link rel="prev" title="Tutorial" href="tutorials.html" /> 
 </head>
 
@@ -42,14 +42,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#1.-Import-modules">1. Import modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#2.-Import-data">2. Import data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#3.-Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">3. Calculate H2O in the melt from F and Cl in the apatite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#4.-Error-integration-from-monte-carlo-simulation-(MCS)">4. Error integration from monte carlo simulation (MCS)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-modules">Import modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">Calculate H2O in the melt from F and Cl in the apatite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Error-integration-from-monte-carlo-simulation-(MCS)">Error integration from monte carlo simulation (MCS)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">pyAp - Stoichiometry calculation and ternary plot of apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. pyAp - Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">pyAp - Command line commands</a></li>
 </ul>
 </li>
@@ -72,7 +72,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
-      <li>pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</li>
+      <li>1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/calc_water.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -352,15 +352,15 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
-<h1>pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
+<div class="section" id="1.-pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
+<h1>1. pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#1.-pyAp---Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
 <p>pyAp includes the melt hygrometry model (ApThermo) of Li and Costa (2020, GCA) with equations provided in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>.</p>
 <p>Applying this model requires known F, Cl (and H2O) concentrations in apatite, and the F and Cl concentrations in the melt (in equilibrium with apatite).</p>
 <p>This example file includes error estimation for the calculated water estimates using a monte carlo simuation algorithm, which is not available in our ApThermo webpage or excel versions.</p>
 <p>Please cite Li and Costa (2020) if you use this model:</p>
 <p>Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
-<div class="section" id="1.-Import-modules">
-<h2>1. Import modules<a class="headerlink" href="#1.-Import-modules" title="Permalink to this headline"></a></h2>
+<div class="section" id="Import-modules">
+<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -387,8 +387,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="2.-Import-data">
-<h2>2. Import data<a class="headerlink" href="#2.-Import-data" title="Permalink to this headline"></a></h2>
+<div class="section" id="Import-data">
+<h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline"></a></h2>
 <p>!! Do NOT change the column headers in the template provided in the tutorial folder.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -409,8 +409,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="3.-Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">
-<h2>3. Calculate H2O in the melt from F and Cl in the apatite<a class="headerlink" href="#3.-Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
+<div class="section" id="Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">
+<h2>Calculate H2O in the melt from F and Cl in the apatite<a class="headerlink" href="#Calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">The available water speciation models we have compiled are available in “pyAp/water_speciation.csv” and also implemented in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>. The existing models include:</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">dacite</span></code> (Liu et al. 2004)</div>
@@ -506,8 +506,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="4.-Error-integration-from-monte-carlo-simulation-(MCS)">
-<h2>4. Error integration from monte carlo simulation (MCS)<a class="headerlink" href="#4.-Error-integration-from-monte-carlo-simulation-(MCS)" title="Permalink to this headline"></a></h2>
+<div class="section" id="Error-integration-from-monte-carlo-simulation-(MCS)">
+<h2>Error integration from monte carlo simulation (MCS)<a class="headerlink" href="#Error-integration-from-monte-carlo-simulation-(MCS)" title="Permalink to this headline"></a></h2>
 <p>Below we give an example for MCS to integrate analytical errors from melt compositions, apatite composition, and temperature.</p>
 <p>First, set the entry of MCS (number of runs); better to be larger than 1000.</p>
 <div class="nbinput nblast docutils container">
@@ -724,7 +724,7 @@ div.rendered_html tbody tr:hover {
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plot_ternary_test_stoichiometry.html" class="btn btn-neutral float-right" title="pyAp - Stoichiometry calculation and ternary plot of apatite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_ternary_test_stoichiometry.html" class="btn btn-neutral float-right" title="2. pyAp - Stoichiometry calculation and ternary plot of apatite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
