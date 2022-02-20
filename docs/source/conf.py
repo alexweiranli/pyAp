@@ -30,11 +30,16 @@ release = 'v0.1'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-"nbsphinx",
-"myst_parser"
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.napoleon',
+              'sphinx.ext.viewcode',
+              "nbsphinx",
+              'sphinx.ext.mathjax',
+              'sphinx.ext.imgmath',
 ]
-
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
