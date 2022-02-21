@@ -29,7 +29,16 @@ dict_catnum = {'SIO2':1,'TIO2':1,'AL2O3':2,'FEO':1,'CAO':1,'MGO':1,'MNO':1,'K2O'
 ## read oxide names
 oxides = list(dict_molar)
 
-
+    
+# when concentration value is not provided, replace it with 0; otherwise, keep its value.
+def conc_(v):
+    if v == v:
+        return v
+    elif type(v) != float or int:
+          return 0
+    else:
+        return 0
+      
 def stoi_ketcham(data):  
     """
     function to calculate apatite apfu and test stoichiometry 
@@ -42,16 +51,8 @@ def stoi_ketcham(data):
     Return:
     -------
     results: :class: `pandas.Dataframe`
-            saved csv file
 
     """
-    
-    # when concentration value is not provided, replace it with 0; otherwise, keep its value.
-    def conc_(v):
-        if v == v:
-            return v
-        else:
-            return 0
     
     results = pd.DataFrame(columns = oxides)
     bias = []; oxygen_corr_all = []
