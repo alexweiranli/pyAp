@@ -10,8 +10,6 @@ if not os.path.exists('pyAp') and os.path.exists('../pyAp'): # hack to allow scr
 
 from pyAp import pyApthermo
 from pyAp.pyAp_tools import ap_mc, yes_or_no
-
-# - import module finish - #
 ##############################
 
 
@@ -41,17 +39,12 @@ if yes_or_no("\nRun MC for error propagation?"):
     mc = 1000   # set mc
     print('>> Simulation starts ...')
 
-    # if mc > 500:
-    #     load_animation()
-
     # create dataframe for mc collection
     ap_mc_collect = pd.DataFrame([])
-
     comp = df[['XF', 'XCL', 'T,C', 'MELTF', 'MELTCL']]
     std = df[['XF_SD', 'XCL_SD', 'T_SD','MELTF_SD', 'MELTCL_SD']]
-
+    
     for idx in range(len(df)):
-
         df_iter = ap_mc(comp, std, idx, mc)
         ap_mc_collect = ap_mc_collect.append(df_iter)
 
@@ -90,21 +83,16 @@ if yes_or_no("\nRun MC for error propagation?"):
     results['MeltWater_Cl1sd'] = [x for x in sd_Cl]
     results['MeltWater_Cl_error,100%']  = results['MeltWater_Cl1sd']/results['MeltWater_Clmedian']*100
 
-    results.to_csv(fn)
-    
+    results.to_csv(fn)   
     print(results)
-
     print('\n>> The median and standard deviation of MC results are saved in csv file: '+ fn)
 
 
     ### plot results ###
     fig, axes = plt.subplots(1, 2, figsize=(9,4), constrained_layout=True)
-
     # results_mc.dropna(inplace=True)
     sns.kdeplot(x = 'MeltWater_calcfromF', data=results_mc, hue='sample', ax = axes[0])
     sns.kdeplot(x = 'MeltWater_calcfromCl', data=results_mc, hue='sample', ax = axes[1])
-  
-
     plt.show()
 
 

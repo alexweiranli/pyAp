@@ -9,35 +9,29 @@ Li and Costa (2020, GCA) https://doi.org/10.1016/j.gca.2019.10.035
 """
 
 import matplotlib.pyplot as plt, math, numpy as np
-
-def ternary(n):
+fontsize = 14
+def ternary(fig):
     """
-    function for ternary plot
-
-    Parameter:
-    -------
-    n: :class: `numpy.array`
-        numpber of figures to be plotted
-    """
+    function for apatite ternary plot on "fig"  
+    "fig" properties are defined by user outside this function.
     
-    fig, ax = plt.subplots(1)
-    fig.set_size_inches(7, 5.5)
+    """
 
     plt.plot([0,100],[0,0],'k-');
     plt.plot([0,50],[0,50*math.sqrt(3)],'k-');
     plt.plot([50,100],[50*math.sqrt(3),0],'k-');
     plt.axis('off');
-
+    
     # show names of the three end members
-    plt.annotate('OH', xy=(0.02, 0.02), xycoords='axes fraction', fontsize=14, color = 'k',
+    plt.annotate('OH', xy=(0.02, 0.02), xycoords='axes fraction', fontsize=fontsize, color = 'k',
                     xytext=(-5, 5), textcoords='offset points',
                     ha='left', va='top') ;
 
-    plt.annotate('F', xy=(0.95, 0.02), xycoords='axes fraction', fontsize=14, color = 'k',
+    plt.annotate('F', xy=(0.95, 0.02), xycoords='axes fraction', fontsize=fontsize, color = 'k',
                     xytext=(-5, 5), textcoords='offset points',
                     ha='left', va='top') ;
 
-    plt.annotate('Cl', xy=(0.49, 0.98), xycoords='axes fraction', fontsize=14, color = 'k',
+    plt.annotate('Cl', xy=(0.49, 0.98), xycoords='axes fraction', fontsize=fontsize, color = 'k',
                     xytext=(-5, 5), textcoords='offset points',
                     ha='left', va='top') ;
 

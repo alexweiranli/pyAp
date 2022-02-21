@@ -13,15 +13,16 @@ from pyAp import ApTernary
 # - import module finish - #
 ############################################################################
 
+# set up a figure for ternary plot
+fig = plt.figure()
+fig.set_size_inches(10, 8)
 
-## plot 1 ternary template (no data) 
-ApTernary.ternary(1)
+# plot ternary (w/o data)  
+ApTernary.ternary(fig)
 
 ## plot data in ternary diagram
-# read data, choose from files below 
-
-# df = pd.read_excel('data_calc_water.xlsx')
-df = pd.read_csv('outputs_apfu_26o.csv')
+# load data from csv/xlsx file 
+df = pd.read_csv('outputs_apfu_26o.csv') # df = pd.read_excel('data_calc_water.xlsx')
 
 # calculate the x,y coordinates on ternary diagram according to input XF and XCL values
 for idx, value in df.iterrows():

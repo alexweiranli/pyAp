@@ -57,7 +57,10 @@ if tools.yes_or_no("\nPlot F-Cl-OH ternary ?"):
 
     print(instruction)
 
-    ApTernary.ternary(1)
+#     set up figure for ternary plot
+    fig = plt.figure()
+    fig.set_size_inches(10, 8)
+    ApTernary.ternary(fig) 
     
     for idx, value in results.iterrows():
 

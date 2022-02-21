@@ -32,8 +32,11 @@ oxides = list(dict_molar)
 def conc_(v):
     if v == v:
         return v
+    elif type(v) != float or int:
+        return 0
     else:
         return 0
+      
 def stoi_(data,assume_oxy=26):  
     """
     function to test apatite stoichiometry 
@@ -49,13 +52,6 @@ def stoi_(data,assume_oxy=26):
     results: :class: `pandas.Dataframe`
             saved csv file
     """
-    
-    # when concentration value is not provided, replace it with 0; otherwise, keep its value.
-    # def conc_(v):
-    #     if v == v:
-    #         return v
-    #     else:
-    #         return 0
     
     data = data.copy()
     # calculate atom per formula unit
@@ -91,26 +87,30 @@ def stoi_(data,assume_oxy=26):
         bias.append(100*abs(total_ca/total_phos - 5/3)/(5/3))
         
         
-        # if H2O was not measured
-        if data['H2O'][i] != data['H2O'][i]:
+        # if F and Cl were measured
+        if data['F'][i] == data['F'][i] and data['CL'][i] == data['CL'][i]:
+          # if H2O was not measured
+          if data['H2O'][i] != data['H2O'][i]:
 
-            apf_f = oxygen_factor * conc_(data['F'][i])/dict_molar['F']
-            apf_cl = oxygen_factor * conc_(data['CL'][i])/dict_molar['CL']
-            x_f = apf_f/2
-            x_cl = apf_cl/2
-            x_oh = 1 - x_f - x_cl
+              apf_f = oxygen_factor * conc_(data['F'][i])/dict_molar['F']
+              apf_cl = oxygen_factor * conc_(data['CL'][i])/dict_molar['CL']
+              x_f = apf_f/2
+              x_cl = apf_cl/2
+              x_oh = 1 - x_f - x_cl
 
+          # if H2O was measured
+          else:
+              mF =  data['F'][i]/dict_molar['F']
+              mCl = data['CL'][i]/dict_molar['CL']
+              moh =  2 * data['H2O'][i]/dict_molar['H2O']    
+              total_ani_m = mF + moh + mCl
+              x_f = mF/total_ani_m
+              x_cl = mCl/total_ani_m
+              x_oh = moh/total_ani_m
         
-        # if H2O was measured
+        
         else:
-            mF =  data['F'][i]/dict_molar['F']
-            mCl = data['CL'][i]/dict_molar['CL']
-            moh =  2 * data['H2O'][i]/dict_molar['H2O']
-            
-            total_ani_m = mF + moh + mCl
-            x_f = mF/total_ani_m
-            x_cl = mCl/total_ani_m
-            x_oh = moh/total_ani_m
+              x_f = x_cl = x_oh = 0
         
 
         ## save x_ to results dataframe
