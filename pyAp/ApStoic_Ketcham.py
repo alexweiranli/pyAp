@@ -57,7 +57,6 @@ def stoi_ketcham(data):
     results = pd.DataFrame(columns = oxides)
     bias = []; oxygen_corr_all = []
     assume_oxy = 26
-
     # read data
     for row in range(len(data)):
         
@@ -108,9 +107,9 @@ def stoi_ketcham(data):
         bias.append(100*abs(total_ca/total_phos - 5/3)/(5/3))        
 
         if data['H2O'][row] == data['H2O'][row]:
-            mF =  data['F'][i]/dict_molar['F']
-            mCl = data['CL'][i]/dict_molar['CL']
-            moh =  2 * data['H2O'][i]/dict_molar['H2O']
+            mF =  data['F'][row]/dict_molar['F']
+            mCl = data['CL'][row]/dict_molar['CL']
+            moh =  2 * data['H2O'][row]/dict_molar['H2O']
             
             total_ani_m = mF + moh + mCl
             x_f = mF/total_ani_m

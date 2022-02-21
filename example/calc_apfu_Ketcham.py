@@ -10,8 +10,6 @@ if not os.path.exists('pyAp') and os.path.exists('../pyAp'): # hack to allow scr
 
 ## calculate OH mole fraction using the method of Ketcham 2015, Am.Min.
 from pyAp.ApStoic_Ketcham import stoi_ketcham
-
-
 # - import module finish - #
 ############################################################################
 
@@ -24,6 +22,6 @@ results = stoi_ketcham(data)
 
 # print results 
 print(results)
-
+print(results['XOH'])
 # save results to csv file
 results.to_csv('outputs_apfu_ketcham.csv')

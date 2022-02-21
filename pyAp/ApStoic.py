@@ -54,6 +54,7 @@ def stoi_(data,assume_oxy=26):
     """
     
     data = data.copy()
+    
     # calculate atom per formula unit
     results = pd.DataFrame(columns = oxides)
     bias = []

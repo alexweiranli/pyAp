@@ -51,7 +51,6 @@ if tools.yes_or_no("\nCalculate mole fractions and a.p.f.u. ?"):
 else:
     results = dff
 
-
 ## plot apatite in ternary diagram if the user choose to (type in "y" in terminal)
 if tools.yes_or_no("\nPlot F-Cl-OH ternary ?"):
 
@@ -78,8 +77,6 @@ if tools.yes_or_no("\nPlot F-Cl-OH ternary ?"):
 
     plt.legend(loc='best')
     plt.show()
-
-
         
 ## calculate melt H2O contents if the user choose to (type in "y" in terminal)
 if tools.yes_or_no("\nCalculate melt H2O concentraion?"):
@@ -105,7 +102,6 @@ if tools.yes_or_no("\nCalculate melt H2O concentraion?"):
 
         fn = 'outputs_melt_water_allin1.csv'
         results.to_csv(fn)
-
 
         ## calculate errors in melt water contents consdidering errors in parameter values 
         if tools.yes_or_no("\nRun MC for error propagation?"):  
@@ -177,7 +173,5 @@ if tools.yes_or_no("\nCalculate melt H2O concentraion?"):
         
 
             plt.show()
-
-
     if len(results)<50:
         print(results)
