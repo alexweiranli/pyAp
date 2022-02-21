@@ -17,29 +17,6 @@ pyAp.ApTernary module
    :undoc-members:
    :show-inheritance:
 
-pyAp.f\_D0\_X module
---------------------
-
-.. automodule:: pyAp.f_D0_X
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyAp.f\_fit\_onuma module
--------------------------
-
-.. automodule:: pyAp.f_fit_onuma
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyAp.f\_fo2\_eu module
-----------------------
-
-.. automodule:: pyAp.f_fo2_eu
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 pyAp.pyAp\_tools module
 -----------------------

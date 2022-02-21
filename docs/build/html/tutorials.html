@@ -3,24 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial &mdash; pyAp 1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>Tutorial &mdash; pyAp v0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" />
+    <link rel="next" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" />
     <link rel="prev" title="About pyAp" href="about.html" /> 
 </head>
 
@@ -39,12 +38,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">pyAp - ternary plot of apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -100,24 +101,25 @@
 }
 </style>
 <div class="section" id="tutorial">
-<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="calc_water.html">pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html#1.-Import-modules">1. Import modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html#2.-Import-data-from-the-directory-where-the-input-data-xlsx-file-is.-The-path-identification-method-below-works-for-mac,-linux,-windows.">2. Import data from the directory where the input data xlsx file is. The path identification method below works for mac, linux, windows.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html#3.-calculate-H2O-in-the-melt-from-F-and-Cl-in-the-apatite">3. calculate H2O in the melt from F and Cl in the apatite</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html#save-results">save results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html#4.-Error-integration-from-monte-carlo-simulation-(MCS)">4. Error integration from monte carlo simulation (MCS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html#Import-modules">Import modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html#Import-data">Import data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html#Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite">Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt from F and Cl in the apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_water.html#Error-integration-from-monte-carlo-simulation-(MCS)">Error integration from monte carlo simulation (MCS)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">pyAp - ternary plot of apatite</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#1.-Import-modules">1. Import modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#2.-read-data">2. read data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#3.-Ternary-plot">3. Ternary plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#Import-modules">Import modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#Import-data">Import data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html#Ternary-plot">Ternary plot</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
 </ul>
 </div>
 </div>
@@ -127,13 +129,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="about.html" class="btn btn-neutral float-left" title="About pyAp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="calc_water.html" class="btn btn-neutral float-right" title="pyAp - Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="calc_water.html" class="btn btn-neutral float-right" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Weiran (Alex) Li, Yishen (Eason) Zhang.</p>
+    <p>&#169; Copyright 2022, Weiran Li &amp; Yishen Zhang.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

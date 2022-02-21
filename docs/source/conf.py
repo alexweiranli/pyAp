@@ -15,15 +15,14 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./../'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'pyAp'
-copyright = '2022, Weiran (Alex) Li, Yishen (Eason) Zhang'
-author = 'Weiran (Alex) Li, Yishen (Eason) Zhang'
+copyright = '2022, Weiran Li & Yishen Zhang'
+author = 'Weiran Li & Yishen Zhang'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+release = 'v0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,11 +30,16 @@ release = '1.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-"nbsphinx",
-"myst_parser"
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.napoleon',
+              'sphinx.ext.viewcode',
+              "nbsphinx",
+              'sphinx.ext.mathjax',
+              'sphinx.ext.imgmath',
 ]
-
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
