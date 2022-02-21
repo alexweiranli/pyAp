@@ -1,7 +1,7 @@
 """
 Weiran Li & Yishen Zhang
 
-2022-01-14, v1.0
+2022-02-20, v0.1
 
 Please cite the paper below if you use "ApThermo" in your research:
 
