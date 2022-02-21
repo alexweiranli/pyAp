@@ -35,6 +35,6 @@ ap_mc_stoic.reset_index(inplace=True, drop=True)
 ## calculate stoichiometry for all mc samples 
 ap_mc_res = stoi_(ap_mc_stoic)
 
-print('\n>> Simulation completed') 
+print('\n>> Simulation completed. Results saved to "mc_stoic.csv". ') 
 ap_mc_res.groupby('sample').agg(
     ['mean', 'median', 'std']).to_csv('mc_stoic.csv')
