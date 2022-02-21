@@ -22,7 +22,8 @@ class ApThermo:
     calculate exchange coefficients (Kd) and melt water contents using apatite
 
     Input values should be filled in the provided excel spreadsheet. 
-    !! Do NOT change the excel header names, but feel free to adjust the header order if you want.
+    
+    !! Do NOT change the column header names in the input file, as this code reads the data according to those names (it's okay to change column orders).
 
     Parameters ("inputs")
     --------  
@@ -37,6 +38,7 @@ class ApThermo:
     * MELTF   : F concentration in the melt, in wt%
     * MELTCL  : Cl concentration in the melt, in wt%
     * MELTCOMP: Melt composition (for choosing water speciation model)
+
 
     Switches (conditions for calculation)
     --------- 
@@ -71,8 +73,8 @@ class ApThermo:
         else:
             self.x_f, self.x_cl, self.t_c, self.meltf, self.meltcl, self.meltcomp = inputs.values
 
+            
         self.t_k        = float(self.t_c) + 273.15
-
         self.cal_H2O    = cal_H2O
         self.cal_gamma  = cal_gamma
      
@@ -166,8 +168,10 @@ class ApThermo:
 
     def meltH2O(self):
         """
-        calculate water concentrations in the melt (wt%) using OH/Cl and/or OH/F in the melt calculated from the function above
-
+        calculate water concentrations in the melt (wt%) using OH/Cl and/or OH/F in the melt and the "conversion" func written above
+        
+        return all results: melt water estimates, KDs, gammas 
+        
         """
         if self.cal_H2O:
 
