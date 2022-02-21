@@ -23,22 +23,9 @@ dict_oxynum = {'SIO2':2,'TIO2':2,'AL2O3':3,'FEO':1,'CAO':1,'MGO':1,'MNO':1,'K2O'
 dict_catnum = {'SIO2':1,'TIO2':1,'AL2O3':2,'FEO':1,'CAO':1,'MGO':1,'MNO':1,'K2O':2,'NA2O':2,'P2O5': 2,
                 'SO3':1, 'CO2':1, 'F':0, 'CL': 0, 'H2O': 0,
                 'CE2O3':2, 'SRO':1}
-
-    
-    
 ## read oxide names
 oxides = list(dict_molar)
 
-    
-# when concentration value is not provided, replace it with 0; otherwise, keep its value.
-def conc_(v):
-    if v == v:
-        return v
-    elif type(v) != float or int:
-          return 0
-    else:
-        return 0
-      
 def stoi_ketcham(data):  
     """
     function to calculate apatite apfu and test stoichiometry 
@@ -53,9 +40,11 @@ def stoi_ketcham(data):
     results: :class: `pandas.Dataframe`
 
     """
-    
+    data = data.copy()
+    data.fillna(0, inplace=True)
     results = pd.DataFrame(columns = oxides)
-    bias = []; oxygen_corr_all = []
+    bias = []
+    oxygen_corr_all = []
     assume_oxy = 26
     # read data
     for row in range(len(data)):
@@ -71,22 +60,22 @@ def stoi_ketcham(data):
             multi_all =[]; total_oxygen=[]    
             for oxide in oxides:     
                 molar = dict_molar[oxide]
-                conc = conc_(df[oxide])
+                conc = df[oxide]
                 
-                mole_fra = conc/molar
+                mole_fra = conc / molar
                 oxy_num =  mole_fra * dict_oxynum[oxide]
                 total_oxygen.append(oxy_num)
 
                 cat_num = dict_catnum[oxide]
-                multi = mole_fra*cat_num
+                multi = mole_fra * cat_num
                 multi_all.append(multi)
         
-            oxygen_factor =  assume_oxy/sum(total_oxygen)
+            oxygen_factor =  assume_oxy / sum(total_oxygen)
                   
-            apf_f = oxygen_factor * conc_(df['F'])/dict_molar['F']
-            apf_cl = oxygen_factor * conc_(df['CL'])/dict_molar['CL']
-            x_f = apf_f/2
-            x_cl = apf_cl/2
+            apf_f = oxygen_factor * df['F'] / dict_molar['F']
+            apf_cl = oxygen_factor * df['CL'] / dict_molar['CL']
+            x_f = apf_f / 2
+            x_cl = apf_cl / 2
             x_oh = 1 - x_f - x_cl
 
             if kk >=2 and x_oh == x_oh_all[-1] == x_oh_all[-2]:
@@ -95,7 +84,7 @@ def stoi_ketcham(data):
 
         oxygen_corr_all.append(assume_oxy)
 
-        apf = [mm*oxygen_factor for mm in multi_all] 
+        apf = [mm * oxygen_factor for mm in multi_all] 
         results.loc[row] = apf
         results['F'][row] = x_f 
         results['CL'][row] = x_cl
@@ -104,29 +93,27 @@ def stoi_ketcham(data):
         # test stoichiometry using molar Ca/P (=5/3)
         total_ca = sum(results.iloc[row][oxides[:9]])
         total_phos = sum(results.iloc[row][oxides[9:12]])
-        bias.append(100*abs(total_ca/total_phos - 5/3)/(5/3))        
+        bias.append(100 * abs(total_ca / total_phos - 5 / 3) / (5 / 3))        
 
-        if data['H2O'][row] == data['H2O'][row]:
-            mF =  data['F'][row]/dict_molar['F']
-            mCl = data['CL'][row]/dict_molar['CL']
-            moh =  2 * data['H2O'][row]/dict_molar['H2O']
+        if data['H2O'][row]:
+            mF =  data['F'][row] / dict_molar['F']
+            mCl = data['CL'][row] / dict_molar['CL']
+            moh =  2 * data['H2O'][row] / dict_molar['H2O']
             
             total_ani_m = mF + moh + mCl
             x_f = mF/total_ani_m
             x_cl = mCl/total_ani_m
             x_oh = moh/total_ani_m
             
-            ## save x_ to results dataframe
+            # save x_f, x_cl, x_oh to the results dataframe
             results['F'][row] = x_f 
             results['CL'][row] = x_cl 
             results['H2O'][row] = x_oh
 
-    results['OXYGEN NUMBER'] = oxygen_corr_all #data['OXYGEN NUMBER']
+    results['OXYGEN NUMBER'] = oxygen_corr_all  #data['OXYGEN NUMBER']
     results['stoic,(Ca/P-5/3)/(5/3)*100%'] = bias
     results['sample'] = data['sample']
 
     results.columns = ['SI','TI','AL','FE','CA','MG','MN','K','NA',
                         'P','S','C','XF','XCL','XOH','CE','SR','OXYGEN NUMBER','stoi,(Ca/P-5/3)/(5/3)*100%','sample']
-
-
     return  results

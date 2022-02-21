@@ -15,6 +15,6 @@ def AST(cSiO2,cP2O5):
         print('>> Warning: Concentrations are expressed as mass fractions. \n Multiply them by 100 to convert into percentage!')
         T_C = np.nan
     else:   
-        T_C=(26400*cSiO2/100 - 4800)/(12.4*cSiO2/100 - math.log(cP2O5/100) - 3.97) - 273.15
+        T_C = (26400 * cSiO2 / 100 - 4800) / (12.4 * cSiO2 / 100 - math.log(cP2O5 / 100) - 3.97) - 273.15
 
     return T_C
