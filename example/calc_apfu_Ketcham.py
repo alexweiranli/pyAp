@@ -8,7 +8,7 @@ import numpy as np
 if not os.path.exists('pyAp') and os.path.exists('../pyAp'): # hack to allow scripts to be placed in subdirectories next to pyAp:
     sys.path.insert(1, os.path.abspath('..'))
 
-## calculate OH mole fraction using the method of Ketcham (2015 Am.Min.)
+## calculate OH mole fraction using the method of Ketcham 2015, Am.Min.
 from pyAp.ApStoic_Ketcham import stoi_ketcham
 
 
@@ -19,7 +19,11 @@ from pyAp.ApStoic_Ketcham import stoi_ketcham
 fn = 'data_ap_major_volatile.xlsx'
 data = pd.read_excel(fn)
 
+# calculate stoichiometry following Ketcham (2015)
 results = stoi_ketcham(data)
 
-print(results['XOH'])
+# print results 
+print(results)
+
+# save results to csv file
 results.to_csv('outputs_apfu_ketcham.csv')
