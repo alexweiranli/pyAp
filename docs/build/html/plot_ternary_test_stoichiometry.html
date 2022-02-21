@@ -663,9 +663,9 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0    25.897950
-1    25.748069
-2    25.887356
+0    25.896121
+1    25.744319
+2    25.885361
 Name: OXYGEN NUMBER, dtype: float64
 </pre></div></div>
 </div>
@@ -699,7 +699,12 @@ dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up a figure for ternary plot</span>
+<span class="n">fig1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig1</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># plot ternary (w/o data)</span>
+<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">fig1</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_stoi</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
 
@@ -740,9 +745,11 @@ dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig2</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
-
+<span class="c1"># plot ternary (w/o data)</span>
+<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
 
     <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span>
