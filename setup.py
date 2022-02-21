@@ -14,6 +14,7 @@ setuptools.setup(
     'pandas',
     'matplotlib',
     'numpy',
-    'scipy'
+    'scipy',
+    'seaborn'
     ]
 )

@@ -20,7 +20,7 @@ Welcome to pyAp's documentation!
 
 Installation
 #########
-To install pyAp, please run ``python setup.py install`` in the package depository using command lines
+To install pyAp, please run ``python setup.py install`` in the package depository using command line commands
 
 
 
