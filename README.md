@@ -34,4 +34,6 @@ Li, W. & Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between
 **ApREE2O3**:
 Li, W., Costa, F, Oppenheimer, C. & Nagashima (in review) K. Measurements and a general model of volatile and trace element partitioning between apatite and alkaline melts. 
 
-You are encouraged to cite the specific version of the package you used. The DOI of the first zenodo release (v0.1) is: 10.5281/zenodo.6228767
+You are encouraged to cite the specific version of the package you used. The DOI of the first zenodo release (v0.1) is
+[![DOI](https://zenodo.org/badge/431824228.svg)](https://zenodo.org/badge/latestdoi/431824228)
+
