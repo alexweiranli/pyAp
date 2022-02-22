@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial &mdash; pyAp v0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="tutorial_calc_water.html" />
+    <link rel="prev" title="About pyAp" href="about.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pyAp
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyAp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html#Import-modules-and-data">Import modules and data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html#Import-data">Import data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html#Calculate-H_{2}O-in-the-melt-using-apatite">Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt using apatite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html#Error-integration-using-a-monte-carlo-(MC)-algorithm">Error integration using a monte carlo (MC) algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html#Import-releavant-modules-and-data">Import releavant modules and data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html#Stoichiometry-calculation">Stoichiometry calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html#Plot-apatite-on-F-Cl-OH-ternary-diagram">Plot apatite on F-Cl-OH ternary diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html#Calculate-apatite-saturation-temperature">Calculate apatite saturation temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about.html" class="btn btn-neutral float-left" title="About pyAp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_calc_water.html" class="btn btn-neutral float-right" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Weiran Li &amp; Yishen Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
