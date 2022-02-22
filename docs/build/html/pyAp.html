@@ -3,17 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyAp package &mdash; pyAp v0.1 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>pyAp package &mdash; pyAp v0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -36,7 +35,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorial</a></li>
@@ -93,21 +92,146 @@
 }
 </style>
 <div class="section" id="pyap-package">
-<h1>pyAp package<a class="headerlink" href="#pyap-package" title="Permalink to this headline"></a></h1>
-<div class="section" id="pyap-apstoic-module">
-<h2>pyAp.ApStoic module<a class="headerlink" href="#pyap-apstoic-module" title="Permalink to this headline"></a></h2>
+<h1>pyAp package<a class="headerlink" href="#pyap-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pyAp.ApStoic">
+<span id="pyap-apstoic-module"></span><h2>pyAp.ApStoic module<a class="headerlink" href="#module-pyAp.ApStoic" title="Permalink to this headline">¶</a></h2>
+<p>Weiran Li &amp; Yishen Zhang</p>
+<p>2022-01-14, v1.0</p>
+<p>Please cite the paper below if you use “ApThermo” in your research:</p>
+<p>Li and Costa (2020, GCA) <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
+<dl class="py function">
+<dt id="pyAp.ApStoic.stoi_">
+<code class="sig-prename descclassname">pyAp.ApStoic.</code><code class="sig-name descname">stoi_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">assume_oxy</span><span class="o">=</span><span class="default_value">26</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/ApStoic.html#stoi_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.ApStoic.stoi_" title="Permalink to this definition">¶</a></dt>
+<dd><p>function to test apatite stoichiometry</p>
+<p>data: :class: <cite>pandas.Dataframe</cite>
+oxygen number: default is 26 for FAp</p>
+<blockquote>
+<div><p>For OHAp: use 25</p>
+</div></blockquote>
+<dl class="simple">
+<dt>results: :class: <cite>pandas.Dataframe</cite></dt><dd><p>saved csv file</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="pyap-apternary-module">
-<h2>pyAp.ApTernary module<a class="headerlink" href="#pyap-apternary-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-pyAp.ApTernary">
+<span id="pyap-apternary-module"></span><h2>pyAp.ApTernary module<a class="headerlink" href="#module-pyAp.ApTernary" title="Permalink to this headline">¶</a></h2>
+<p>Weiran Li &amp; Yishen Zhang</p>
+<p>2022-02-20, v0.1</p>
+<p>Please cite the paper below if you use “ApThermo” in your research:</p>
+<p>Li and Costa (2020, GCA) <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
+<dl class="py function">
+<dt id="pyAp.ApTernary.ternary">
+<code class="sig-prename descclassname">pyAp.ApTernary.</code><code class="sig-name descname">ternary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fig</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/ApTernary.html#ternary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.ApTernary.ternary" title="Permalink to this definition">¶</a></dt>
+<dd><p>function for apatite ternary plot on “fig”
+“fig” properties are defined by user outside this function.
+Parameters:
+—————-
+fig : : figure object</p>
+</dd></dl>
+
 </div>
-<div class="section" id="pyap-pyap-tools-module">
-<h2>pyAp.pyAp_tools module<a class="headerlink" href="#pyap-pyap-tools-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-pyAp.pyAp_tools">
+<span id="pyap-pyap-tools-module"></span><h2>pyAp.pyAp_tools module<a class="headerlink" href="#module-pyAp.pyAp_tools" title="Permalink to this headline">¶</a></h2>
+<p>Weiran Li &amp; Yishen Zhang</p>
+<p>2022-02-20, v0.1</p>
+<dl class="py function">
+<dt id="pyAp.pyAp_tools.ap_mc">
+<code class="sig-prename descclassname">pyAp.pyAp_tools.</code><code class="sig-name descname">ap_mc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">comp</span></em>, <em class="sig-param"><span class="n">std</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">mc</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyAp_tools.html#ap_mc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyAp_tools.ap_mc" title="Permalink to this definition">¶</a></dt>
+<dd><p>MC calculation model for pyAp</p>
+<p>comp: :class: <cite>pandas.Dataframe</cite>
+std: :class: <cite>pandas.Dataframe</cite>
+i: :class: <cite>numpy.array</cite></p>
+<blockquote>
+<div><p>index for iteration</p>
+</div></blockquote>
+<dl class="simple">
+<dt>mc: :class: <cite>numpy.array</cite></dt><dd><p>number of monte carlo simulation</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>df: :class: <cite>pandas.Dataframe</cite></dt><dd><p>expanded dataframe after monte carlo simulation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyAp.pyAp_tools.load_animation">
+<code class="sig-prename descclassname">pyAp.pyAp_tools.</code><code class="sig-name descname">load_animation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyAp_tools.html#load_animation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyAp_tools.load_animation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pyAp.pyAp_tools.yes_or_no">
+<code class="sig-prename descclassname">pyAp.pyAp_tools.</code><code class="sig-name descname">yes_or_no</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">question</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyAp_tools.html#yes_or_no"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyAp_tools.yes_or_no" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="pyap-pyapthermo-module">
-<h2>pyAp.pyApthermo module<a class="headerlink" href="#pyap-pyapthermo-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-pyAp.pyApthermo">
+<span id="pyap-pyapthermo-module"></span><h2>pyAp.pyApthermo module<a class="headerlink" href="#module-pyAp.pyApthermo" title="Permalink to this headline">¶</a></h2>
+<p>Weiran Li &amp; Yishen Zhang</p>
+<p>2022-01-20, v0.1</p>
+<p>Please cite the paper below if you use “ApThermo” in your research:</p>
+<p>Li and Costa (2020, GCA) <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
+<dl class="py class">
+<dt id="pyAp.pyApthermo.ApThermo">
+<em class="property">class </em><code class="sig-prename descclassname">pyAp.pyApthermo.</code><code class="sig-name descname">ApThermo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">cal_H2O</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">cal_gamma</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyApthermo.html#ApThermo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyApthermo.ApThermo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>calculate exchange coefficients (Kd) and melt water contents using apatite</p>
+<p>Input values should be filled in the provided excel spreadsheet.</p>
+<p>!! Do NOT change the column header names in the input file, as this code reads the data according to those names (it’s okay to change column orders).</p>
+<p>Inputs have to follow this order:  “XF”, “XCL”, “T,C”, “MELTF”, “MELTCL”, “MELTCOMP”,</p>
+<p>For Kd calculation:
+* XF  : mole fraction of F in apatite (can be calculated from “pyAp/ApStoic.py”)
+* XCL : mole fraction of Cl in apatite
+* “T,C”   : temperature in celsius degree</p>
+<p>For water calculation (if “cal_H2O==True”):
+* MELTF   : F concentration in the melt, in wt%
+* MELTCL  : Cl concentration in the melt, in wt%
+* MELTCOMP: Melt composition (for choosing water speciation model)</p>
+<p>For water speciation: “highP” , “highT” (see below)</p>
+<dl class="simple">
+<dt>“cal_H2O”<span class="classifier">choose whether to calculate melt water contents</span></dt><dd><p>default = True</p>
+</dd>
+<dt>“cal_gamma”: choose whether to calculate activity coefficients of F, Cl, OH in the melt (for further calculations beyond this model)</dt><dd><p>default = False</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyAp.pyApthermo.ApThermo.Kd">
+<code class="sig-name descname">Kd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyApthermo.html#ApThermo.Kd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyApthermo.ApThermo.Kd" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate exchange coefficients Kd using apatite F-Cl-OH composition, and temperature (T)</p>
+<p>return Kds for OH-Cl, OH-F, Cl-F, and activity coefficients (gamma) for OH, F, Cl</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyAp.pyApthermo.ApThermo.conversion">
+<code class="sig-name descname">conversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">moleOH_melt</span></em>, <em class="sig-param"><span class="n">k2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyApthermo.html#ApThermo.conversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyApthermo.ApThermo.conversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert melt OH (moles) to melt total H2O (wt%)</p>
+<p>return total H2O concentration (wt%) in the melt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyAp.pyApthermo.ApThermo.meltH2O">
+<code class="sig-name descname">meltH2O</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyAp/pyApthermo.html#ApThermo.meltH2O"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyAp.pyApthermo.ApThermo.meltH2O" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate water concentrations in the melt (wt%) using OH/Cl and/or OH/F in the melt and the “conversion” func written above</p>
+<p>return all results: melt water estimates, KDs, gammas</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-pyAp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyAp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pyap">
+<h3>pyAp<a class="headerlink" href="#pyap" title="Permalink to this headline">¶</a></h3>
+<p>pyAp is a python package for calculating magmatic volatile, trace element concentrations, and oxygen fugacity using mineral apatite.</p>
+<p>It includes multiple apatite-based models developed by W. Li and co-authors, including:</p>
+<blockquote>
+<div><p>ApThermo: a thermodynamic model for calculating melt H2O (and CO2) concentrations (following Li &amp; Costa, 2020, GCA)
+ApREE2O3: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity (fO2) (following Li et al, in review)</p>
+</div></blockquote>
+<p>More modules will be added in the future (ApTimer - Li et al. 2020 EPSL; ApZone - Li et al. in prep).</p>
+</div>
 </div>
 </div>
 
