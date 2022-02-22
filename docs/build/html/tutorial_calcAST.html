@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="4. Performing all calculatons at once" href="run_all_in_one.html" />
-    <link rel="prev" title="2. Stoichiometry calculation and ternary plot of apatite" href="plot_ternary_test_stoichiometry.html" /> 
+    <link rel="prev" title="2. Stoichiometry calculation and ternary plot of apatite" href="tutorial_stoichiometry_ternary.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,9 +42,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3. Examples for apatite saturation temperature (AST) calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. Examples for apatite saturation temperature (AST) calculation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-apatite-saturation-temperature">Calculate apatite saturation temperature</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Inputs-are-SiO_{2}-and-P_{2}O_{5}-concentrations-in-the-melt.">Inputs are SiO<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/> and P<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O<img class="math" src="_images/math/22caea56a8025a12fe8729248f0d99735915557c.png" alt="_{5}"/> concentrations in the melt.</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
 </ul>
 </li>
@@ -349,7 +355,9 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="3.-Examples-for-apatite-saturation-temperature-(AST)-calculation">
 <h1>3. Examples for apatite saturation temperature (AST) calculation<a class="headerlink" href="#3.-Examples-for-apatite-saturation-temperature-(AST)-calculation" title="Permalink to this headline"></a></h1>
-<p>Calculate apatite saturation temperature using empirical equation of Harrison &amp; Watson (1984) <a class="reference external" href="https://doi.org/10.1016/0016-7037(84)90403-4">https://doi.org/10.1016/0016-7037(84)90403-4</a></p>
+<div class="section" id="Calculate-apatite-saturation-temperature">
+<h2>Calculate apatite saturation temperature<a class="headerlink" href="#Calculate-apatite-saturation-temperature" title="Permalink to this headline"></a></h2>
+<p>The apatite saturation temperature is calculated using the empirical equation of Harrison &amp; Watson (1984) <a class="reference external" href="https://doi.org/10.1016/0016-7037(84)90403-4">https://doi.org/10.1016/0016-7037(84)90403-4</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -358,8 +366,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Inputs are SiO<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/> concentration in the melt, and P<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O<img class="math" src="_images/math/22caea56a8025a12fe8729248f0d99735915557c.png" alt="_{5}"/> concentration in the melt</p>
-<p>When wrong input values are used. For example, one uses concetration (conc) in the incorrect mass fraction (0&lt;conc&lt;1) rather than the correct weight percent (1&lt;conc&lt;100):</p>
+<div class="section" id="Inputs-are-SiO_{2}-and-P_{2}O_{5}-concentrations-in-the-melt.">
+<h3>Inputs are SiO<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/> and P<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O<img class="math" src="_images/math/22caea56a8025a12fe8729248f0d99735915557c.png" alt="_{5}"/> concentrations in the melt.<a class="headerlink" href="#Inputs-are-SiO_{2}-and-P_{2}O_{5}-concentrations-in-the-melt." title="Permalink to this headline"></a></h3>
+<p>Note that concetrations are in weight percent (between 0 and 100) instead of mass fractions (=concentration wt/100; between 0 and 1).</p>
+<p>When mass fractions are used for calculation:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -386,7 +396,7 @@ div.rendered_html tbody tr:hover {
 nan
 </pre></div></div>
 </div>
-<p>When correct input values are used:</p>
+<p>When wt% concentrations are used for calculation:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -405,12 +415,14 @@ nan
 </pre></div></div>
 </div>
 </div>
+</div>
+</div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="plot_ternary_test_stoichiometry.html" class="btn btn-neutral float-left" title="2. Stoichiometry calculation and ternary plot of apatite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_stoichiometry_ternary.html" class="btn btn-neutral float-left" title="2. Stoichiometry calculation and ternary plot of apatite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="run_all_in_one.html" class="btn btn-neutral float-right" title="4. Performing all calculatons at once" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

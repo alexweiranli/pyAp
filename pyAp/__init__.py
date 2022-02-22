@@ -14,4 +14,4 @@ More modules will be added in the future (ApTimer - Li et al. 2020 EPSL; ApZone 
 """
 
 __version__ = "0.1"
-__author__ = "Weiran (Alex) Li & Yishen (Eason) Zhang"
+__author__ = "Weiran (Alex) LI & Yishen (Eason) ZHANG"

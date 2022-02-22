@@ -19,7 +19,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2. Stoichiometry calculation and ternary plot of apatite" href="plot_ternary_test_stoichiometry.html" />
+    <link rel="next" title="2. Stoichiometry calculation and ternary plot of apatite" href="tutorial_stoichiometry_ternary.html" />
     <link rel="prev" title="Tutorial" href="tutorials.html" /> 
 </head>
 
@@ -43,13 +43,25 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Import-modules">Import modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Import-modules-and-data">Import modules and data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite">Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt from F and Cl in the apatite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Error-integration-from-monte-carlo-simulation-(MCS)">Error integration from monte carlo simulation (MCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-H_{2}O-in-the-melt-using-apatite">Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt using apatite</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Water-speciation-models">Water speciation models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Save-results-(to-csv-file)">Save results (to csv file)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ternary_test_stoichiometry.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Error-integration-using-a-monte-carlo-(MC)-algorithm">Error integration using a monte carlo (MC) algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling">Create a dataframe for storing parameter values and results from MC sampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo.">Calculate melt water contents using MC samples and function <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code> in module <code class="docutils literal notranslate"><span class="pre">pyApthermo</span></code>.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Calculate-mean-values-and-uncertainties">Calculate mean values and uncertainties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Store-results-in-DataFrame-results">Store results in DataFrame <code class="docutils literal notranslate"><span class="pre">results</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-results-obtained-from-MC-sampling">Plot results obtained from MC sampling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
 </ul>
@@ -75,7 +87,7 @@
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
       <li>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/calc_water.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tutorial_calc_water.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -355,48 +367,38 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
 <h1>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
-<p>pyAp includes the melt hygrometry model (ApThermo) of Li and Costa (2020, GCA) with equations provided in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>.</p>
-<p>Applying this model requires known F, Cl (and H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O) concentrations in apatite, and the F and Cl concentrations in the melt (in equilibrium with apatite).</p>
-<p>This example file includes error estimation for the calculated water estimates using a monte carlo simuation algorithm, which is not available in our ApThermo webpage or excel versions.</p>
-<p>Please cite Li and Costa (2020) if you use this model:</p>
+<p>pyAp contains a melt hygrometry model ApThermo, proposed in Li and Costa (2020, GCA) (see equations in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>).</p>
+<p>This file shows how to calculate exchange coefficient (Kd) and melt water contents using our package. This package also allows error propagation that is not applicable from the webpage or excel version of ApThermo. Performing the hygrometric calculation requires known F, Cl (w or w/o H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O concentrations in apatite, and F and Cl concentrations in the melt (see details below).</p>
+<p>Please cite the paper below if you use this model:</p>
 <p>Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
-<div class="section" id="Import-modules">
-<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline"></a></h2>
+<div class="section" id="Import-modules-and-data">
+<h2>Import modules and data<a class="headerlink" href="#Import-modules-and-data" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import pyAp modules</span>
 <span class="kn">from</span> <span class="nn">pyAp</span> <span class="kn">import</span> <span class="n">pyApthermo</span>
-<span class="kn">from</span> <span class="nn">pyAp.pyAp_tools</span> <span class="kn">import</span> <span class="n">ap_mc</span><span class="p">,</span> <span class="n">load_animation</span>
+<span class="kn">from</span> <span class="nn">pyAp.pyAp_tools</span> <span class="kn">import</span> <span class="n">ap_mc</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Import-data">
 <h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline"></a></h2>
-<p>!! Do NOT change the column headers in the template provided in the tutorial folder.</p>
+<p>!! Do NOT change the column header names in the template excel file (provided in the same folder).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_calc_water.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>extract parameters from the input data file by reading columm header names</p>
+<p>Extract parameter values from the input file</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">order</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">,</span> <span class="s1">&#39;XCL&#39;</span><span class="p">,</span> <span class="s1">&#39;T,C&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTF&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTCL&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTCOMP&#39;</span><span class="p">]</span>
@@ -405,27 +407,27 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite">
-<h2>Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt from F and Cl in the apatite<a class="headerlink" href="#Calculate-H_{2}O-in-the-melt-from-F-and-Cl-in-the-apatite" title="Permalink to this headline"></a></h2>
-<div class="line-block">
-<div class="line">The available water speciation models we have compiled are available in “pyAp/water_speciation.csv” and also implemented in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>. The existing models include:</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">dacite</span></code> (Liu et al. 2004)</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">alkali</span> <span class="pre">basalt</span></code> (Lasne et al. 2010)</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">rhyolite</span></code> (Zhang et al. 1997)</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">rhyolite_highP</span></code> (Hui et al. 2008)</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">andesite</span></code> (Ni et al. 2009)</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">andesite_highT</span></code> (Botcharnikov 2006).</div>
-<div class="line">If no model was selected, the default model will choose <code class="docutils literal notranslate"><span class="pre">dacite</span></code> of Liu et al. (2004)</div>
+<div class="section" id="Calculate-H_{2}O-in-the-melt-using-apatite">
+<h2>Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt using apatite<a class="headerlink" href="#Calculate-H_{2}O-in-the-melt-using-apatite" title="Permalink to this headline"></a></h2>
+<div class="section" id="Water-speciation-models">
+<h3>Water speciation models<a class="headerlink" href="#Water-speciation-models" title="Permalink to this headline"></a></h3>
+<p>Water speciation models available in this package are shown in “pyAp/water_speciation.csv” and also in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>, including:</p>
+<p><code class="docutils literal notranslate"><span class="pre">dacite</span></code> - Liu et al. 2004</p>
+<p><code class="docutils literal notranslate"><span class="pre">alkali</span> <span class="pre">basalt</span></code> - Lasne et al. 2010</p>
+<p><code class="docutils literal notranslate"><span class="pre">rhyolite</span></code> - Zhang et al. 1997</p>
+<p><code class="docutils literal notranslate"><span class="pre">rhyolite_highP</span></code> - Hui et al. 2008 (1 GPa)</p>
+<p><code class="docutils literal notranslate"><span class="pre">andesite</span></code> - Ni et al. 2009</p>
+<p><code class="docutils literal notranslate"><span class="pre">andesite_highT</span></code> - Botcharnikov 2006 (1100-1300 ºC)</p>
+<p>Note that model names filled in the input file (under <code class="docutils literal notranslate"><span class="pre">MELTCOMP</span></code>) should be exactly the same as those listed above. For example, “dacite” needs NOT to be written as “Dacite”. When no model was input, the code would use the default one: <code class="docutils literal notranslate"><span class="pre">dacite</span></code> of Liu et al. (2004), DOI: 10.2138/am-2004-2-304</p>
+<p>Additional water speciation models could be added to <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>. If you would like to discuss on this with us feel free to email Alex (<a class="reference external" href="mailto:wl413&#37;&#52;&#48;cam&#46;ac&#46;uk">wl413<span>&#64;</span>cam<span>&#46;</span>ac<span>&#46;</span>uk</a>).</p>
 </div>
-<p>If you would like to use another water speciation model, please contact us.</p>
-<p>You can use a Dataframe <code class="docutils literal notranslate"><span class="pre">apply()</span></code> function shown below for iteration through each row in the input data. To perform the calculation, we assin the data as an instance into the <code class="docutils literal notranslate"><span class="pre">Apthermo</span></code> class.</p>
-<div class="line-block">
-<div class="line">The water speciation model used in calculation is chosen from the available models according to the melt composition <code class="docutils literal notranslate"><span class="pre">MELTCOMP</span></code> column provided by users. To calculate the water concentration, you may switch <code class="docutils literal notranslate"><span class="pre">cal_H2O</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>), which will pass the data into <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code>. 8 results will be returned following the order as:</div>
-<div class="line">MeltWater calculated from F and Cl, Kds for OH-Cl, OH-F, Cl-F, and activitivy coefficient (gamma) of OH, F, and Cl.</div>
-</div>
-<p>Below we give the example of calculating melt water, and export the result to a csv file.</p>
+<div class="section" id="Calculation">
+<h3>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this headline"></a></h3>
+<p>You can use a Dataframe function <code class="docutils literal notranslate"><span class="pre">apply()</span></code> (see below) for iterations through each row of the input DataFrame. The data are assigned into class <code class="docutils literal notranslate"><span class="pre">Apthermo</span></code> for calculation.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">cal_H2O=True</span></code> (default), there will be 8 values calculated for each crystal following the order of: MeltWater calculated from F and Cl, Kds for OH-Cl, OH-F, Cl-F, and activity coefficient (gamma) of OH, F, and Cl.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">cal_H2O=False</span></code>, there will be 6 values calculated for each crystal (Kds and gammas).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -441,7 +443,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -491,9 +493,11 @@ div.rendered_html tbody tr:hover {
 </table>
 </div></div>
 </div>
-<p>save the results</p>
+</div>
+<div class="section" id="Save-results-(to-csv-file)">
+<h3>Save results (to csv file)<a class="headerlink" href="#Save-results-(to-csv-file)" title="Permalink to this headline"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn</span> <span class="o">=</span> <span class="s1">&#39;outputs_melt_water.csv&#39;</span>
@@ -502,35 +506,35 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="Error-integration-from-monte-carlo-simulation-(MCS)">
-<h2>Error integration from monte carlo simulation (MCS)<a class="headerlink" href="#Error-integration-from-monte-carlo-simulation-(MCS)" title="Permalink to this headline"></a></h2>
-<p>Below we give an example for MCS to integrate analytical errors from melt compositions, apatite composition, and temperature.</p>
-<p>First, set the entry of MCS (number of runs); better to be larger than 1000.</p>
+</div>
+<div class="section" id="Error-integration-using-a-monte-carlo-(MC)-algorithm">
+<h2>Error integration using a monte carlo (MC) algorithm<a class="headerlink" href="#Error-integration-using-a-monte-carlo-(MC)-algorithm" title="Permalink to this headline"></a></h2>
+<p>Below we show an example of estimating errors in the melt water estimates given errors in apatite composition, melt F-Cl contents, and temperature.</p>
+<p>First, set the number of MC sampling (better to be larger than 1000)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mc</span> <span class="o">=</span> <span class="mi">1000</span>
 </pre></div>
 </div>
 </div>
-<p>Create dataframe for collecting MCS results and extract raw data and their errors</p>
+<div class="section" id="Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling">
+<h3>Create a dataframe for storing parameter values and results from MC sampling<a class="headerlink" href="#Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling" title="Permalink to this headline"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap_mc_collect</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap_mc_collect</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
 <span class="n">comp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;XF&#39;</span><span class="p">,</span> <span class="s1">&#39;XCL&#39;</span><span class="p">,</span> <span class="s1">&#39;T,C&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTF&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTCL&#39;</span><span class="p">]]</span>
 <span class="n">std</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;XF_SD&#39;</span><span class="p">,</span> <span class="s1">&#39;XCL_SD&#39;</span><span class="p">,</span> <span class="s1">&#39;T_SD&#39;</span><span class="p">,</span><span class="s1">&#39;MELTF_SD&#39;</span><span class="p">,</span> <span class="s1">&#39;MELTCL_SD&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
-<p>MCS can be perfromed via a loop but that can be rather slow if the dataset is large.</p>
-<p>Here we use a built-in function <code class="docutils literal notranslate"><span class="pre">ap_mc()</span></code> to vectorize and expand the existing empty dataframe <code class="docutils literal notranslate"><span class="pre">ap_mc_collect</span></code> with MCS results.</p>
-<p>Feel free to use your own MCS algorithm if you want.</p>
+<p>Use function <code class="docutils literal notranslate"><span class="pre">ap_mc()</span></code> to vectorize and store values to the created empty dataframe <code class="docutils literal notranslate"><span class="pre">ap_mc_collect</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
@@ -539,15 +543,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Apply the <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code> function to the expanded MCS dataframe. The melt water estimates are saved in the “ap_mc_collect” dataframe.</p>
-<p>Note that when MCS has a larger value, a runtime warning might appear, we suspended the warning by using <code class="docutils literal notranslate"><span class="pre">filterwarnings</span></code>. The calculated melt water compositions have been suspended to be lower than 16 (wt%).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</div>
+<div class="section" id="Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo.">
+<h3>Calculate melt water contents using MC samples and function <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code> in module <code class="docutils literal notranslate"><span class="pre">pyApthermo</span></code>.<a class="headerlink" href="#Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo." title="Permalink to this headline"></a></h3>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">warnings.warn(msg,</span> <span class="pre">RuntimeWarning</span></code>) may appear if the code cannot find good solutions to some equations (in most cases because the calculated mole OH in the melt is too high).</p>
+<p>Considering this, in the module code we set the limit of the calculated melt water concentration to be between 0 and 15 wt% (given the range of H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in most silicate melts).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">ap_mc_collect</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">columns</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap_mc_collect</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">columns</span>
 <span class="n">ap_mc_collect</span><span class="p">[</span><span class="s1">&#39;MELTCOMP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">mc</span><span class="p">)][</span><span class="s1">&#39;MELTCOMP&#39;</span><span class="p">]</span>
 <span class="n">ap_mc_collect</span><span class="p">[</span><span class="s1">&#39;water_estimates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ap_mc_collect</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
     <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">pyApthermo</span><span class="o">.</span><span class="n">ApThermo</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">cal_H2O</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cal_gamma</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">meltH2O</span><span class="p">(),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
@@ -556,8 +561,18 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/alexweiranli/opt/anaconda3/lib/python3.8/site-packages/scipy/optimize/minpack.py:175: RuntimeWarning: The iteration is not making good progress, as measured by the
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_mc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -567,17 +582,59 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Display MCS results for each crystal</p>
-<div class="nbinput docutils container">
+</div>
+<div class="section" id="Calculate-mean-values-and-uncertainties">
+<h3>Calculate mean values and uncertainties<a class="headerlink" href="#Calculate-mean-values-and-uncertainties" title="Permalink to this headline"></a></h3>
+<p>Calculate and show the mean and standard deviation of the melt water estimates. The median values can also be shown by adding “median” to <code class="docutils literal notranslate"><span class="pre">.agg([])</span></code> below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Calculate standard deviation (half the range between 84% and 16% of all results). This is should be done if the distribution of the MC results are not Gaussian (see code below).</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_F</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">sd_Cl</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromCl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Store-results-in-DataFrame-results">
+<h3>Store results in DataFrame <code class="docutils literal notranslate"><span class="pre">results</span></code><a class="headerlink" href="#Store-results-in-DataFrame-results" title="Permalink to this headline"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Fmean&#39;</span><span class="p">]</span>   <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;MeltWater_calcfromF&quot;</span><span class="p">][</span><span class="s2">&quot;mean&quot;</span><span class="p">]]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Fstd&#39;</span><span class="p">]</span>   <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;MeltWater_calcfromF&quot;</span><span class="p">][</span><span class="s2">&quot;std&quot;</span><span class="p">]]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_F1sd&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sd_F</span><span class="p">]</span>
+<span class="c1"># # results[&#39;MeltWater_F_error,100%&#39;]  = results[&#39;MeltWater_F1sd&#39;]/results[&#39;MeltWater_Fmedian&#39;]*100</span>
+
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Clmean&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;MeltWater_calcfromCl&quot;</span><span class="p">][</span><span class="s2">&quot;mean&quot;</span><span class="p">]]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Clstd&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;MeltWater_calcfromCl&quot;</span><span class="p">][</span><span class="s2">&quot;std&quot;</span><span class="p">]]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Cl1sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sd_Cl</span><span class="p">]</span>
+<span class="c1"># results[&#39;MeltWater_Cl_error,100%&#39;]  = results[&#39;MeltWater_Cl1sd&#39;]/results[&#39;MeltWater_Clmedian&#39;]*100</span>
+<br/></pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">results</span></code>: values in the leftmost two columns were calculated without considering any errors (see above), whereas the rest were calculated using the MC algorithm.</p>
+<p>Note that the mean values calculated from the two methods mentioned above should be identical.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -591,109 +648,71 @@ div.rendered_html tbody tr:hover {
         vertical-align: top;
     }
 
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
+    .dataframe thead th {
         text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
-      <th colspan="3" halign="left">MeltWater_calcfromF</th>
-      <th colspan="3" halign="left">MeltWater_calcfromCl</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>median</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>median</th>
-      <th>mean</th>
-      <th>std</th>
-    </tr>
-    <tr>
+      <th>MeltWater_calcfromF</th>
+      <th>MeltWater_calcfromCl</th>
       <th>sample</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>MeltWater_Fmean</th>
+      <th>MeltWater_Fstd</th>
+      <th>MeltWater_F1sd</th>
+      <th>MeltWater_Clmean</th>
+      <th>MeltWater_Clstd</th>
+      <th>MeltWater_Cl1sd</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Ap1</th>
-      <td>4.334804</td>
-      <td>4.359289</td>
-      <td>0.751088</td>
-      <td>3.383908</td>
-      <td>3.608093</td>
-      <td>1.262393</td>
+      <th>0</th>
+      <td>4.327077</td>
+      <td>3.373130</td>
+      <td>Ap1</td>
+      <td>4.374950</td>
+      <td>0.777409</td>
+      <td>0.797939</td>
+      <td>3.631038</td>
+      <td>1.297683</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Ap2</th>
-      <td>1.459858</td>
-      <td>1.467147</td>
-      <td>0.234830</td>
-      <td>1.327742</td>
-      <td>1.403920</td>
-      <td>0.444818</td>
+      <th>1</th>
+      <td>1.465439</td>
+      <td>1.336840</td>
+      <td>Ap2</td>
+      <td>1.473224</td>
+      <td>0.236079</td>
+      <td>0.240841</td>
+      <td>1.414048</td>
+      <td>0.441805</td>
+      <td>0.410122</td>
     </tr>
     <tr>
-      <th>Ap3</th>
-      <td>0.674094</td>
-      <td>0.675498</td>
-      <td>0.170753</td>
-      <td>0.590710</td>
-      <td>0.622649</td>
-      <td>0.240046</td>
+      <th>2</th>
+      <td>0.673665</td>
+      <td>0.590161</td>
+      <td>Ap3</td>
+      <td>0.671285</td>
+      <td>0.172851</td>
+      <td>0.183978</td>
+      <td>0.617477</td>
+      <td>0.239828</td>
+      <td>0.241775</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<p>Calculate the median value for each crystal. If the distribution of MCS results is (nearly) gaussian (see kernel density plot below), a mean value could be used instead of median.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median_F</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-<span class="n">median_Cl</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromCl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<p>1sd errors in results are calculated by taking half of the range between 84% and 16% of all MCS results.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_F</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="n">sd_Cl</span> <span class="o">=</span> <span class="n">results_mc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)[</span><span class="s1">&#39;MeltWater_calcfromCl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Fmedian&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">median_F</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_F1sd&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sd_F</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_F_error,100%&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_F1sd&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Fmedian&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span>
-
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Clmedian&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">median_Cl</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Cl1sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sd_Cl</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Cl_error,100%&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Cl1sd&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;MeltWater_Clmedian&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span>
-</pre></div>
-</div>
-</div>
-<p>plot MCS results</p>
+<div class="section" id="Plot-results-obtained-from-MC-sampling">
+<h3>Plot results obtained from MC sampling<a class="headerlink" href="#Plot-results-obtained-from-MC-sampling" title="Permalink to this headline"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -702,6 +721,8 @@ div.rendered_html tbody tr:hover {
 <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;MeltWater_calcfromCl&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">results_mc</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># fig.save_fig(&#39;water_kde.jpg&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -709,7 +730,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/calc_water_30_0.png" src="_images/calc_water_30_0.png" />
+<img alt="_images/tutorial_calc_water_32_0.png" src="_images/tutorial_calc_water_32_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -720,7 +742,7 @@ div.rendered_html tbody tr:hover {
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plot_ternary_test_stoichiometry.html" class="btn btn-neutral float-right" title="2. Stoichiometry calculation and ternary plot of apatite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorial_stoichiometry_ternary.html" class="btn btn-neutral float-right" title="2. Stoichiometry calculation and ternary plot of apatite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
