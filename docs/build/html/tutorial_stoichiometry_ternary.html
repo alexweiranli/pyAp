@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="3. Examples for apatite saturation temperature (AST) calculation" href="tutorial_calcAST.html" />
-    <link rel="prev" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="calc_water.html" /> 
+    <link rel="prev" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" href="tutorial_calc_water.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,11 +42,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2. Stoichiometry calculation and ternary plot of apatite</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Import-modules">Import modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Ternary-plot">Ternary plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Import-releavant-modules-and-data">Import releavant modules and data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Stoichiometry-calculation">Stoichiometry calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-apatite-on-F-Cl-OH-ternary-diagram">Plot apatite on F-Cl-OH ternary diagram</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-F-Cl-OH-mole-fractions-calculated-above">Plot F-Cl-OH mole fractions calculated above</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files">Plot apatite F-Cl-OH mole fractions from files</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
@@ -74,7 +78,7 @@
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
       <li>2. Stoichiometry calculation and ternary plot of apatite</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/plot_ternary_test_stoichiometry.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tutorial_stoichiometry_ternary.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -354,15 +358,12 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="2.-Stoichiometry-calculation-and-ternary-plot-of-apatite">
 <h1>2. Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#2.-Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
-<div class="line-block">
-<div class="line">pyAp supports stoichiometry calculations for F, Cl, and OH-apatite with the built-in functions <code class="docutils literal notranslate"><span class="pre">ApStoic.py</span></code> and <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code>.</div>
-<div class="line">The stoichiometry calculation method was adapted from Ketcham (2015) <a class="reference external" href="https://doi.org/10.2138/am-2015-5171">https://doi.org/10.2138/am-2015-5171</a></div>
-<div class="line">The results can be plotted in the F-Cl-OH ternary diagram by calling functions in <code class="docutils literal notranslate"><span class="pre">ApThernary.py</span></code>.</div>
-<div class="line">Below we show an example of stoichiometry calculation and visualize the results in a ternary diagram.</div>
-</div>
-<div class="section" id="Import-modules">
-<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline"></a></h2>
-<p>import releavant modules.</p>
+<p>pyAp allows users to calculate the stoichiometry and mole fractions of components in apatite using functions <code class="docutils literal notranslate"><span class="pre">ApStoic.py</span></code> and <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code>.</p>
+<p>The stoichiometry calculation method was adapted from Ketcham (2015) <a class="reference external" href="https://doi.org/10.2138/am-2015-5171">https://doi.org/10.2138/am-2015-5171</a></p>
+<p>The results can be plotted in the F-Cl-OH ternary diagram by calling functions in <code class="docutils literal notranslate"><span class="pre">ApThernary.py</span></code>. See an example below.</p>
+<div class="section" id="Import-releavant-modules-and-data">
+<h2>Import releavant modules and data<a class="headerlink" href="#Import-releavant-modules-and-data" title="Permalink to this headline"></a></h2>
+<p>Import modules</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -370,12 +371,11 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">pyAp.ApStoic</span> <span class="kn">import</span> <span class="n">stoi_</span>
 <span class="kn">from</span> <span class="nn">pyAp</span> <span class="kn">import</span> <span class="n">ApTernary</span>
+<span class="kn">from</span> <span class="nn">pyAp.ApStoic_Ketcham</span> <span class="kn">import</span> <span class="n">stoi_ketcham</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Import-data">
-<h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline"></a></h2>
+<p>Import data</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -384,7 +384,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>The stoichiometry calculation allows users to choose oxygen number 26 for F- or Cl-apatite or 25 for OH-apatite by assigning an instance to the <code class="docutils literal notranslate"><span class="pre">assume_oxy</span></code> in the <code class="docutils literal notranslate"><span class="pre">stoi_()</span></code>. If no value is assigned, the default will be 26.</p>
+</div>
+<div class="section" id="Stoichiometry-calculation">
+<h2>Stoichiometry calculation<a class="headerlink" href="#Stoichiometry-calculation" title="Permalink to this headline"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">assume_oxy=26</span></code> for F- or Cl-apatite; <code class="docutils literal notranslate"><span class="pre">assume_oxy=25</span></code> for OH-apatite. The default is 26 if no values are assigned.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -509,148 +512,18 @@ div.rendered_html tbody tr:hover {
 </table>
 </div></div>
 </div>
-<p>However, if the oxygen numbers are not determined, users can still use the <code class="docutils literal notranslate"><span class="pre">stoi_ketcham()</span></code> function in <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code> to calculate oxygen numbers based on the apatite compositions.</p>
-<p>First import the <code class="docutils literal notranslate"><span class="pre">ApStoic_ketcham</span></code> module</p>
+<p>Use an oxygen number between 25 and 26 using <code class="docutils literal notranslate"><span class="pre">stoi_ketcham()</span></code> function in module <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyAp.ApStoic_Ketcham</span> <span class="kn">import</span> <span class="n">stoi_ketcham</span>
-</pre></div>
-</div>
-</div>
-<p>assign the data to the <code class="docutils literal notranslate"><span class="pre">stoi_ketcham()</span></code></p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ketc</span> <span class="o">=</span> <span class="n">stoi_ketcham</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">results_ketc</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>SI</th>
-      <th>TI</th>
-      <th>AL</th>
-      <th>FE</th>
-      <th>CA</th>
-      <th>MG</th>
-      <th>MN</th>
-      <th>K</th>
-      <th>NA</th>
-      <th>P</th>
-      <th>S</th>
-      <th>C</th>
-      <th>XF</th>
-      <th>XCL</th>
-      <th>XOH</th>
-      <th>CE</th>
-      <th>SR</th>
-      <th>OXYGEN NUMBER</th>
-      <th>stoi,(Ca/P-5/3)/(5/3)*100%</th>
-      <th>sample</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.017342</td>
-      <td>0.013045</td>
-      <td>0.020438</td>
-      <td>0.014503</td>
-      <td>10.032691</td>
-      <td>0.025854</td>
-      <td>0.014687</td>
-      <td>0.022121</td>
-      <td>0.033621</td>
-      <td>5.872417</td>
-      <td>0.026028</td>
-      <td>0.002367</td>
-      <td>0.822650</td>
-      <td>0.073471</td>
-      <td>0.103879</td>
-      <td>0.012697</td>
-      <td>0.010055</td>
-      <td>25.896121</td>
-      <td>3.656599</td>
-      <td>Ap1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.017342</td>
-      <td>0.013045</td>
-      <td>0.020438</td>
-      <td>0.014503</td>
-      <td>10.032691</td>
-      <td>0.025854</td>
-      <td>0.014687</td>
-      <td>0.022121</td>
-      <td>0.033621</td>
-      <td>5.872417</td>
-      <td>0.026028</td>
-      <td>0.002367</td>
-      <td>0.685542</td>
-      <td>0.058777</td>
-      <td>0.255681</td>
-      <td>0.012697</td>
-      <td>0.010055</td>
-      <td>25.744319</td>
-      <td>3.656599</td>
-      <td>Ap2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.017342</td>
-      <td>0.013045</td>
-      <td>0.020438</td>
-      <td>0.014503</td>
-      <td>10.032691</td>
-      <td>0.025854</td>
-      <td>0.014687</td>
-      <td>0.022121</td>
-      <td>0.033621</td>
-      <td>5.872417</td>
-      <td>0.026028</td>
-      <td>0.002367</td>
-      <td>0.767807</td>
-      <td>0.117554</td>
-      <td>0.114639</td>
-      <td>0.012697</td>
-      <td>0.010055</td>
-      <td>25.885361</td>
-      <td>3.656599</td>
-      <td>Ap3</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<p>The calculated oxygen number should fall within 25 to 26.</p>
+<p>The calculated oxygen number should fall between 25 and 26</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ketc</span><span class="p">[</span><span class="s1">&#39;OXYGEN NUMBER&#39;</span><span class="p">]</span>
@@ -658,7 +531,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -669,34 +542,13 @@ div.rendered_html tbody tr:hover {
 Name: OXYGEN NUMBER, dtype: float64
 </pre></div></div>
 </div>
-<p>To check the calculation, the sum of calculated F, Cl and OH fraction should be 1.</p>
+</div>
+<div class="section" id="Plot-apatite-on-F-Cl-OH-ternary-diagram">
+<h2>Plot apatite on F-Cl-OH ternary diagram<a class="headerlink" href="#Plot-apatite-on-F-Cl-OH-ternary-diagram" title="Permalink to this headline"></a></h2>
+<div class="section" id="Plot-F-Cl-OH-mole-fractions-calculated-above">
+<h3>Plot F-Cl-OH mole fractions calculated above<a class="headerlink" href="#Plot-F-Cl-OH-mole-fractions-calculated-above" title="Permalink to this headline"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">results_stoi</span><span class="p">[</span><span class="s1">&#39;XOH&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0    1.0
-1    1.0
-2    1.0
-dtype: float64
-</pre></div></div>
-</div>
-</div>
-<div class="section" id="Ternary-plot">
-<h2>Ternary plot<a class="headerlink" href="#Ternary-plot" title="Permalink to this headline"></a></h2>
-<p>Choose the data you would like to plot in ternary diagram</p>
-<p>If you have calculated F-Cl-OH mole fractions from lines above</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up a figure for ternary plot</span>
@@ -729,20 +581,24 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_18_0.png" src="_images/plot_ternary_test_stoichiometry_18_0.png" />
+<img alt="_images/tutorial_stoichiometry_ternary_15_0.png" src="_images/tutorial_stoichiometry_ternary_15_0.png" />
 </div>
 </div>
-<p>Or you have known F-Cl-OH mole fractions and they are in excel file</p>
+</div>
+<div class="section" id="Plot-apatite-F-Cl-OH-mole-fractions-from-files">
+<h3>Plot apatite F-Cl-OH mole fractions from files<a class="headerlink" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files" title="Permalink to this headline"></a></h3>
+<p>load data</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_calc_water.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<p>plot ternary</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -773,7 +629,8 @@ dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/plot_ternary_test_stoichiometry_21_0.png" src="_images/plot_ternary_test_stoichiometry_21_0.png" />
+<img alt="_images/tutorial_stoichiometry_ternary_20_0.png" src="_images/tutorial_stoichiometry_ternary_20_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -783,7 +640,7 @@ dtype: float64
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="calc_water.html" class="btn btn-neutral float-left" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_calc_water.html" class="btn btn-neutral float-left" title="1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="tutorial_calcAST.html" class="btn btn-neutral float-right" title="3. Examples for apatite saturation temperature (AST) calculation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

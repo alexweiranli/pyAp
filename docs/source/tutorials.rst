@@ -4,7 +4,7 @@ Tutorial
    :maxdepth: 2
    :caption: Contents:
 
-   calc_water
-   plot_ternary_test_stoichiometry
+   tutorial_calc_water
+   tutorial_stoichiometry_ternary
    tutorial_calcAST
    run_all_in_one
