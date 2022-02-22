@@ -69,16 +69,14 @@ class ApThermo:
             self.meltf = float(inputs[3])
             self.meltcl = float(inputs[4])
             self.meltcomp = inputs[-1]
-
         else:
             self.x_f, self.x_cl, self.t_c, self.meltf, self.meltcl, self.meltcomp = inputs.values
 
-            
+        
         self.t_k        = float(self.t_c) + 273.15
         self.cal_H2O    = cal_H2O
         self.cal_gamma  = cal_gamma
      
-    
         # calculate OH mole fraction (x_oh>0)
         self.x_oh = 1 - (self.x_cl + self.x_f)
         if self.x_oh < 0:
@@ -156,13 +154,13 @@ class ApThermo:
             return y
         try:
             MeltWater = scipy.optimize.fsolve(func_wt,1)[0]   # x100 wt.%
-            
-            # constrain the range of H2O in silicate melt as [0,16] wt%
-            if MeltWater > 14.999/100 or MeltWater<0:   
-                moleH2O_melt = np.nan
         except:
             MeltWater = np.nan
 
+        # set the range of melt H2O contents as between 0 and 15 wt%
+        if MeltWater == MeltWater and MeltWater > 14.999/100 or MeltWater<0:   
+            MeltWater = np.nan
+                
         return MeltWater*100
 
 
@@ -176,14 +174,12 @@ class ApThermo:
         if self.cal_H2O:
 
             # read parameters a, b for calculating equilibrium constant
-
             all_speciation_dict = list(self.speciation_dict)
     
             if self.meltcomp in all_speciation_dict:
                 a, b = self.speciation_dict.get(self.meltcomp) # 
             else:
                 a, b = self.speciation_dict['default']
-
 
             # equilibrium constnat k2 of water speciation reaction
             keq = math.exp(a + b/self.t_k)
