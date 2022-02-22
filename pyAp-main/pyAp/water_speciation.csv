@@ -1,7 +1,0 @@
-﻿Ref,MeltComp,"Pressure, GPa","Temperature, c",MeltH2O(WT),a,b,"(Eq. k2 = exp(a + b/T), T in K"
-Liu et al 2004,dacite,,,1.5-2.5,1.49,-2634,
-Lasne et al 2010,alkali basalt,,1200,01-Jul,0.641,-2704.4,
-Zhang et al 1997,rhyolite,,400-600,≤2.4,1.876,-3100,
-Hui et al 2008,rhyolite_highP,1,350-750,,1.804,-3090,
-Ni et al 2009,andesite,0.1,,,1.547,-2453,
-Botcharnikov 2006,andesite_highT,,1100-1300,,2.99,-3650,
