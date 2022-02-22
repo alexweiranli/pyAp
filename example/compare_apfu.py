@@ -28,6 +28,7 @@ ApTernary.ternary(fig)
 colors = ['k','b','r']
 
 # plot 
+print("\n>> Calculation starts ...")
 for idx, value in df_26o.iterrows():
     x_f = value['XF']
     x_cl = value['XCL']
@@ -63,5 +64,7 @@ for idx, value in df_ketcham.iterrows():
         y = math.sqrt(3)*50
     plt.plot(x,y,'.',c=colors[idx],label=value['sample']+',Ketcham')
 
+
+print("\n>> Close the figure to exit. ")
 plt.legend(loc='best')
 plt.show()
