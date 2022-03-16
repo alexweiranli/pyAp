@@ -1,4 +1,4 @@
-4. Performing all calculatons at once
+4. Performing all calculations at once
 =============
 
 To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume one downloaded from github as pyAp-main, for example:
