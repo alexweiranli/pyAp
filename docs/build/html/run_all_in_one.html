@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4. Performing all calculatons at once &mdash; pyAp v0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>4. Performing all calculations at once &mdash; pyAp v0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -37,14 +38,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calc_water.html">1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Performing all calculatons at once</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Performing all calculations at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -66,7 +67,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="tutorials.html">Tutorial</a> &raquo;</li>
-      <li>4. Performing all calculatons at once</li>
+      <li>4. Performing all calculations at once</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/run_all_in_one.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -100,8 +101,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="performing-all-calculatons-at-once">
-<h1>4. Performing all calculatons at once<a class="headerlink" href="#performing-all-calculatons-at-once" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="performing-all-calculations-at-once">
+<h1>4. Performing all calculations at once<a class="headerlink" href="#performing-all-calculations-at-once" title="Permalink to this headline"></a></h1>
 <p>To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume one downloaded from github as pyAp-main, for example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> pyAp-main
 </pre></div>
@@ -137,7 +138,7 @@ Calculate mole fractions and a.p.f.u. ?<span class="o">(</span>y/n<span class="o
 <p>Then we continue to plot the F-Cl-OH ternary diagram of apatite:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Plot F-Cl-OH ternary ?<span class="o">(</span>y/n<span class="o">)</span>:y
 
-Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button in the same window.
+Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button <span class="k">in</span> the same window.
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/ter1.png"><img alt="_images/ter1.png" src="_images/ter1.png" style="width: 600px;" /></a>
@@ -154,7 +155,7 @@ Use mole fractions just calculated?<span class="o">(</span>y/n<span class="o">)<
 
 &gt;&gt; Simulation completed
 
-&gt;&gt; <span class="nv">mc</span> <span class="o">=</span> <span class="m">1000</span>. All MC results are saved in csv file: outputs_melt_water_allin1.csv
+&gt;&gt; <span class="nv">mc</span> <span class="o">=</span> <span class="m">1000</span>. All MC results are saved <span class="k">in</span> csv file: outputs_melt_water_allin1.csv
 
    MeltWater_calcfromF  ...  MeltWater_Cl_error,100%
 <span class="m">0</span>             <span class="m">1</span>.101500  ...                <span class="m">48</span>.146486
@@ -163,8 +164,8 @@ Use mole fractions just calculated?<span class="o">(</span>y/n<span class="o">)<
 
 <span class="o">[</span><span class="m">3</span> rows x <span class="m">9</span> columns<span class="o">]</span>
 
-&gt;&gt; The median and standard deviation of MC results are saved in csv file: outputs_melt_water_allin1.csv
-Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button in the same window.
+&gt;&gt; The median and standard deviation of MC results are saved <span class="k">in</span> csv file: outputs_melt_water_allin1.csv
+Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button <span class="k">in</span> the same window.
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/mc.png"><img alt="_images/mc.png" src="_images/mc.png" style="width: 600px;" /></a>

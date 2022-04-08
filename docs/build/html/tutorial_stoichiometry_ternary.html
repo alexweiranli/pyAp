@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. Stoichiometry calculation and ternary plot of apatite &mdash; pyAp v0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>2. Stoichiometry calculation and ternary plot of apatite &mdash; pyAp v0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -37,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
@@ -53,7 +54,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculations at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -356,12 +357,12 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="2.-Stoichiometry-calculation-and-ternary-plot-of-apatite">
-<h1>2. Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#2.-Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline">¶</a></h1>
+<h1>2. Stoichiometry calculation and ternary plot of apatite<a class="headerlink" href="#2.-Stoichiometry-calculation-and-ternary-plot-of-apatite" title="Permalink to this headline"></a></h1>
 <p>pyAp allows users to calculate the stoichiometry and mole fractions of components in apatite using functions <code class="docutils literal notranslate"><span class="pre">ApStoic.py</span></code> and <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code>.</p>
 <p>The stoichiometry calculation method was adapted from Ketcham (2015) <a class="reference external" href="https://doi.org/10.2138/am-2015-5171">https://doi.org/10.2138/am-2015-5171</a></p>
 <p>The results can be plotted in the F-Cl-OH ternary diagram by calling functions in <code class="docutils literal notranslate"><span class="pre">ApThernary.py</span></code>. See an example below.</p>
 <div class="section" id="Import-releavant-modules-and-data">
-<h2>Import releavant modules and data<a class="headerlink" href="#Import-releavant-modules-and-data" title="Permalink to this headline">¶</a></h2>
+<h2>Import releavant modules and data<a class="headerlink" href="#Import-releavant-modules-and-data" title="Permalink to this headline"></a></h2>
 <p>Import modules</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -385,7 +386,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Stoichiometry-calculation">
-<h2>Stoichiometry calculation<a class="headerlink" href="#Stoichiometry-calculation" title="Permalink to this headline">¶</a></h2>
+<h2>Stoichiometry calculation<a class="headerlink" href="#Stoichiometry-calculation" title="Permalink to this headline"></a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">assume_oxy=26</span></code> for F- or Cl-apatite; <code class="docutils literal notranslate"><span class="pre">assume_oxy=25</span></code> for OH-apatite. The default is 26 if no values are assigned.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -543,9 +544,9 @@ Name: OXYGEN NUMBER, dtype: float64
 </div>
 </div>
 <div class="section" id="Plot-apatite-on-F-Cl-OH-ternary-diagram">
-<h2>Plot apatite on F-Cl-OH ternary diagram<a class="headerlink" href="#Plot-apatite-on-F-Cl-OH-ternary-diagram" title="Permalink to this headline">¶</a></h2>
+<h2>Plot apatite on F-Cl-OH ternary diagram<a class="headerlink" href="#Plot-apatite-on-F-Cl-OH-ternary-diagram" title="Permalink to this headline"></a></h2>
 <div class="section" id="Plot-F-Cl-OH-mole-fractions-calculated-above">
-<h3>Plot F-Cl-OH mole fractions calculated above<a class="headerlink" href="#Plot-F-Cl-OH-mole-fractions-calculated-above" title="Permalink to this headline">¶</a></h3>
+<h3>Plot F-Cl-OH mole fractions calculated above<a class="headerlink" href="#Plot-F-Cl-OH-mole-fractions-calculated-above" title="Permalink to this headline"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -585,7 +586,7 @@ Name: OXYGEN NUMBER, dtype: float64
 </div>
 </div>
 <div class="section" id="Plot-apatite-F-Cl-OH-mole-fractions-from-files">
-<h3>Plot apatite F-Cl-OH mole fractions from files<a class="headerlink" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files" title="Permalink to this headline">¶</a></h3>
+<h3>Plot apatite F-Cl-OH mole fractions from files<a class="headerlink" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files" title="Permalink to this headline"></a></h3>
 <p>load data</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:

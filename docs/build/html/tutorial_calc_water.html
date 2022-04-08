@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration &mdash; pyAp v0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration &mdash; pyAp v0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -37,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pyAp</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorial</a><ul class="current">
@@ -62,7 +63,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_stoichiometry_ternary.html">2. Stoichiometry calculation and ternary plot of apatite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculatons at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_all_in_one.html">4. Performing all calculations at once</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contribution</a></li>
@@ -365,13 +366,13 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration">
-<h1>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline">¶</a></h1>
+<h1>1. Calculating apatite-melt exchange coefficients (Kd) and melt water concentration<a class="headerlink" href="#1.-Calculating-apatite-melt-exchange-coefficients-(Kd)-and-melt-water-concentration" title="Permalink to this headline"></a></h1>
 <p>pyAp contains a melt hygrometry model ApThermo, proposed in Li and Costa (2020, GCA) (see equations in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>).</p>
 <p>This file shows how to calculate exchange coefficient (Kd) and melt water contents using our package. This package also allows error propagation that is not applicable from the webpage or excel version of ApThermo. Performing the hygrometric calculation requires known F, Cl (w or w/o H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O concentrations in apatite, and F and Cl concentrations in the melt (see details below).</p>
 <p>Please cite the paper below if you use this model:</p>
 <p>Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
 <div class="section" id="Import-modules-and-data">
-<h2>Import modules and data<a class="headerlink" href="#Import-modules-and-data" title="Permalink to this headline">¶</a></h2>
+<h2>Import modules and data<a class="headerlink" href="#Import-modules-and-data" title="Permalink to this headline"></a></h2>
 <p>import releavant modules.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -385,7 +386,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Import-data">
-<h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline">¶</a></h2>
+<h2>Import data<a class="headerlink" href="#Import-data" title="Permalink to this headline"></a></h2>
 <p>!! Do NOT change the column header names in the template excel file (provided in the same folder).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -407,9 +408,9 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Calculate-H_{2}O-in-the-melt-using-apatite">
-<h2>Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt using apatite<a class="headerlink" href="#Calculate-H_{2}O-in-the-melt-using-apatite" title="Permalink to this headline">¶</a></h2>
+<h2>Calculate H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in the melt using apatite<a class="headerlink" href="#Calculate-H_{2}O-in-the-melt-using-apatite" title="Permalink to this headline"></a></h2>
 <div class="section" id="Water-speciation-models">
-<h3>Water speciation models<a class="headerlink" href="#Water-speciation-models" title="Permalink to this headline">¶</a></h3>
+<h3>Water speciation models<a class="headerlink" href="#Water-speciation-models" title="Permalink to this headline"></a></h3>
 <p>Water speciation models available in this package are shown in “pyAp/water_speciation.csv” and also in <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>, including:</p>
 <p><code class="docutils literal notranslate"><span class="pre">dacite</span></code> - Liu et al. 2004</p>
 <p><code class="docutils literal notranslate"><span class="pre">alkali</span> <span class="pre">basalt</span></code> - Lasne et al. 2010</p>
@@ -421,7 +422,7 @@ div.rendered_html tbody tr:hover {
 <p>Additional water speciation models could be added to <code class="docutils literal notranslate"><span class="pre">pyApThermo.py</span></code>. If you would like to discuss on this with us feel free to email Alex (<a class="reference external" href="mailto:wl413&#37;&#52;&#48;cam&#46;ac&#46;uk">wl413<span>&#64;</span>cam<span>&#46;</span>ac<span>&#46;</span>uk</a>).</p>
 </div>
 <div class="section" id="Calculation">
-<h3>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this headline">¶</a></h3>
+<h3>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this headline"></a></h3>
 <p>You can use a Dataframe function <code class="docutils literal notranslate"><span class="pre">apply()</span></code> (see below) for iterations through each row of the input DataFrame. The data are assigned into class <code class="docutils literal notranslate"><span class="pre">Apthermo</span></code> for calculation.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">cal_H2O=True</span></code> (default), there will be 8 values calculated for each crystal following the order of: MeltWater calculated from F and Cl, Kds for OH-Cl, OH-F, Cl-F, and activity coefficient (gamma) of OH, F, and Cl.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">cal_H2O=False</span></code>, there will be 6 values calculated for each crystal (Kds and gammas).</p>
@@ -494,7 +495,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Save-results-(to-csv-file)">
-<h3>Save results (to csv file)<a class="headerlink" href="#Save-results-(to-csv-file)" title="Permalink to this headline">¶</a></h3>
+<h3>Save results (to csv file)<a class="headerlink" href="#Save-results-(to-csv-file)" title="Permalink to this headline"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -507,7 +508,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Error-integration-using-a-monte-carlo-(MC)-algorithm">
-<h2>Error integration using a monte carlo (MC) algorithm<a class="headerlink" href="#Error-integration-using-a-monte-carlo-(MC)-algorithm" title="Permalink to this headline">¶</a></h2>
+<h2>Error integration using a monte carlo (MC) algorithm<a class="headerlink" href="#Error-integration-using-a-monte-carlo-(MC)-algorithm" title="Permalink to this headline"></a></h2>
 <p>Below we show an example of estimating errors in the melt water estimates given errors in apatite composition, melt F-Cl contents, and temperature.</p>
 <p>First, set the number of MC sampling (better to be larger than 1000)</p>
 <div class="nbinput nblast docutils container">
@@ -519,7 +520,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling">
-<h3>Create a dataframe for storing parameter values and results from MC sampling<a class="headerlink" href="#Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling" title="Permalink to this headline">¶</a></h3>
+<h3>Create a dataframe for storing parameter values and results from MC sampling<a class="headerlink" href="#Create-a-dataframe-for-storing-parameter-values-and-results-from-MC-sampling" title="Permalink to this headline"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -544,7 +545,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo.">
-<h3>Calculate melt water contents using MC samples and function <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code> in module <code class="docutils literal notranslate"><span class="pre">pyApthermo</span></code>.<a class="headerlink" href="#Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo." title="Permalink to this headline">¶</a></h3>
+<h3>Calculate melt water contents using MC samples and function <code class="docutils literal notranslate"><span class="pre">meltH2O()</span></code> in module <code class="docutils literal notranslate"><span class="pre">pyApthermo</span></code>.<a class="headerlink" href="#Calculate-melt-water-contents-using-MC-samples-and-function-meltH2O()-in-module-pyApthermo." title="Permalink to this headline"></a></h3>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">warnings.warn(msg,</span> <span class="pre">RuntimeWarning</span></code>) may appear if the code cannot find good solutions to some equations (in most cases because the calculated mole OH in the melt is too high).</p>
 <p>Considering this, in the module code we set the limit of the calculated melt water concentration to be between 0 and 15 wt% (given the range of H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in most silicate melts).</p>
 <div class="nbinput docutils container">
@@ -583,7 +584,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Calculate-mean-values-and-uncertainties">
-<h3>Calculate mean values and uncertainties<a class="headerlink" href="#Calculate-mean-values-and-uncertainties" title="Permalink to this headline">¶</a></h3>
+<h3>Calculate mean values and uncertainties<a class="headerlink" href="#Calculate-mean-values-and-uncertainties" title="Permalink to this headline"></a></h3>
 <p>Calculate and show the mean and standard deviation of the melt water estimates. The median values can also be shown by adding “median” to <code class="docutils literal notranslate"><span class="pre">.agg([])</span></code> below.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -605,7 +606,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Store-results-in-DataFrame-results">
-<h3>Store results in DataFrame <code class="docutils literal notranslate"><span class="pre">results</span></code><a class="headerlink" href="#Store-results-in-DataFrame-results" title="Permalink to this headline">¶</a></h3>
+<h3>Store results in DataFrame <code class="docutils literal notranslate"><span class="pre">results</span></code><a class="headerlink" href="#Store-results-in-DataFrame-results" title="Permalink to this headline"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -709,7 +710,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Plot-results-obtained-from-MC-sampling">
-<h3>Plot results obtained from MC sampling<a class="headerlink" href="#Plot-results-obtained-from-MC-sampling" title="Permalink to this headline">¶</a></h3>
+<h3>Plot results obtained from MC sampling<a class="headerlink" href="#Plot-results-obtained-from-MC-sampling" title="Permalink to this headline"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
