@@ -10,7 +10,6 @@ from pyAp import pyApthermo
 from pyAp.pyAp_tools import ap_mc, yes_or_no
 ##############################
 
-
 ### Import data ####
 df = pd.read_excel('data_calc_water.xlsx')
 
@@ -28,12 +27,13 @@ ap_mc_collect = pd.DataFrame([])
 comp = df[['XF', 'XCL', 'T,C', 'MELTF', 'MELTCL']]
 std = df[['XF_SD', 'XCL_SD', 'T_SD','MELTF_SD', 'MELTCL_SD']]
 
+mc = 5000   # set mc (default: >=5000)
 
 ## calculate errors in melt water contents consdidering errors in parameter values 
 if yes_or_no("\nRun MC for error propagation?"):  
 
     #### +++++ Entry of MCS +++++ #####
-    mc = 1000   # set mc
+    
     print('>> Simulation starts ...')
     
     for idx in range(len(df)):
@@ -57,7 +57,6 @@ if yes_or_no("\nRun MC for error propagation?"):
     results_mc.to_csv(fn_mc, index=False)
     print('\n>> mc = ' + str(mc) + '. All MC results are saved in csv file: ' + fn_mc + '\n')
 
-
     ### median and standard deviation calculation
     # for melt water calculated from F
     results_mc.fillna(0)
@@ -80,14 +79,15 @@ if yes_or_no("\nRun MC for error propagation?"):
 
     results.to_csv(fn)   
     print(results)
-    print('\n>> The median and standard deviation of MC results are saved in csv file: '+ fn + '\n>> Close the figure to exit. \n')
-
+    print('\n>> The median and standard deviation of MC results are saved in csv file: '+ fn + '\n\n>> Close the figure to exit. \n')
 
     ### plot results ###
     fig, axes = plt.subplots(1, 2, figsize=(9,4), constrained_layout=True)
     sns.kdeplot(x = 'MeltWater_calcfromF', data=results_mc, hue='sample', ax = axes[0])
     sns.kdeplot(x = 'MeltWater_calcfromCl', data=results_mc, hue='sample', ax = axes[1])
     plt.show()
+
+    fig.savefig("Fig2_CalcWaterDistribution.jpg",dpi=300)
 
 else:
     
@@ -97,6 +97,5 @@ else:
     results['sample']               = df['sample']
     results.to_csv(fn)
     
-    print('\n>> Results are saved in ' + fn)
+    print('\n>> Results are saved in ' + fn + '\n')
 
-    

@@ -9,7 +9,6 @@ from pyAp.ApStoic_Ketcham import stoi_ketcham
 
 ############################################################################
 
-
 ## load data and create dataframe for results
 fn = 'data_ap_major_volatile.xlsx'
 data = pd.read_excel(fn)
@@ -20,5 +19,9 @@ results = stoi_ketcham(data)
 # print results 
 print(results)
 print(results['XOH'])
+
 # save results to csv file
-results.to_csv('outputs_apfu_ketcham.csv')
+fn='outputs_apfu_ketcham.csv'
+results.to_csv(fn)
+
+print('\n >> results saved to', fn, '\n')

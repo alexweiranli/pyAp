@@ -17,12 +17,9 @@ df_26o = pd.read_csv('outputs_apfu_26o.csv')
 df_25o = pd.read_csv('outputs_apfu_25o.csv')
 df_ketcham = pd.read_csv('outputs_apfu_ketcham.csv')
 
-
 ## plot ternary diagram
-fig = plt.figure()
-fig.set_size_inches(10, 8)
-ApTernary.ternary(fig)
-
+fig, ax = plt.subplots(figsize=(10, 8))
+ApTernary.ternary(ax)
 
 # calculate x,y coordinates of data points on the ternary diagram
 colors = ['k','b','r']
@@ -38,7 +35,7 @@ for idx, value in df_26o.iterrows():
         x = 100
     if y > math.sqrt(3)*50:
         y = math.sqrt(3)*50
-    plt.plot(x,y,'+',c=colors[idx],label=value['sample']+',26O')
+    plt.plot(x,y,'+',c=colors[idx],label=value['sample']+',26O',ms=14)
 
 
 for idx, value in df_25o.iterrows():
@@ -50,8 +47,7 @@ for idx, value in df_25o.iterrows():
         x = 100
     if y > math.sqrt(3)*50:
         y = math.sqrt(3)*50
-    plt.plot(x,y,'x',c=colors[idx],label=value['sample']+',25O')
-
+    plt.plot(x,y,'x',c=colors[idx],label=value['sample']+',25O',ms=14)
 
 for idx, value in df_ketcham.iterrows():
     x_f = value['XF']
@@ -62,9 +58,10 @@ for idx, value in df_ketcham.iterrows():
         x = 100
     if y > math.sqrt(3)*50:
         y = math.sqrt(3)*50
-    plt.plot(x,y,'.',c=colors[idx],label=value['sample']+',Ketcham')
+    plt.plot(x,y,'.',c=colors[idx],label=value['sample']+',Ketcham',ms=14)
 
-
-print("\n>> Close the figure to exit. ")
+print("\n>> The figure is automatically saved. Close the plot window to exit. \n")
 plt.legend(loc='best')
 plt.show()
+
+fig.savefig("Fig1_CompareOxygenNumber.jpg",dpi=300)
