@@ -94,12 +94,12 @@ def stoi_ketcham(data):
                 assume_oxy=26
                 break
 
-            if x_cl>1:
+            elif x_cl>1:
                 x_f=x_oh=0
                 assume_oxy=26
                 break
 
-            if x_f + x_cl > 1:
+            elif x_f + x_cl > 1:
                 x_oh=0
                 x_f=x_f/(x_f+x_cl)
                 x_cl=x_cl/(x_f+x_cl)
