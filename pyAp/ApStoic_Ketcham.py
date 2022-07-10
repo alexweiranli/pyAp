@@ -59,7 +59,7 @@ def stoi_ketcham(data):
     # read data
     for row in range(len(data)):
         
-        df = data.loc[row]
+        df = data.loc[data.index[row]] ## in case data.index include inconsecutive integers
         x_oh = 0
         x_oh_all = list([x_oh])
 
@@ -87,8 +87,29 @@ def stoi_ketcham(data):
             apf_cl = oxygen_factor * df['CL'] / pt.formula('Cl').mass
             x_f = apf_f / 2
             x_cl = apf_cl / 2
-            x_oh = 1 - x_f - x_cl
+            
+            ## set the range of mole fractions (i.e. 0<=x<=1)
+            if x_f>1:
+                x_cl=x_oh=0
+                assume_oxy=26
+                break
 
+            if x_cl>1:
+                x_f=x_oh=0
+                assume_oxy=26
+                break
+
+            if x_f + x_cl > 1:
+                x_oh=0
+                x_f=x_f/(x_f+x_cl)
+                x_cl=x_cl/(x_f+x_cl)
+                assume_oxy=26
+                break
+              
+            else:
+                x_oh = 1 - x_f - x_cl
+           
+            ## terminate iteration when the calculated XOH converges
             if kk >=2 and x_oh == x_oh_all[-1] == x_oh_all[-2]:
                 break
 
@@ -99,13 +120,15 @@ def stoi_ketcham(data):
         results['F'][row] = x_f 
         results['CL'][row] = x_cl
         results['H2O'][row] = x_oh  ## note that this is actually equal to OH mole fraction, not H2O mole fraction  
+        
 
         # test stoichiometry using molar Ca/P (=5/3)
         total_ca = sum(results.iloc[row][ca_site])
         total_phos = sum(results.iloc[row][p_site])
     
-        bias.append(100 * (total_ca / total_phos - 5 / 3) / (5 / 3))        
-
+        bias.append(100 * (total_ca / total_phos - 5 / 3) / (5 / 3))    
+      
+        ## measured
         if data['H2O'][row]:
             mF =  data['F'][row] /pt.formula('F').mass
             mCl = data['CL'][row] /pt.formula('Cl').mass
