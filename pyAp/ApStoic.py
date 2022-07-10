@@ -135,10 +135,10 @@ def stoi_(data,assume_oxy=26):
         
         if x_oh>0:
           if x_f>0:
-            results.loc['CAL_H2O(WT%)',i] = (x_oh/x_f) * (data['F'][data.index[i]]/pt.formula("F").mass) * pt.formula("H2O").mass
+            results.loc['CAL_H2O(WT%)',i] = (x_oh/2/x_f) * (data['F'][data.index[i]]/pt.formula("F").mass) * pt.formula("H2O").mass
           else:
             if x_cl>0:
-              results.loc['CAL_H2O(WT%)',i] = (x_oh/x_cl) * (data['CL'][data.index[i]]/pt.formula("Cl").mass) * pt.formula("H2O").mass
+              results.loc['CAL_H2O(WT%)',i] = (x_oh/2/x_cl) * (data['CL'][data.index[i]]/pt.formula("Cl").mass) * pt.formula("H2O").mass
               
     results['stoi_bias,(Ca/P-5/3)/(5/3)*100%'] = bias
     results['sample'] = list(data['sample'])
