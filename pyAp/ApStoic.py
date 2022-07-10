@@ -53,7 +53,7 @@ def stoi_(data,assume_oxy=26):
     
     data = data.copy()
     data.fillna(0, inplace=True)  # replace NaN cell to 0
-    results = pd.DataFrame(columns=formulas_capt)
+    results = pd.DataFrame(columns=formulas_capt.append("CAL_H2O(WT%)"))
     bias = []
     
     # calculate atom per formula unit for each row in input dataframe
@@ -65,7 +65,7 @@ def stoi_(data,assume_oxy=26):
         for fm in oxides:     
             molar = pt.formula(fm).mass
             oxide = fm.upper()
-            conc = data[oxide][i]
+            conc = data[oxide][data.index[i]]
             
             mole_fra = conc / molar
             oxy_num =  mole_fra * dict_oxynum[oxide]
@@ -86,23 +86,45 @@ def stoi_(data,assume_oxy=26):
         bias.append(100 * (total_ca / total_phos - 5 / 3) / (5 / 3))
 
         # if F and Cl were measured
-        if data['F'][i] and data['CL'][i]:
+        if data['F'][data.index[i]] and data['CL'][data.index[i]]:
           # if H2O was not measured # (** set to == 0 as NaN has been changed to 0 above)
-          if data['H2O'][i] == 0:  
-              apf_f = oxygen_factor * data['F'][i] / pt.formula('F').mass
-              apf_cl = oxygen_factor * data['CL'][i] / pt.formula('Cl').mass
+          if data['H2O'][data.index[i]] == 0:  
+              apf_f = oxygen_factor * data['F'][data.index[i]] / pt.formula('F').mass
+              apf_cl = oxygen_factor * data['CL'][data.index[i]] / pt.formula('Cl').mass
               x_f = apf_f / 2
               x_cl = apf_cl / 2
-              x_oh = 1 - x_f - x_cl
+              
+              ## set the range of mole fractions (i.e. 0<=x<=1)
+              if x_f>1:
+                  x_cl=x_oh=0
+                  assume_oxy=26
+                  break
+
+              if x_cl>1:
+                  x_f=x_oh=0
+                  assume_oxy=26
+                  break
+
+              if x_f + x_cl > 1:
+                  x_oh=0
+                  x_f=x_f/(x_f+x_cl)
+                  x_cl=x_cl/(x_f+x_cl)
+                  assume_oxy=26
+                  break
+
+              else:
+                  x_oh = 1 - x_f - x_cl
+              
           # if H2O was measured
           else:
-              mF =  data['F'][i] / pt.formula('F').mass
-              mCl = data['CL'][i] / pt.formula('Cl').mass
-              moh =  2 * data['H2O'][i] / pt.formula('H2O').mass 
+              mF =  data['F'][data.index[i]] / pt.formula('F').mass
+              mCl = data['CL'][data.index[i]] / pt.formula('Cl').mass
+              moh =  2 * data['H2O'][data.index[i]] / pt.formula('H2O').mass 
               total_ani_m = mF + moh + mCl
               x_f = mF / total_ani_m
               x_cl = mCl / total_ani_m
               x_oh = moh / total_ani_m
+              
         else:
               x_f = x_cl = x_oh = 0
         
@@ -110,13 +132,18 @@ def stoi_(data,assume_oxy=26):
         results['F'][i] = x_f 
         results['CL'][i] = x_cl 
         results['H2O'][i] = x_oh
-
+        
+        if x_oh>0:
+          if x_f>0:
+            results.loc['CAL_H2O(WT%)',i] = (x_oh/x_f) * (data['F'][data.index[i]]/pt.formula("F").mass) * pt.formula("H2O").mass
+          else:
+            if x_cl>0:
+              results.loc['CAL_H2O(WT%)',i] = (x_oh/x_cl) * (data['CL'][data.index[i]]/pt.formula("Cl").mass) * pt.formula("H2O").mass
+              
     results['stoi_bias,(Ca/P-5/3)/(5/3)*100%'] = bias
-    results['sample'] = data['sample']
-    results['CAL_H2O(WT%)'] = ((results["H2O"]/2)/results["F"]) * (data['F']/pt.formula("F").mass) * pt.formula("H2O").mass
-
+    results['sample'] = list(data['sample'])
     results.columns = ['CA','TI','AL','FE','MG','MN','K','NA','CE','SR',
-                        'P','SI','S','C','XF','XCL','XOH',
-                        'stoi_bias,(Ca/P-5/3)/(5/3)*100%','sample','CAL_H2O(WT%)']
+                        'P','SI','S','C','XF','XCL','XOH','CAL_H2O(WT%)',
+                        'stoi_bias,(Ca/P-5/3)/(5/3)*100%','sample']
     
     return  results
