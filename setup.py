@@ -9,12 +9,13 @@ setuptools.setup(
         exclude= ['example', 'contrib', 'input', 'tutorial']
         ),
 
-    # package_dir= {'' : 'AlOlivThermo'},
+
     install_requires= [
     'pandas',
     'matplotlib',
     'numpy',
     'scipy',
     'seaborn'
+    'periodictable'
     ]
 )

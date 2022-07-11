@@ -9,6 +9,7 @@ Li and Costa (2020, GCA) https://doi.org/10.1016/j.gca.2019.10.035
 """
 
 import pandas as pd
+import numpy as np
 import periodictable as pt 
 
 ## molar mass of each oxide
@@ -47,13 +48,16 @@ def stoi_(data,assume_oxy=26):
 
     Return:
     -------
-    results: :class: `pandas.Dataframe`
+    res_apfu: :class: `pandas.Dataframe`
             saved csv file
     """
     
     data = data.copy()
     data.fillna(0, inplace=True)  # replace NaN cell to 0
-    results = pd.DataFrame(columns=formulas_capt.append("CAL_H2O(WT%)"))
+
+    res_apfu = pd.DataFrame(index=range(len(data)),columns=range(len(formulas_capt)))
+    res_apfu.columns = formulas_capt
+    res_apfu['CAL_H2O(WT%)'] = np.nan
     bias = []
     
     # calculate atom per formula unit for each row in input dataframe
@@ -76,12 +80,13 @@ def stoi_(data,assume_oxy=26):
             multi_all.append(multi)
         
         oxygen_factor =  assume_oxy/sum(total_oxygen)
-        apf = [mm * oxygen_factor for mm in multi_all] 
-    
-        results.loc[i] = apf
+        # apf = [mm * oxygen_factor for mm in multi_all] 
+        apf = oxygen_factor * (np.array(multi_all))
+        res_apfu.loc[i, formulas_capt] = pd.Series(apf, index=formulas_capt).copy()
+        # res_apfu.loc[i, formulas_capt] = apf
         # test stoichiometry using molar Ca/P (=5/3)
-        total_ca = sum(results.iloc[i][ca_site])
-        total_phos = sum(results.iloc[i][p_site])
+        total_ca = sum(res_apfu.iloc[i][ca_site])
+        total_phos = sum(res_apfu.iloc[i][p_site])
     
         bias.append(100 * (total_ca / total_phos - 5 / 3) / (5 / 3))
 
@@ -128,22 +133,23 @@ def stoi_(data,assume_oxy=26):
         else:
               x_f = x_cl = x_oh = 0
         
-        # save x_f, x_cl, x_oh to the results dataframe
-        results['F'][i] = x_f 
-        results['CL'][i] = x_cl 
-        results['H2O'][i] = x_oh
+        # save x_f, x_cl, x_oh to the res_apfu dataframe
+        res_apfu.loc[i, 'F'] = x_f
+        res_apfu.loc[i, 'CL'] = x_cl
+        res_apfu.loc[i, 'H2O'] = x_oh
+
         
         if x_oh>0:
           if x_f>0:
-            results.loc['CAL_H2O(WT%)',i] = (x_oh/2/x_f) * (data['F'][data.index[i]]/pt.formula("F").mass) * pt.formula("H2O").mass
+            res_apfu.loc[i, 'CAL_H2O(WT%)'] = (x_oh/2/x_f) * (data['F'][data.index[i]]/pt.formula("F").mass) * pt.formula("H2O").mass
           else:
             if x_cl>0:
-              results.loc['CAL_H2O(WT%)',i] = (x_oh/2/x_cl) * (data['CL'][data.index[i]]/pt.formula("Cl").mass) * pt.formula("H2O").mass
+              res_apfu.loc[i, 'CAL_H2O(WT%)'] = (x_oh/2/x_cl) * (data['CL'][data.index[i]]/pt.formula("Cl").mass) * pt.formula("H2O").mass
               
-    results['stoi_bias,(Ca/P-5/3)/(5/3)*100%'] = bias
-    results['sample'] = list(data['sample'])
-    results.columns = ['CA','TI','AL','FE','MG','MN','K','NA','CE','SR',
+    res_apfu['stoi_bias,(Ca/P-5/3)/(5/3)*100%'] = bias
+    res_apfu['sample'] = list(data['sample'])
+    res_apfu.columns = ['CA','TI','AL','FE','MG','MN','K','NA','CE','SR',
                         'P','SI','S','C','XF','XCL','XOH','CAL_H2O(WT%)',
                         'stoi_bias,(Ca/P-5/3)/(5/3)*100%','sample']
     
-    return  results
+    return  res_apfu
