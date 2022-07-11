@@ -48,9 +48,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#Stoichiometry-calculation">Stoichiometry calculation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Plot-apatite-on-F-Cl-OH-ternary-diagram">Plot apatite on F-Cl-OH ternary diagram</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Plot-F-Cl-OH-mole-fractions-calculated-above">Plot F-Cl-OH mole fractions calculated above</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files">Plot apatite F-Cl-OH mole fractions from files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#save-results">save results</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_calcAST.html">3. Examples for apatite saturation temperature (AST) calculation</a></li>
@@ -369,6 +369,14 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">math</span>
+
+<span class="c1">## use the 3 lines below if you want to use the pyAp codes inthe subdirectory next to the current path</span>
+<span class="c1">## comment them, if you want to use the pyAp installed elsewhere on your computer</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;pyAp&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;../pyAp&#39;</span><span class="p">):</span> <span class="c1"># hack to allow scripts to be placed in subdirectories next to pyAp:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+
+<span class="c1">## import pyAp modules</span>
 <span class="kn">from</span> <span class="nn">pyAp.ApStoic</span> <span class="kn">import</span> <span class="n">stoi_</span>
 <span class="kn">from</span> <span class="nn">pyAp</span> <span class="kn">import</span> <span class="n">ApTernary</span>
 <span class="kn">from</span> <span class="nn">pyAp.ApStoic_Ketcham</span> <span class="kn">import</span> <span class="n">stoi_ketcham</span>
@@ -380,7 +388,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_ap_major_volatile.xlsx&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_ap_major_volatile.xlsx&#39;</span><span class="p">,</span><span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Sheet2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -420,113 +428,289 @@ div.rendered_html tbody tr:hover {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>SI</th>
+      <th>CA</th>
       <th>TI</th>
       <th>AL</th>
       <th>FE</th>
-      <th>CA</th>
       <th>MG</th>
       <th>MN</th>
       <th>K</th>
       <th>NA</th>
+      <th>CE</th>
+      <th>SR</th>
       <th>P</th>
+      <th>SI</th>
       <th>S</th>
       <th>C</th>
       <th>XF</th>
       <th>XCL</th>
       <th>XOH</th>
-      <th>CE</th>
-      <th>SR</th>
-      <th>stoi,(Ca/P-5/3)/(5/3)*100%</th>
+      <th>stoi_bias,(Ca/P-5/3)/(5/3)*100%</th>
       <th>sample</th>
+      <th>CAL_H2O(WT%)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.017412</td>
-      <td>0.013097</td>
-      <td>0.020520</td>
-      <td>0.014561</td>
-      <td>10.072936</td>
-      <td>0.025958</td>
-      <td>0.014746</td>
-      <td>0.022210</td>
-      <td>0.033756</td>
-      <td>5.895973</td>
-      <td>0.026133</td>
-      <td>0.002377</td>
-      <td>0.825950</td>
-      <td>0.073766</td>
-      <td>0.100284</td>
-      <td>0.012748</td>
-      <td>0.010095</td>
-      <td>3.656599</td>
-      <td>Ap1</td>
+      <td>10.063423</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.046444</td>
+      <td>0.025872</td>
+      <td>0.029399</td>
+      <td>0.0</td>
+      <td>0.037013</td>
+      <td>0.013978</td>
+      <td>0.006038</td>
+      <td>6.064945</td>
+      <td>0.001735</td>
+      <td>0.016931</td>
+      <td>0.0</td>
+      <td>0.400665</td>
+      <td>0.172060</td>
+      <td>0.427275</td>
+      <td>0.816762</td>
+      <td>Ap1c</td>
+      <td>0.738198</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.017514</td>
-      <td>0.013175</td>
-      <td>0.020641</td>
-      <td>0.014647</td>
-      <td>10.132331</td>
-      <td>0.026111</td>
-      <td>0.014833</td>
-      <td>0.022341</td>
-      <td>0.033955</td>
-      <td>5.930739</td>
-      <td>0.026287</td>
-      <td>0.002391</td>
-      <td>0.692350</td>
-      <td>0.059361</td>
-      <td>0.248289</td>
-      <td>0.012823</td>
-      <td>0.010155</td>
-      <td>3.656599</td>
-      <td>Ap2</td>
+      <td>9.895894</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.046046</td>
+      <td>0.084643</td>
+      <td>0.029146</td>
+      <td>0.0</td>
+      <td>0.003002</td>
+      <td>0.012724</td>
+      <td>0.005986</td>
+      <td>5.995385</td>
+      <td>0.044735</td>
+      <td>0.009942</td>
+      <td>0.0</td>
+      <td>0.680179</td>
+      <td>0.129759</td>
+      <td>0.190062</td>
+      <td>-0.059461</td>
+      <td>Ap2c</td>
+      <td>0.331212</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.017419</td>
-      <td>0.013103</td>
-      <td>0.020528</td>
-      <td>0.014567</td>
-      <td>10.077123</td>
-      <td>0.025968</td>
-      <td>0.014752</td>
-      <td>0.022219</td>
-      <td>0.033770</td>
-      <td>5.898424</td>
-      <td>0.026144</td>
-      <td>0.002378</td>
-      <td>0.771207</td>
-      <td>0.118075</td>
-      <td>0.110718</td>
-      <td>0.012753</td>
-      <td>0.010100</td>
-      <td>3.656599</td>
-      <td>Ap3</td>
+      <td>9.941816</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.046156</td>
+      <td>0.088724</td>
+      <td>0.029216</td>
+      <td>0.0</td>
+      <td>0.026175</td>
+      <td>0.011839</td>
+      <td>0.006000</td>
+      <td>5.981111</td>
+      <td>0.034010</td>
+      <td>0.009779</td>
+      <td>0.0</td>
+      <td>0.682218</td>
+      <td>0.124887</td>
+      <td>0.192895</td>
+      <td>1.079786</td>
+      <td>Ap3c</td>
+      <td>0.335344</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9.917455</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.046295</td>
+      <td>0.090046</td>
+      <td>0.029305</td>
+      <td>0.0</td>
+      <td>0.024756</td>
+      <td>0.015322</td>
+      <td>0.006019</td>
+      <td>6.016471</td>
+      <td>0.045379</td>
+      <td>0.014583</td>
+      <td>0.0</td>
+      <td>0.559375</td>
+      <td>0.140459</td>
+      <td>0.300166</td>
+      <td>0.017858</td>
+      <td>Ap4c</td>
+      <td>0.520263</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <p>Use an oxygen number between 25 and 26 using <code class="docutils literal notranslate"><span class="pre">stoi_ketcham()</span></code> function in module <code class="docutils literal notranslate"><span class="pre">ApStoic_Ketcham.py</span></code></p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ketc</span> <span class="o">=</span> <span class="n">stoi_ketcham</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">results_ketc</span>
 </pre></div>
 </div>
 </div>
-<p>The calculated oxygen number should fall between 25 and 26</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CA</th>
+      <th>TI</th>
+      <th>AL</th>
+      <th>FE</th>
+      <th>MG</th>
+      <th>MN</th>
+      <th>K</th>
+      <th>NA</th>
+      <th>CE</th>
+      <th>SR</th>
+      <th>...</th>
+      <th>SI</th>
+      <th>S</th>
+      <th>C</th>
+      <th>XF</th>
+      <th>XCL</th>
+      <th>XOH</th>
+      <th>stoi_bias,(Ca/P-5/3)/(5/3)*100%</th>
+      <th>sample</th>
+      <th>CAL_H2O(WT%)</th>
+      <th>OXYGEN NUMBER</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>9.894319</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.045664</td>
+      <td>0.025437</td>
+      <td>0.028905</td>
+      <td>0.0</td>
+      <td>0.036391</td>
+      <td>0.013743</td>
+      <td>0.005936</td>
+      <td>...</td>
+      <td>0.001706</td>
+      <td>0.016647</td>
+      <td>0.0</td>
+      <td>0.393932</td>
+      <td>0.169168</td>
+      <td>0.436899</td>
+      <td>0.816762</td>
+      <td>Ap1c</td>
+      <td>0.767726</td>
+      <td>25.563101</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9.821228</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.045698</td>
+      <td>0.084005</td>
+      <td>0.028926</td>
+      <td>0.0</td>
+      <td>0.002980</td>
+      <td>0.012628</td>
+      <td>0.005941</td>
+      <td>...</td>
+      <td>0.044397</td>
+      <td>0.009867</td>
+      <td>0.0</td>
+      <td>0.675047</td>
+      <td>0.128780</td>
+      <td>0.196173</td>
+      <td>-0.059461</td>
+      <td>Ap2c</td>
+      <td>0.344460</td>
+      <td>25.803827</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9.865694</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.045803</td>
+      <td>0.088045</td>
+      <td>0.028993</td>
+      <td>0.0</td>
+      <td>0.025975</td>
+      <td>0.011749</td>
+      <td>0.005954</td>
+      <td>...</td>
+      <td>0.033750</td>
+      <td>0.009705</td>
+      <td>0.0</td>
+      <td>0.676994</td>
+      <td>0.123931</td>
+      <td>0.199075</td>
+      <td>1.079786</td>
+      <td>Ap3c</td>
+      <td>0.348758</td>
+      <td>25.800925</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9.799792</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.045746</td>
+      <td>0.088978</td>
+      <td>0.028957</td>
+      <td>0.0</td>
+      <td>0.024462</td>
+      <td>0.015140</td>
+      <td>0.005947</td>
+      <td>...</td>
+      <td>0.044841</td>
+      <td>0.014410</td>
+      <td>0.0</td>
+      <td>0.552738</td>
+      <td>0.138793</td>
+      <td>0.308469</td>
+      <td>0.017858</td>
+      <td>Ap4c</td>
+      <td>0.541074</td>
+      <td>25.691531</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 21 columns</p>
+</div></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ketc</span><span class="p">[</span><span class="s1">&#39;OXYGEN NUMBER&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## difference in H2O concentration calculated using 26 oxygen, and oxygen number between 25 and 26</span>
+<span class="n">results_stoi</span><span class="p">[</span><span class="s2">&quot;CAL_H2O(WT%)&quot;</span><span class="p">]</span><span class="o">-</span><span class="n">results_ketc</span><span class="p">[</span><span class="s2">&quot;CAL_H2O(WT%)&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -536,9 +720,32 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0    25.896121
-1    25.744319
-2    25.885361
+0   -0.029528
+1   -0.013248
+2   -0.013414
+3   -0.020811
+Name: CAL_H2O(WT%), dtype: float64
+</pre></div></div>
+</div>
+<p>The calculated oxygen number should fall between 25 and 26</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ketc</span><span class="p">[</span><span class="s1">&#39;OXYGEN NUMBER&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    25.563101
+1    25.803827
+2    25.800925
+3    25.691531
 Name: OXYGEN NUMBER, dtype: float64
 </pre></div></div>
 </div>
@@ -548,66 +755,17 @@ Name: OXYGEN NUMBER, dtype: float64
 <div class="section" id="Plot-F-Cl-OH-mole-fractions-calculated-above">
 <h3>Plot F-Cl-OH mole fractions calculated above<a class="headerlink" href="#Plot-F-Cl-OH-mole-fractions-calculated-above" title="Permalink to this headline"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up a figure for ternary plot</span>
-<span class="n">fig1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">fig1</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-
-<span class="c1"># plot ternary (w/o data)</span>
-<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">fig1</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_stoi</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-
-    <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span>
-    <span class="n">x_cl</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_f</span> <span class="o">+</span> <span class="n">x_cl</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">x_cl</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
-
-    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">:</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/tutorial_stoichiometry_ternary_15_0.png" src="_images/tutorial_stoichiometry_ternary_15_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="Plot-apatite-F-Cl-OH-mole-fractions-from-files">
-<h3>Plot apatite F-Cl-OH mole fractions from files<a class="headerlink" href="#Plot-apatite-F-Cl-OH-mole-fractions-from-files" title="Permalink to this headline"></a></h3>
-<p>load data</p>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data_calc_water.xlsx&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>plot ternary</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">fig2</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up a figure for ternary plot (e.g. figure with 2 subplots)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-<span class="c1"># plot ternary (w/o data)</span>
-<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<span class="c1"># set up blank ternary digram for each axis</span>
+<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">ApTernary</span><span class="o">.</span><span class="n">ternary</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
 
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_stoi</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span>
     <span class="n">x_cl</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_f</span> <span class="o">+</span> <span class="n">x_cl</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
@@ -618,19 +776,45 @@ Name: OXYGEN NUMBER, dtype: float64
     <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">])</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">])</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_ketc</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">x_f</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XF&#39;</span><span class="p">]</span>
+    <span class="n">x_cl</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;XCL&#39;</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_f</span> <span class="o">+</span> <span class="n">x_cl</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x_cl</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
+
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/tutorial_stoichiometry_ternary_20_0.png" src="_images/tutorial_stoichiometry_ternary_20_0.png" />
+<img alt="_images/tutorial_stoichiometry_ternary_16_0.png" src="_images/tutorial_stoichiometry_ternary_16_0.png" />
 </div>
+</div>
+</div>
+</div>
+<div class="section" id="save-results">
+<h2>save results<a class="headerlink" href="#save-results" title="Permalink to this headline"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_stoi</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;stoichiometry_26O.csv&quot;</span><span class="p">)</span>
+<span class="n">results_ketc</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;stoichiometry_VariedO.csv&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
