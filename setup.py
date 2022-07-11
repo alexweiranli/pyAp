@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="pyAp",
-    version="0.1",
+    version="v0.2",
     author="Weiran Li & Yishen Zhang",
     author_email="wl413@cam.ac.uk & yishen.zhang@kuleuven.be",
     packages= setuptools.find_packages(
