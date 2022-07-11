@@ -14,18 +14,18 @@ results = pd.DataFrame()
 
 # using 26 oxygen [best for F-rich apatite]
 results_26 = stoi_(data,assume_oxy = 26)
-results_26.to_csv('outputs_apfu_26o.csv')
+fn1='outputs_apfu_26o.csv'
+results_26.to_csv(fn1)
 
-print('>> calculated OH of oxygen number 26:')
+print('\n >> calculated OH of oxygen number 26:')
 print(results_26['XOH'])
-
 
 # using 25 oxygen [best for OH-rich apatite]
 results_25 = stoi_(data,assume_oxy = 25)
-results_25.to_csv('outputs_apfu_25o.csv')
+fn2='outputs_apfu_25o.csv'
+results_25.to_csv(fn2)
 
-print('>> calculated OH of oxygen number 25:')
+print('\n >> calculated OH of oxygen number 25:')
 print(results_25['XOH'])
 
-
-print('\n >> results saved to csv!\n')
+print('\n >> results saved to', fn1, ', and ', fn2, '\n')

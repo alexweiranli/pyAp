@@ -14,11 +14,8 @@ from pyAp import ApTernary
 ############################################################################
 
 # set up a figure for ternary plot
-fig = plt.figure()
-fig.set_size_inches(10, 8)
-
-# plot ternary (w/o data)  
-ApTernary.ternary(fig)
+fig, ax = plt.subplots(figsize=(10, 8))
+ApTernary.ternary(ax)
 
 ## plot data in ternary diagram
 # load data from csv/xlsx file 
@@ -41,4 +38,8 @@ for idx, value in df.iterrows():
     plt.plot(x,y,'o',label=value['sample'])
 
 plt.legend(loc='best')
+
 plt.show()
+
+## set you figure title using: plt.title('figure_title')
+## save figure using: fig.savefig('figure_name.jpg',dpi=300)

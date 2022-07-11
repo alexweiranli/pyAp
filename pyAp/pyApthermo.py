@@ -1,7 +1,7 @@
 """
 Weiran Li & Yishen Zhang
 
-2022-01-20, v0.1
+2022-07-08, v0.2
 
 Please cite the paper below if you use "ApThermo" in your research:
 
@@ -62,16 +62,20 @@ class ApThermo:
                                 'andesite_highT': [2.99,  -3650  ],   
                                 'default':        [1.49 , -2634  ]    # dacite
                                     }
-        if type(inputs) == list:
+
+        if type(inputs) == list:    # input as a list 
             self.x_f = float(inputs[0])
             self.x_cl = float(inputs[1])
             self.t_c  = float(inputs[2])
             self.meltf = float(inputs[3])
             self.meltcl = float(inputs[4])
-            self.meltcomp = inputs[-1]
-        else:
+            self.meltcomp = inputs[5]
+        else:                       # input as a row in pandas dataframe
             self.x_f, self.x_cl, self.t_c, self.meltf, self.meltcl, self.meltcomp = inputs.values
 
+        ## convert melt composition names as in lower letters
+        self.meltcomp=self.meltcomp.lower()
+        # print(self.meltcomp)
         
         self.t_k        = float(self.t_c) + 273.15
         self.cal_H2O    = cal_H2O
@@ -178,8 +182,10 @@ class ApThermo:
     
             if self.meltcomp in all_speciation_dict:
                 a, b = self.speciation_dict.get(self.meltcomp) # 
+                model_used=self.meltcomp
             else:
                 a, b = self.speciation_dict['default']
+                model_used='default, dacite'
 
             # equilibrium constnat k2 of water speciation reaction
             keq = math.exp(a + b/self.t_k)
@@ -201,5 +207,4 @@ class ApThermo:
             MeltWater_Cl = self.conversion(moleOH_melt_fromCl,k2)
             MeltWater_F  = self.conversion(moleOH_melt_fromF,k2)
             
-            
-            return  [MeltWater_F, MeltWater_Cl,Kd_OHCl, Kd_OHF, Kd_ClF, gammaOH, gammaF, gammaCl]
+            return  [MeltWater_F, MeltWater_Cl,Kd_OHCl, Kd_OHF, Kd_ClF, gammaOH, gammaF, gammaCl,model_used]

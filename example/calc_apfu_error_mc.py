@@ -20,9 +20,8 @@ col = oxides.intersection(list(data))
 
 ## mc
 # set up mc for error calculation
-
-mc = 1000 # default = 1000; better to be >= default
-print('>> MC sampling starts ...')
+mc = 5000   # default is at least 5000
+print('>> MC = ' , str(mc) , '. Sampling starts ...')
 
 ap_mc_stoic = pd.DataFrame([]); ap_mc_res = pd.DataFrame([])
 for i in range(len(data)):
@@ -30,11 +29,14 @@ for i in range(len(data)):
     ap_mc_stoic = ap_mc_stoic.append(df_iter)
   
 ap_mc_stoic.columns = col
+
+# ! make sure your sample names are all different from each other (as this affects MC sampling)
 ap_mc_stoic['sample'] = data.loc[data.index.repeat(mc)]['sample']
 ap_mc_stoic.reset_index(inplace=True, drop=True)
+
 ## calculate stoichiometry for all mc samples 
 ap_mc_res = stoi_(ap_mc_stoic)
 
-print('\n>> Simulation completed. Results saved to "mc_stoic.csv". ') 
+print('\n>> Simulation completed. Results saved to "mc_stoic.csv". \n') 
 ap_mc_res.groupby('sample').agg(
-    ['mean', 'std']).to_csv('mc_stoic.csv')
+    ['mean','median', 'std']).to_csv('mc_stoic.csv')
