@@ -51,16 +51,16 @@ def ap_mc(comp, std, i, mc):
     std = std.copy()
     index = i
     index = np.ones(mc) * index
-    df = pd.DataFrame(comp_mc)
-    df.index = index
+
     
     comp_mc =  comp.iloc[i,:]
     std_mc = std.iloc[i,:]
-    for col in list(comp):
-        mu=comp_mc[col]
-        sigma=std_mc[col]
-        sample_gassian=np.random.normal(mu,sigma,(mc,1))
-        df.loc[:,col]=sample_gaussian
+    comp_mc = np.ones((mc,1)) * comp_mc.to_numpy()
+    std_mc = np.random.normal(0,1,(mc, len(std_mc))) * std_mc.to_numpy()
+    comp_mc = comp_mc + std_mc
+    df = pd.DataFrame(comp_mc)
+    df.index = index    
+
     return df
 
 # Function for implementing the loading animation
