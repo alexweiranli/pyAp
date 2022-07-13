@@ -657,7 +657,7 @@ div.rendered_html tbody tr:hover {
 <p>Considering this, in the module code we set the limit of the calculated melt water concentration to be between 0 and 15 wt% (given the range of H<img class="math" src="_images/math/615d2d3e113dbd64bb9e2954633f05a2b51ef975.png" alt="_{2}"/>O in most silicate melts).</p>
 <div class="section" id="Running-the-cell-below-may-take-a-few-seconds,-if-mc-is-set-as-≥10,000">
 <h4>Running the cell below may take a few seconds, if mc is set as ≥10,000<a class="headerlink" href="#Running-the-cell-below-may-take-a-few-seconds,-if-mc-is-set-as-≥10,000" title="Permalink to this headline"></a></h4>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
@@ -669,6 +669,16 @@ div.rendered_html tbody tr:hover {
 <span class="n">ap_mc_collect</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">mc</span><span class="p">)][</span><span class="s1">&#39;sample&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/easonzz/miniforge3/lib/python3.9/site-packages/scipy/optimize/minpack.py:175: RuntimeWarning: The iteration is not making good progress, as measured by the
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -771,30 +781,30 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>3.003497</td>
-      <td>3.046976</td>
-      <td>0.195208</td>
-      <td>3.011100</td>
-      <td>2.904564</td>
-      <td>0.690114</td>
+      <td>3.166346</td>
+      <td>2.993317</td>
+      <td>0.945725</td>
+      <td>2.945379</td>
+      <td>2.872579</td>
+      <td>0.559442</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.007479</td>
-      <td>3.050916</td>
-      <td>0.190087</td>
-      <td>3.010041</td>
-      <td>2.908116</td>
-      <td>0.672337</td>
+      <td>3.180393</td>
+      <td>3.024545</td>
+      <td>0.922065</td>
+      <td>2.947250</td>
+      <td>2.873353</td>
+      <td>0.551339</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>4.227564</td>
-      <td>4.292241</td>
-      <td>0.366478</td>
-      <td>4.274336</td>
-      <td>4.029978</td>
-      <td>1.213357</td>
+      <td>4.586823</td>
+      <td>4.234425</td>
+      <td>1.668070</td>
+      <td>4.186104</td>
+      <td>4.040759</td>
+      <td>0.953175</td>
     </tr>
   </tbody>
 </table>
@@ -856,12 +866,12 @@ div.rendered_html tbody tr:hover {
       <td>Ap1c_1</td>
       <td>Rhyolite</td>
       <td>rhyolite</td>
-      <td>3.003497</td>
-      <td>3.046976</td>
-      <td>0.195208</td>
-      <td>3.011100</td>
-      <td>2.904564</td>
-      <td>0.690114</td>
+      <td>3.166346</td>
+      <td>2.993317</td>
+      <td>0.945725</td>
+      <td>2.945379</td>
+      <td>2.872579</td>
+      <td>0.559442</td>
     </tr>
     <tr>
       <th>1</th>
@@ -870,12 +880,12 @@ div.rendered_html tbody tr:hover {
       <td>Ap1c_2</td>
       <td>Dacite</td>
       <td>dacite</td>
-      <td>3.007479</td>
-      <td>3.050916</td>
-      <td>0.190087</td>
-      <td>3.010041</td>
-      <td>2.908116</td>
-      <td>0.672337</td>
+      <td>3.180393</td>
+      <td>3.024545</td>
+      <td>0.922065</td>
+      <td>2.947250</td>
+      <td>2.873353</td>
+      <td>0.551339</td>
     </tr>
     <tr>
       <th>2</th>
@@ -884,12 +894,12 @@ div.rendered_html tbody tr:hover {
       <td>Ap1c_3</td>
       <td>Alkali Basalt</td>
       <td>alkali basalt</td>
-      <td>4.227564</td>
-      <td>4.292241</td>
-      <td>0.366478</td>
-      <td>4.274336</td>
-      <td>4.029978</td>
-      <td>1.213357</td>
+      <td>4.586823</td>
+      <td>4.234425</td>
+      <td>1.668070</td>
+      <td>4.186104</td>
+      <td>4.040759</td>
+      <td>0.953175</td>
     </tr>
   </tbody>
 </table>
@@ -904,8 +914,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## set up color palette</span>
-<span class="kn">from</span> <span class="nn">mycolorpy</span> <span class="kn">import</span> <span class="n">colorlist</span> <span class="k">as</span> <span class="n">mcp</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mycolorpy</span> <span class="kn">import</span> <span class="n">colorlist</span> <span class="k">as</span> <span class="n">mcp</span>
 <span class="n">colors</span><span class="o">=</span><span class="n">mcp</span><span class="o">.</span><span class="n">gen_color</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df_comb</span><span class="p">))</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -928,7 +937,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">by_label</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">handles</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">by_label</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1020,12 +1029,12 @@ div.rendered_html tbody tr:hover {
       <td>3.043514</td>
       <td>2.890552</td>
       <td>rhyolite</td>
-      <td>3.003497</td>
-      <td>3.046976</td>
-      <td>0.195208</td>
-      <td>3.011100</td>
-      <td>2.904564</td>
-      <td>0.690114</td>
+      <td>3.166346</td>
+      <td>2.993317</td>
+      <td>0.945725</td>
+      <td>2.945379</td>
+      <td>2.872579</td>
+      <td>0.559442</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1044,12 +1053,12 @@ div.rendered_html tbody tr:hover {
       <td>3.047603</td>
       <td>2.894301</td>
       <td>dacite</td>
-      <td>3.007479</td>
-      <td>3.050916</td>
-      <td>0.190087</td>
-      <td>3.010041</td>
-      <td>2.908116</td>
-      <td>0.672337</td>
+      <td>3.180393</td>
+      <td>3.024545</td>
+      <td>0.922065</td>
+      <td>2.947250</td>
+      <td>2.873353</td>
+      <td>0.551339</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1068,12 +1077,12 @@ div.rendered_html tbody tr:hover {
       <td>4.296288</td>
       <td>4.035510</td>
       <td>alkali basalt</td>
-      <td>4.227564</td>
-      <td>4.292241</td>
-      <td>0.366478</td>
-      <td>4.274336</td>
-      <td>4.029978</td>
-      <td>1.213357</td>
+      <td>4.586823</td>
+      <td>4.234425</td>
+      <td>1.668070</td>
+      <td>4.186104</td>
+      <td>4.040759</td>
+      <td>0.953175</td>
     </tr>
   </tbody>
 </table>
