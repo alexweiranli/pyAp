@@ -15,7 +15,7 @@ setuptools.setup(
     'matplotlib',
     'numpy',
     'scipy',
-    'seaborn'
+    'seaborn',
     'periodictable'
     ]
 )
