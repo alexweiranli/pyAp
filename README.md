@@ -12,7 +12,7 @@ It includes multiple apatite-based models developed by W. Li and co-authors, inc
   - Inputs:  Apatite F, Cl and H<sub>2</sub>O (if available) concentrations; Temperature and melt Cl and/or F concentrations (for calculating melt water).
   
   - Outputs: Apatite stoichiometry (atom per fomula unit); Exchange coefficients for OH-Cl and/or OH-F; H<sub>2</sub>O concentrations in the melt.
-* ApREE: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity (*fO<sub>2</sub>*) (following Li et al, in review).
+* ApREE: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity (*fO<sub>2</sub>*) (following Li et al., 2023, CMP).
 
   - Inputs:  Trace element concentrations in apatite and melt (be it melt inclusions/groundmass/whole rock).
   
