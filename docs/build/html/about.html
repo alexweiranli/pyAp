@@ -101,18 +101,18 @@
 <div class="section" id="about-pyap">
 <h1>About pyAp<a class="headerlink" href="#about-pyap" title="Permalink to this headline"></a></h1>
 <p>pyAp is a python package for calculating magmatic volatile, trace element concentrations, and oxygen fugacity using mineral apatite. More modules will be added in the future.</p>
-<p>Code authors: Weiran Li (University of Cambridge, U.K.) &amp; Yishen Zhang (KU Leuven, Belgium)</p>
+<p>Code authors: Weiran Li (University of Hong Kong) &amp; Yishen Zhang (Rice University)</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>pyAp includes multiple apatite-based models developed by W. Li and co-authors, including:</p>
 <ul class="simple">
-<li><p>ApThermo: a thermodynamic model for calculating melt H <sub>2</sub> O (and CO <sub>2</sub> ) concentrations (following Li &amp; Costa, 2020, GCA)</p>
+<li><p>ApThermo: a thermodynamic model for calculating melt H <sub>2</sub> O (and CO <sub>2</sub> ) concentrations (following Li &amp; Costa, 2020, 2023, GCA)</p>
 <ul>
 <li><p>Inputs:  Apatite F, Cl and H <sub>2</sub> O (if available) concentrations; Temperature and melt Cl and/or F concentrations (for calculating melt water)</p></li>
 <li><p>Outputs: Apatite stoichiometry (atom per fomula unit); Exchange coefficients for OH-Cl and/or OH-F; H <sub>2</sub> O concentrations in the melt</p></li>
 </ul>
 </li>
-<li><p>ApREE2O3: a lattice strain-thermodynamic model for calculating melt trace element (including REE) concentrations and oxygen fugacity ( <em>f</em> O <sub>2</sub>) (following Li et al, in review)</p>
+<li><p>ApREE: a lattice strain-thermodynamic model for calculating melt trace element (including REEs) concentrations and oxygen fugacity ( <em>f</em> O <sub>2</sub>) (following Li et al, 2023, CMP)</p>
 <ul>
 <li><p>Inputs:  Trace element concentrations in apatite and melt (be it melt inclusions/groundmass/whole rock)</p></li>
 <li><p>Outputs: Partition coefficients of unmeasured trace elements; oxygen fugacity of the melt (if Eu was measured)</p></li>
@@ -122,11 +122,12 @@
 </div>
 <div class="section" id="citing-pyap">
 <h2>Citing pyAp<a class="headerlink" href="#citing-pyap" title="Permalink to this headline"></a></h2>
-<p>If you use this package please cite the relevant publications for:</p>
-<p><strong>ApThermo</strong>:
-Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
-<p><strong>ApREE2O3</strong>:
-Li, W., Costa, F, Oppenheimer, C. &amp; Nagashima (in review) K. Measurements and a general model of volatile and trace element partitioning between apatite and alkaline melts.</p>
+<p>If you use this package please cite our publications for specific models:</p>
+<p><strong>ApThermo</strong>:</p>
+<p>[1] Li, W. &amp; Costa, F. (2020) A thermodynamic model for F-Cl-OH partitioning between apatite and melt including non-ideal mixing and applications to constraining melt volatile budgets, Geochimica et Cosmochimica Acta 269, 203–222. <a class="reference external" href="https://doi.org/10.1016/j.gca.2019.10.035">https://doi.org/10.1016/j.gca.2019.10.035</a></p>
+<p>[2] Li, W., &amp; Costa, F. (2023). Corrigendum to” A thermodynamic model for F-Cl-OH partitioning between silicate melts and apatite including non-ideal mixing with application to constraining melt volatile budgets”[Geochim. Cosmochim. Acta 269 (2020) 203-222]. Geochimica et Cosmochimica Acta, 347, 125-125.</p>
+<p><strong>ApREE</strong>:</p>
+<p>Li, W., Costa, F, Oppenheimer, C. &amp; Nagashima K. (2023) Volatile and trace element partitioning between apatite and alkaline melts. Contributions to Mineralogy and Petrology 178 (2), 9. <a class="reference external" href="https://doi.org/10.1007/s00410-022-01985-8">https://doi.org/10.1007/s00410-022-01985-8</a></p>
 <p>You are encouraged to cite the specific version of the package you used. The DOI of the first zenodo release (v0.1) is: 10.5281/zenodo.6228767</p>
 </div>
 </div>
