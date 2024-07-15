@@ -115,7 +115,7 @@ if tools.yes_or_no("\nCalculate melt H2O concentraion? "):
 
             for idx in range(len(dff)):
                 df_iter = tools.ap_mc(comp, std, idx, mc)
-                ap_mc_collect = ap_mc_collect.append(df_iter)
+                ap_mc_collect = pd.concat([ap_mc_collect, df_iter])
 
             ap_mc_collect.columns = comp.columns
             ap_mc_collect['MELTCOMP'] = dff.loc[dff.index.repeat(mc)]['MELTCOMP']

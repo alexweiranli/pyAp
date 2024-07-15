@@ -38,7 +38,7 @@ if yes_or_no("\nRun MC for error propagation?"):
     
     for idx in range(len(df)):
         df_iter = ap_mc(comp, std, idx, mc)
-        ap_mc_collect = ap_mc_collect.append(df_iter)
+        ap_mc_collect = pd.concat([ap_mc_collect, df_iter])
 
     ap_mc_collect.columns = comp.columns
     ap_mc_collect['MELTCOMP'] = df.loc[df.index.repeat(mc)]['MELTCOMP']

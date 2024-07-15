@@ -104,68 +104,68 @@
 <div class="section" id="performing-all-calculations-at-once">
 <h1>4. Performing all calculations at once<a class="headerlink" href="#performing-all-calculations-at-once" title="Permalink to this headline"></a></h1>
 <p>To install pyAp, one can first download pyAp or clone from the github. Then change the working directory to your download folder, assume one downloaded from github as pyAp-main, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> pyAp-main
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pyAp-main
 </pre></div>
 </div>
 <p>If you downloaded the lastest version of pyAp, there should be several directories including a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script, <code class="docutils literal notranslate"><span class="pre">docs</span></code>, <code class="docutils literal notranslate"><span class="pre">pyAp</span></code>, <code class="docutils literal notranslate"><span class="pre">example</span></code>, <code class="docutils literal notranslate"><span class="pre">contrib</span></code> and <code class="docutils literal notranslate"><span class="pre">tutorial</span></code> folders.</p>
 <p>Then one can run the python command to install <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file in the folder as:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>install
 </pre></div>
 </div>
 <p>pyAp includes a python script integrated all models and runs with command line. To use the script, one should change the working directory to the example folder:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> example
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>example
 </pre></div>
 </div>
 <p>Note that for windows users, the command line commands work in Anaconda prompt or shell like terminal. For Mac users, the commands can run directly in the terminal. Excute the script with a python command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python run_all-in-one.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>run_all-in-one.py
 
-Let us start!
+Let<span class="w"> </span>us<span class="w"> </span>start!
 
-Calculate mole fractions and a.p.f.u. ?<span class="o">(</span>y/n<span class="o">)</span>:y
+Calculate<span class="w"> </span>mole<span class="w"> </span>fractions<span class="w"> </span>and<span class="w"> </span>a.p.f.u.<span class="w"> </span>?<span class="o">(</span>y/n<span class="o">)</span>:y
 </pre></div>
 </div>
 <p>By choosing <code class="docutils literal notranslate"><span class="pre">y</span></code> as yes and <code class="docutils literal notranslate"><span class="pre">n</span></code> as no to continue or skip the calculation.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;&gt; results saved to csv!
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;&gt;<span class="w"> </span>results<span class="w"> </span>saved<span class="w"> </span>to<span class="w"> </span>csv!
 
-         SI        TI        AL  ...        SR  stoi,<span class="o">(</span>Ca/P-5/3<span class="o">)</span>/<span class="o">(</span><span class="m">5</span>/3<span class="o">)</span>*100%  sample
-<span class="m">0</span>  <span class="m">0</span>.017412  <span class="m">0</span>.013097  <span class="m">0</span>.020520  ...  <span class="m">0</span>.010095                    <span class="m">3</span>.656599     Ap1
-<span class="m">1</span>  <span class="m">0</span>.017514  <span class="m">0</span>.013175  <span class="m">0</span>.020641  ...  <span class="m">0</span>.010155                    <span class="m">3</span>.656599     Ap2
-<span class="m">2</span>  <span class="m">0</span>.017419  <span class="m">0</span>.013103  <span class="m">0</span>.020528  ...  <span class="m">0</span>.010100                    <span class="m">3</span>.656599     Ap3
+<span class="w">         </span>SI<span class="w">        </span>TI<span class="w">        </span>AL<span class="w">  </span>...<span class="w">        </span>SR<span class="w">  </span>stoi,<span class="o">(</span>Ca/P-5/3<span class="o">)</span>/<span class="o">(</span><span class="m">5</span>/3<span class="o">)</span>*100%<span class="w">  </span>sample
+<span class="m">0</span><span class="w">  </span><span class="m">0</span>.017412<span class="w">  </span><span class="m">0</span>.013097<span class="w">  </span><span class="m">0</span>.020520<span class="w">  </span>...<span class="w">  </span><span class="m">0</span>.010095<span class="w">                    </span><span class="m">3</span>.656599<span class="w">     </span>Ap1
+<span class="m">1</span><span class="w">  </span><span class="m">0</span>.017514<span class="w">  </span><span class="m">0</span>.013175<span class="w">  </span><span class="m">0</span>.020641<span class="w">  </span>...<span class="w">  </span><span class="m">0</span>.010155<span class="w">                    </span><span class="m">3</span>.656599<span class="w">     </span>Ap2
+<span class="m">2</span><span class="w">  </span><span class="m">0</span>.017419<span class="w">  </span><span class="m">0</span>.013103<span class="w">  </span><span class="m">0</span>.020528<span class="w">  </span>...<span class="w">  </span><span class="m">0</span>.010100<span class="w">                    </span><span class="m">3</span>.656599<span class="w">     </span>Ap3
 
-<span class="o">[</span><span class="m">3</span> rows x <span class="m">19</span> columns<span class="o">]</span>
+<span class="o">[</span><span class="m">3</span><span class="w"> </span>rows<span class="w"> </span>x<span class="w"> </span><span class="m">19</span><span class="w"> </span>columns<span class="o">]</span>
 </pre></div>
 </div>
 <p>Then we continue to plot the F-Cl-OH ternary diagram of apatite:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Plot F-Cl-OH ternary ?<span class="o">(</span>y/n<span class="o">)</span>:y
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Plot<span class="w"> </span>F-Cl-OH<span class="w"> </span>ternary<span class="w"> </span>?<span class="o">(</span>y/n<span class="o">)</span>:y
 
-Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button <span class="k">in</span> the same window.
+Close<span class="w"> </span>the<span class="w"> </span>plot<span class="w"> </span>window<span class="w"> </span><span class="k">for</span><span class="w"> </span>next<span class="w"> </span>step.<span class="w"> </span>Before<span class="w"> </span>closing<span class="w"> </span>it<span class="w"> </span>you<span class="w"> </span>could<span class="w"> </span>save<span class="w"> </span>the<span class="w"> </span>plot<span class="w"> </span>by<span class="w"> </span>clicking<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;save&quot;</span><span class="w"> </span>button<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>window.
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/ter1.png"><img alt="_images/ter1.png" src="_images/ter1.png" style="width: 600px;" /></a>
 <p>Calculate melt H <sub>2</sub> O concentration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Calculate melt H2O concentraion?<span class="o">(</span>y/n<span class="o">)</span>: y
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Calculate<span class="w"> </span>melt<span class="w"> </span>H2O<span class="w"> </span>concentraion?<span class="o">(</span>y/n<span class="o">)</span>:<span class="w"> </span>y
 
 
-Use mole fractions just calculated?<span class="o">(</span>y/n<span class="o">)</span>: y
+Use<span class="w"> </span>mole<span class="w"> </span>fractions<span class="w"> </span>just<span class="w"> </span>calculated?<span class="o">(</span>y/n<span class="o">)</span>:<span class="w"> </span>y
 </pre></div>
 </div>
 <p>The MCS is also integrated in the script, the default is to run 1000 times:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Run MC <span class="k">for</span> error propagation?<span class="o">(</span>y/n<span class="o">)</span>: y
-&gt;&gt; Simulation starts ...
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Run<span class="w"> </span>MC<span class="w"> </span><span class="k">for</span><span class="w"> </span>error<span class="w"> </span>propagation?<span class="o">(</span>y/n<span class="o">)</span>:<span class="w"> </span>y
+&gt;&gt;<span class="w"> </span>Simulation<span class="w"> </span>starts<span class="w"> </span>...
 
-&gt;&gt; Simulation completed
+&gt;&gt;<span class="w"> </span>Simulation<span class="w"> </span>completed
 
-&gt;&gt; <span class="nv">mc</span> <span class="o">=</span> <span class="m">1000</span>. All MC results are saved <span class="k">in</span> csv file: outputs_melt_water_allin1.csv
+&gt;&gt;<span class="w"> </span><span class="nv">mc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000</span>.<span class="w"> </span>All<span class="w"> </span>MC<span class="w"> </span>results<span class="w"> </span>are<span class="w"> </span>saved<span class="w"> </span><span class="k">in</span><span class="w"> </span>csv<span class="w"> </span>file:<span class="w"> </span>outputs_melt_water_allin1.csv
 
-   MeltWater_calcfromF  ...  MeltWater_Cl_error,100%
-<span class="m">0</span>             <span class="m">1</span>.101500  ...                <span class="m">48</span>.146486
-<span class="m">1</span>             <span class="m">1</span>.937091  ...                <span class="m">43</span>.507000
-<span class="m">2</span>             <span class="m">0</span>.744809  ...                <span class="m">35</span>.141224
+<span class="w">   </span>MeltWater_calcfromF<span class="w">  </span>...<span class="w">  </span>MeltWater_Cl_error,100%
+<span class="m">0</span><span class="w">             </span><span class="m">1</span>.101500<span class="w">  </span>...<span class="w">                </span><span class="m">48</span>.146486
+<span class="m">1</span><span class="w">             </span><span class="m">1</span>.937091<span class="w">  </span>...<span class="w">                </span><span class="m">43</span>.507000
+<span class="m">2</span><span class="w">             </span><span class="m">0</span>.744809<span class="w">  </span>...<span class="w">                </span><span class="m">35</span>.141224
 
-<span class="o">[</span><span class="m">3</span> rows x <span class="m">9</span> columns<span class="o">]</span>
+<span class="o">[</span><span class="m">3</span><span class="w"> </span>rows<span class="w"> </span>x<span class="w"> </span><span class="m">9</span><span class="w"> </span>columns<span class="o">]</span>
 
-&gt;&gt; The median and standard deviation of MC results are saved <span class="k">in</span> csv file: outputs_melt_water_allin1.csv
-Close the plot window <span class="k">for</span> next step. Before closing it you could save the plot by clicking on the <span class="s2">&quot;save&quot;</span> button <span class="k">in</span> the same window.
+&gt;&gt;<span class="w"> </span>The<span class="w"> </span>median<span class="w"> </span>and<span class="w"> </span>standard<span class="w"> </span>deviation<span class="w"> </span>of<span class="w"> </span>MC<span class="w"> </span>results<span class="w"> </span>are<span class="w"> </span>saved<span class="w"> </span><span class="k">in</span><span class="w"> </span>csv<span class="w"> </span>file:<span class="w"> </span>outputs_melt_water_allin1.csv
+Close<span class="w"> </span>the<span class="w"> </span>plot<span class="w"> </span>window<span class="w"> </span><span class="k">for</span><span class="w"> </span>next<span class="w"> </span>step.<span class="w"> </span>Before<span class="w"> </span>closing<span class="w"> </span>it<span class="w"> </span>you<span class="w"> </span>could<span class="w"> </span>save<span class="w"> </span>the<span class="w"> </span>plot<span class="w"> </span>by<span class="w"> </span>clicking<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;save&quot;</span><span class="w"> </span>button<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>window.
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/mc.png"><img alt="_images/mc.png" src="_images/mc.png" style="width: 600px;" /></a>

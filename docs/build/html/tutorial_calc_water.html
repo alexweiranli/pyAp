@@ -646,7 +646,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
     <span class="n">df_iter</span> <span class="o">=</span> <span class="n">ap_mc</span><span class="p">(</span><span class="n">comp</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">mc</span><span class="p">)</span>
-    <span class="n">ap_mc_collect</span> <span class="o">=</span> <span class="n">ap_mc_collect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_iter</span><span class="p">)</span>
+    <span class="n">ap_mc_collect</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ap_mc_collect</span><span class="p">,</span> <span class="n">df_iter</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

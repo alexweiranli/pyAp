@@ -396,7 +396,7 @@
    "source": [
     "for idx in range(len(df)):\n",
     "    df_iter = ap_mc(comp, std, idx, mc)\n",
-    "    ap_mc_collect = ap_mc_collect.append(df_iter)"
+    "    ap_mc_collect = pd.concat([ap_mc_collect, df_iter])"
    ]
   },
   {
