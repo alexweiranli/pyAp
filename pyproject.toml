@@ -1,3 +1,6 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "pbr"]
 build-backend = "setuptools.build_meta"
+jobs:
+    post_create_environment:
+      - python -m pip install sphinx_rtd_theme
