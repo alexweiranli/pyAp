@@ -1,2 +1,8 @@
+pandas
+matplotlib
+numpy 
+scipy
+seaborn
 ipykernel
 nbsphinx
+myst_parser
